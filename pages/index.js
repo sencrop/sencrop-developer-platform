@@ -7,6 +7,14 @@ const Index = () => (
  Build new farming practices by using our API!`.replace(/\n/, '')
   }>
     <h1>Sencrop Developer Platform</h1>
+    <p><strong>
+      Warning: Our API is currently in a very
+      early state. Using it right now implies
+      acknowledging you want to be an early
+      adopter and you accept we will do lots
+      of changes in a non backward compatible
+      way.
+    </strong></p>
     <p>
       Welcome on board! At Sencrop, we love
       developers. This platform's goal is
@@ -22,12 +30,12 @@ const Index = () => (
     </p>
     <p>
       If you are new to the Sencrop API, you may
-      want a <Link href="/tools"><a>quick
+      want a <Link href="/guide"><a>quick
       introduction</a></Link> to our API usage.
     </p>
     <p>
       Also, you can directly check
-      our <Link href="/tools"><a>API
+      our <Link href="/reference"><a>API
       reference</a></Link>
       for a more direct appraoch.
     </p>
@@ -45,7 +53,7 @@ const Index = () => (
     <p>
       PS: This website source can be found
       on <a href="https://github.com/sencrop/sencrop-developer-platform"
-        >GitHub</a>, 
+        >GitHub</a>,
     </p>
   </Layout>
 )
