@@ -1,0 +1,4755 @@
+{
+  "host": "api.sencrop.com",
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Sencrop API",
+    "description": "API to consume Sencrop data"
+  },
+  "basePath": "/v1",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/ping": {
+      "get": {
+        "operationId": "getPing",
+        "summary": "Checks API's availability.",
+        "tags": [
+          "system"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Pong",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "pong"
+              ],
+              "properties": {
+                "pong": {
+                  "type": "string",
+                  "enum": [
+                    "pong"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/crops": {
+      "get": {
+        "operationId": "getCrops",
+        "summary": "Get the crops",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of the crops",
+            "schema": {
+              "$ref": "#/definitions/CropsCollection"
+            }
+          }
+        }
+      }
+    },
+    "/utils/checkSignup": {
+      "post": {
+        "operationId": "postSignupCheck",
+        "summary": "Hit the server to check the email can be used to signup.",
+        "tags": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "description": "The email to check",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "email"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email can be used."
+          }
+        }
+      }
+    },
+    "/password/lost": {
+      "post": {
+        "operationId": "postLostPassword",
+        "summary": "Request a password change e-mail.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "body",
+            "description": "The infos to send the mail",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "email"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email"
+                },
+                "callbackPath": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password change email sent"
+          }
+        }
+      }
+    },
+    "/password": {
+      "put": {
+        "operationId": "putPassword",
+        "summary": "Change a user password",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "body",
+            "description": "The infos to change the password",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "lostToken",
+                "newPassword"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "lostToken": {
+                  "type": "string"
+                },
+                "newPassword": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Password changed"
+          }
+        }
+      }
+    },
+    "/users/sign_in": {
+      "post": {
+        "operationId": "postLogin",
+        "summary": "Log a user in",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "description": "The infos to log in",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged in",
+            "schema": {
+              "$ref": "#/definitions/Session"
+            }
+          }
+        }
+      }
+    },
+    "/users/verify": {
+      "post": {
+        "operationId": "postVerify",
+        "summary": "Verify a user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "description": "Verify the user",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "verify"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "verify": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User verified",
+            "schema": {
+              "$ref": "#/definitions/Session"
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "operationId": "postUser",
+        "summary": "Create a user.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "description": "The new user to create",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MaybeIncompleteUser"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user were created",
+            "schema": {
+              "$ref": "#/definitions/UserItem"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "operationId": "getUser",
+        "summary": "Get a user's profile.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested user",
+            "schema": {
+              "$ref": "#/definitions/UserItem"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "putUser",
+        "summary": "Update a user's profile.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The new user",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user were created/updated",
+            "schema": {
+              "$ref": "#/definitions/UserItem"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/guests": {
+      "get": {
+        "operationId": "getUserGuests",
+        "summary": "Get a user's guests.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested user's guests",
+            "schema": {
+              "$ref": "#/definitions/GuestsCollection"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "postUserGuest",
+        "summary": "Create a user's guest.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The user's guest",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/GuestItem"
+                },
+                {
+                  "$ref": "#/definitions/GuestInvite"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The created user's guest",
+            "schema": {
+              "$ref": "#/definitions/GuestItem"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/guests/{guestId}": {
+      "put": {
+        "operationId": "putUserGuest",
+        "summary": "Update a user's guest.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The guest id",
+            "pattern": "^[0-9]+$",
+            "name": "guestId",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The user's guest",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GuestItem"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user's guest updated",
+            "schema": {
+              "$ref": "#/definitions/GuestEntry"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteUserGuest",
+        "summary": "Delete a user's guest.",
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The guest id",
+            "name": "guestId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "The user's guest were successfully deleted."
+          }
+        }
+      }
+    },
+    "/users/{userId}/collaborators": {
+      "get": {
+        "operationId": "getUserCollaborators",
+        "summary": "Get a user's collaborators.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested user's collaborators",
+            "schema": {
+              "$ref": "#/definitions/CollaboratorsCollection"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "postUserCollaborator",
+        "summary": "Create a user's collaborator.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The user's collaborator",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/CollaboratorItem"
+                },
+                {
+                  "$ref": "#/definitions/CollaboratorInvite"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The created user's collaborator",
+            "schema": {
+              "$ref": "#/definitions/CollaboratorEntry"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/collaborators/{collaboratorId}": {
+      "put": {
+        "operationId": "putUserCollaborator",
+        "summary": "Update a user's collaborator.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The collaborator id",
+            "pattern": "^[0-9]+$",
+            "name": "collaboratorId",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The user's collaborator",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollaboratorItem"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user's collaborator updated",
+            "schema": {
+              "$ref": "#/definitions/CollaboratorEntry"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteUserCollaborator",
+        "summary": "Delete a user's collaborator.",
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The collaborator id",
+            "name": "collaboratorId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "The user's collaborator were successfully deleted."
+          }
+        }
+      }
+    },
+    "/users/{userId}/aggregations": {
+      "get": {
+        "operationId": "getUserAggregations",
+        "summary": "Get a user's aggregations.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "description": "Wether the aggregations should be computed",
+            "name": "compute",
+            "pattern": "^true|false$",
+            "default": false,
+            "type": "boolean"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested user's aggregations",
+            "schema": {
+              "$ref": "#/definitions/AggregationsCollection"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "postUserAggregation",
+        "summary": "Create a user's aggregation.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The user's aggregation",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AggregationItem"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The created user's aggregation",
+            "schema": {
+              "$ref": "#/definitions/AggregationEntry"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/aggregations/{aggregationId}": {
+      "put": {
+        "operationId": "putUserAggregation",
+        "summary": "Update a user's aggregation.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The aggregation id",
+            "pattern": "^[0-9]+$",
+            "name": "aggregationId",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The user's aggregation",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AggregationItem"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user's aggregation updated",
+            "schema": {
+              "$ref": "#/definitions/AggregationEntry"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteUserAggregation",
+        "summary": "Delete a user's aggregation.",
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The aggregation id",
+            "name": "aggregationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "The user's aggregation were successfully deleted."
+          }
+        }
+      }
+    },
+    "/users/{userId}/displays": {
+      "get": {
+        "operationId": "getUserDisplays",
+        "summary": "Get a user's displays.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested user's displays",
+            "schema": {
+              "$ref": "#/definitions/DisplaysCollection"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "postUserDisplay",
+        "summary": "Create a user's display.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The user's display",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DisplayInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The created user's display",
+            "schema": {
+              "$ref": "#/definitions/DisplayEntry"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/displays/{displayId}": {
+      "get": {
+        "operationId": "getUserDisplay",
+        "summary": "Get a user's display.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The display id",
+            "name": "displayId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested user's display",
+            "schema": {
+              "$ref": "#/definitions/DisplayEntry"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "putUserDisplay",
+        "summary": "Update a user's display.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The display id",
+            "pattern": "^[0-9]+$",
+            "name": "displayId",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The user's display",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DisplayInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user's display updated",
+            "schema": {
+              "$ref": "#/definitions/DisplayEntry"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteUserDisplay",
+        "summary": "Delete a user's display.",
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The display id",
+            "name": "displayId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "The user's display were successfully deleted."
+          }
+        }
+      }
+    },
+    "/users/{userId}/devices": {
+      "get": {
+        "operationId": "getUserDevices",
+        "summary": "Get a user's devices.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "description": "The status date",
+            "name": "date",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "description": "The measures to read",
+            "name": "measures",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "RH_AIR_H1",
+                "TEMP_AIR_H1",
+                "WIND_MEAN",
+                "WIND_MAX",
+                "WIND_DIRECTION",
+                "RAIN_TIC",
+                "MOVE",
+                "WET_TEMPERATURE"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested user's devices",
+            "schema": {
+              "$ref": "#/definitions/DevicesCollection"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/devices/{deviceId}": {
+      "get": {
+        "operationId": "getUserDevice",
+        "summary": "Get a user's device.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "name": "deviceId",
+            "pattern": "^[0-9A-Z]+$",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested user's device",
+            "schema": {
+              "$ref": "#/definitions/DeviceEntry"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "putUserDevice",
+        "summary": "Update a user's device.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "pattern": "^[0-9A-Z]+$",
+            "name": "deviceId",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The user device",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeviceItem"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user's device updated",
+            "schema": {
+              "$ref": "#/definitions/DeviceItem"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/devices/{deviceId}/shares/{sharesType}": {
+      "put": {
+        "operationId": "putUserDeviceShares",
+        "summary": "Update a user's device shares.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "name": "deviceId",
+            "pattern": "^[0-9A-Z]+$",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The shares type",
+            "name": "sharesType",
+            "pattern": "^(guests|collaborators)$",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The users concerned by the user's device share",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User's device shares updated",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/devices/{deviceId}/statistics": {
+      "get": {
+        "operationId": "getUserDeviceStatistics",
+        "summary": "Get a user's device's device's statistics.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "name": "deviceId",
+            "pattern": "^[0-9A-Z]+$",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The statistics start date",
+            "name": "startDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The statistics end date",
+            "name": "endDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The measures to read",
+            "name": "measures",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "RH_AIR_H1",
+                "RH_AIR_H1_MIN",
+                "RH_AIR_H1_MAX",
+                "TEMP_AIR_H1",
+                "TEMP_AIR_H1_MIN",
+                "TEMP_AIR_H1_MAX",
+                "WIND_MEAN",
+                "WIND_MAX",
+                "WIND_DIRECTION",
+                "RAIN_TIC",
+                "MOVE"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's statistics",
+            "schema": {
+              "$ref": "#/definitions/DeviceStatistics"
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/devices/{deviceId}/data/raw": {
+      "get": {
+        "operationId": "getUserDeviceRawData",
+        "summary": "Get a user's device's raw data.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "name": "deviceId",
+            "pattern": "^[0-9A-Z]+$",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The date before which the data starts being retrieved",
+            "name": "beforeDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The number of measures to retrieve",
+            "name": "size",
+            "type": "number",
+            "enum": [
+              10,
+              50,
+              100,
+              500,
+              1000
+            ]
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The measures to read",
+            "name": "measures",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "WIND_MAX",
+                "WIND_MEAN",
+                "WIND_DIRECTION",
+                "RH_AIR_H1",
+                "RAIN_TIC",
+                "TEMP_AIR_H1",
+                "MOVE",
+                "LAT",
+                "LNG",
+                "ALT"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's data",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "WIND_MAX",
+                      "WIND_MEAN",
+                      "WIND_DIRECTION",
+                      "RH_AIR_H1",
+                      "RH_AIR_H1_MIN",
+                      "RH_AIR_H1_MAX",
+                      "RAIN_TIC",
+                      "TEMP_AIR_H1",
+                      "TEMP_AIR_H1_MIN",
+                      "TEMP_AIR_H1_MAX"
+                    ]
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/devices/{deviceId}/data/hourly": {
+      "get": {
+        "operationId": "getUserDeviceHourlyData",
+        "summary": "Get a user's device's hourly data.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "name": "deviceId",
+            "pattern": "^[0-9A-Z]+$",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The date before which the data starts being retrieved",
+            "name": "beforeDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The number of days to retrieve",
+            "name": "days",
+            "type": "number",
+            "enum": [
+              1,
+              2,
+              7,
+              31
+            ]
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The measures to read",
+            "name": "measures",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "WIND_MAX",
+                "WIND_MEAN",
+                "WIND_DIRECTION",
+                "RH_AIR_H1",
+                "RH_AIR_H1_MIN",
+                "RH_AIR_H1_MAX",
+                "RAIN_TIC",
+                "TEMP_AIR_H1",
+                "TEMP_AIR_H1_MIN",
+                "TEMP_AIR_H1_MAX"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's statistics",
+            "schema": {
+              "$ref": "#/definitions/DeviceStatistics"
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/devices/{deviceId}/data/daily": {
+      "get": {
+        "operationId": "getUserDeviceDailyData",
+        "summary": "Get a user's device's daily data.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "name": "deviceId",
+            "pattern": "^[0-9A-Z]+$",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The date before which the data starts being retrieved",
+            "name": "beforeDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The number of days to retrieve",
+            "name": "days",
+            "type": "number",
+            "enum": [
+              7,
+              30,
+              60,
+              90
+            ]
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The measures to read",
+            "name": "measures",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "WIND_MAX",
+                "WIND_MEAN",
+                "WIND_DIRECTION",
+                "RH_AIR_H1",
+                "RH_AIR_H1_MIN",
+                "RH_AIR_H1_MAX",
+                "RAIN_TIC",
+                "TEMP_AIR_H1",
+                "TEMP_AIR_H1_MIN",
+                "TEMP_AIR_H1_MAX"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's data",
+            "schema": {
+              "$ref": "#/definitions/DeviceStatistics"
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/devices/{deviceId}/countinuousStatistics": {
+      "get": {
+        "operationId": "getUserDeviceContinuousStatistics",
+        "summary": "Get a user's device's continuous device's statistics.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "name": "deviceId",
+            "pattern": "^[0-9A-Z]+$",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The statistics start date",
+            "name": "startDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The statistics end date",
+            "name": "endDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The measures to read",
+            "name": "measures",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "RH_AIR_H1",
+                "RH_AIR_H1_MIN",
+                "RH_AIR_H1_MAX",
+                "TEMP_AIR_H1",
+                "TEMP_AIR_H1_MIN",
+                "TEMP_AIR_H1_MAX",
+                "WIND_MEAN",
+                "WIND_MAX",
+                "WIND_DIRECTION",
+                "RAIN_TIC",
+                "MOVE"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's statistics",
+            "schema": {
+              "$ref": "#/definitions/DeviceStatistics"
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/devices/{deviceId}/degreeDays": {
+      "get": {
+        "operationId": "getUserDeviceDegreeDays",
+        "summary": "Get a user's device's degree days.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "name": "deviceId",
+            "pattern": "^[0-9A-Z]+$",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The statistics start date",
+            "name": "startDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The statistics end date",
+            "name": "endDate",
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's degree days",
+            "schema": {
+              "$ref": "#/definitions/DeviceDegreeDays"
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/devices/{deviceId}/summaries/{date}": {
+      "get": {
+        "operationId": "getUserDeviceSummary",
+        "summary": "Get a user's device's summary at a given date.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "name": "deviceId",
+            "pattern": "^[0-9A-Z]+$",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The summary date",
+            "name": "date",
+            "type": "string",
+            "format": "date-time",
+            "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The measures to read",
+            "name": "measures",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "RH_AIR_H1",
+                "TEMP_AIR_H1",
+                "WIND_MEAN",
+                "WIND_MAX",
+                "WIND_DIRECTION",
+                "RAIN_TIC",
+                "MOVE"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's summary",
+            "schema": {
+              "$ref": "#/definitions/DeviceSummaryEntry"
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/devices/{deviceId}/forecasts": {
+      "get": {
+        "operationId": "getUserDeviceForecasts",
+        "summary": "Get a user's device's forecasts.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "name": "deviceId",
+            "pattern": "^[0-9A-Z]+$",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's forecasts",
+            "schema": {
+              "$ref": "#/definitions/DeviceForecasts"
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/forecasts": {
+      "get": {
+        "operationId": "getUserForecasts",
+        "summary": "Get a user's forecasts.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The latitude of the forecasts",
+            "name": "latitude",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -90,
+            "maximum": 90,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The longitude of the forecasts",
+            "name": "longitude",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -180,
+            "maximum": 180,
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's forecasts",
+            "schema": {
+              "$ref": "#/definitions/DeviceForecasts"
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/data/daily": {
+      "get": {
+        "operationId": "getUserDailyData",
+        "summary": "Get a user's daily data for a given geo location.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The latitude of the data",
+            "name": "latitude",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -90,
+            "maximum": 90,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The longitude of the data",
+            "name": "longitude",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -180,
+            "maximum": 180,
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The date before which the data starts being retrieved",
+            "name": "beforeDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The number of days to retrieve",
+            "name": "days",
+            "type": "number",
+            "enum": [
+              7,
+              30,
+              60,
+              90
+            ]
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The measures to read",
+            "name": "measures",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "WIND_MAX",
+                "WIND_MEAN",
+                "WIND_DIRECTION",
+                "RH_AIR_H1",
+                "RH_AIR_H1_MIN",
+                "RH_AIR_H1_MAX",
+                "RAIN_TIC",
+                "TEMP_AIR_H1",
+                "TEMP_AIR_H1_MIN",
+                "TEMP_AIR_H1_MAX"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's statistics",
+            "schema": {
+              "$ref": "#/definitions/DeviceStatistics"
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/data/hourly": {
+      "get": {
+        "operationId": "getUserHourlyData",
+        "summary": "Get a user's hourly data for a given geo location.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The latitude of the data",
+            "name": "latitude",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -90,
+            "maximum": 90,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The longitude of the data",
+            "name": "longitude",
+            "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$",
+            "minimum": -180,
+            "maximum": 180,
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The date before which the data starts being retrieved",
+            "name": "beforeDate",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The number of days to retrieve",
+            "name": "days",
+            "type": "number",
+            "enum": [
+              1,
+              2,
+              7,
+              31
+            ]
+          },
+          {
+            "in": "query",
+            "required": true,
+            "description": "The measures to read",
+            "name": "measures",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "WIND_MAX",
+                "WIND_MEAN",
+                "WIND_DIRECTION",
+                "RH_AIR_H1",
+                "RH_AIR_H1_MIN",
+                "RH_AIR_H1_MAX",
+                "RAIN_TIC",
+                "TEMP_AIR_H1",
+                "TEMP_AIR_H1_MIN",
+                "TEMP_AIR_H1_MAX"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested device's statistics",
+            "schema": {
+              "$ref": "#/definitions/DeviceStatistics"
+            }
+          },
+          "404": {
+            "description": "User/device does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/preferences": {
+      "get": {
+        "operationId": "getUserPreferences",
+        "summary": "Get a user's preferences.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested user preferences",
+            "schema": {
+              "$ref": "#/definitions/UserPreferences"
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "putUserPreferences",
+        "summary": "Update a user's preferences.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The new user preferences",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserPreferences"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user preferences were created/updated",
+            "schema": {
+              "$ref": "#/definitions/UserPreferences"
+            }
+          }
+        }
+      }
+    },
+    "/organisations/{organisationId}/operations": {
+      "get": {
+        "operationId": "getOrganisationOperations",
+        "summary": "Get a organisation's operations.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The organisation id",
+            "name": "organisationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested organisation's operations",
+            "schema": {
+              "$ref": "#/definitions/OperationsCollection"
+            }
+          },
+          "404": {
+            "description": "Organisation does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "postOrganisationOperation",
+        "summary": "Create an organisation's operation.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The organisation id",
+            "name": "organisationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The operation to add",
+            "schema": {
+              "$ref": "#/definitions/OperationItem"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The newly created organisation's operation",
+            "schema": {
+              "$ref": "#/definitions/OperationItem"
+            }
+          },
+          "404": {
+            "description": "Organisation does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/organisations/{organisationId}/operations/{operationId}": {
+      "get": {
+        "operationId": "getOrganisationOperation",
+        "summary": "Retrieve an organisation's operation.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The organisation id",
+            "name": "organisationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The operation id",
+            "name": "operationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The organisation's operation",
+            "schema": {
+              "$ref": "#/definitions/OperationEntry"
+            }
+          },
+          "404": {
+            "description": "Organisation or operation does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "putOrganisationOperation",
+        "summary": "Update an organisation's operation.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The organisation id",
+            "name": "organisationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The operation id",
+            "name": "operationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The operation to update",
+            "schema": {
+              "$ref": "#/definitions/OperationItem"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The modified organisation's operation",
+            "schema": {
+              "$ref": "#/definitions/OperationItem"
+            }
+          },
+          "404": {
+            "description": "Organisation does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteOrganisationOperation",
+        "summary": "Delete an organisation's operation.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The organisation id",
+            "name": "organisationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The operation id",
+            "name": "operationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The organisation's operation does not exist anymore"
+          }
+        }
+      }
+    },
+    "/users/{userId}/alerts": {
+      "get": {
+        "operationId": "getUserAlerts",
+        "summary": "Get a user's alerts.",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested user's alerts",
+            "schema": {
+              "$ref": "#/definitions/AlertsCollection"
+            }
+          },
+          "404": {
+            "description": "Organisation does not exists",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "postUserAlert",
+        "summary": "Create a user's alert.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The user's alert",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlertItem"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user's alert created",
+            "schema": {
+              "$ref": "#/definitions/AlertEntry"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/alerts/{alertId}": {
+      "put": {
+        "operationId": "putUserAlert",
+        "summary": "Update a user's alert.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The alert id",
+            "pattern": "^[0-9]+$",
+            "name": "alertId",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The user's alert",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlertItem"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user's alert updated",
+            "schema": {
+              "$ref": "#/definitions/AlertEntry"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteUserAlert",
+        "summary": "Delete a user's alert.",
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "name": "userId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The alert id",
+            "name": "alertId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "The user's alert were successfully deleted."
+          }
+        }
+      }
+    },
+    "/organisations": {
+      "post": {
+        "operationId": "postOrganisation",
+        "summary": "Creates a new organisation.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "description": "The necessary contents to create a new organisation",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "firstname",
+                "lastname",
+                "password",
+                "email",
+                "phone",
+                "address",
+                "zipcode",
+                "city",
+                "country",
+                "company",
+                "locale"
+              ],
+              "properties": {
+                "firstname": {
+                  "type": "string"
+                },
+                "lastname": {
+                  "type": "string"
+                },
+                "birthDate": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email"
+                },
+                "locale": {
+                  "type": "string",
+                  "pattern": "^[a-z]{2}-[A-Z]{2}$",
+                  "maxLength": 5
+                },
+                "timeZone": {
+                  "type": "string",
+                  "maxLength": 50
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "zipcode": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "company": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "area": {
+                      "type": "number"
+                    },
+                    "crops": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "irrigation": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "callbackPath": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The organisation were created",
+            "schema": {
+              "$ref": "#/definitions/OrganisationItem"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Error": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string",
+          "pattern": "^E_[a-zA-Z0-9_]+$"
+        }
+      }
+    },
+    "UserItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "contents": {
+          "$ref": "#/definitions/User"
+        },
+        "unreadNotifications": {
+          "type": "number"
+        }
+      }
+    },
+    "UserInput": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "contents": {
+          "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "UsersItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9A-Z]+$": {
+          "$ref": "#/definitions/UserItem"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "email",
+        "firstname",
+        "lastname",
+        "address",
+        "zipcode",
+        "city",
+        "country"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "locale": {
+          "type": "string",
+          "pattern": "^[a-z]{2}-[A-Z]{2}$",
+          "maxLength": 5
+        },
+        "timeZone": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "phone": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "ROLE_USER",
+              "ROLE_ADMIN"
+            ]
+          }
+        },
+        "birthDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "organisationId": {
+          "type": "number",
+          "pattern": "^[0-9]+$",
+          "minimum": 1
+        }
+      }
+    },
+    "MaybeIncompleteUser": {
+      "description": "A user that may only have an email and a locale",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/User"
+        },
+        {
+          "type": "object",
+          "required": [
+            "email"
+          ],
+          "properties": {
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "locale": {
+              "type": "string",
+              "pattern": "^[a-z]{2}-[A-Z]{2}$",
+              "maxLength": 5
+            },
+            "timeZone": {
+              "type": "string",
+              "maxLength": 50
+            }
+          }
+        }
+      ]
+    },
+    "OrganisationsItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/OrganisationItem"
+        }
+      }
+    },
+    "OrganisationItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "contents": {
+          "$ref": "#/definitions/Organisation"
+        }
+      }
+    },
+    "Organisation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "city",
+        "address",
+        "zipcode"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string",
+          "pattern": "^[a-z]{2}-[A-Z]{2}$",
+          "maxLength": 5
+        },
+        "timeZone": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "isSencrop": {
+          "type": "number"
+        },
+        "city": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "string"
+        },
+        "area": {
+          "type": "number"
+        },
+        "irrigation": {
+          "type": "boolean"
+        },
+        "crops": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "UserPreferences": {
+      "type": "object",
+      "required": [
+        "areasUnit",
+        "locale",
+        "precipitationsUnit",
+        "smallVolumesUnit",
+        "speedsUnit",
+        "temperaturesUnit",
+        "volumesUnit",
+        "weightsUnit"
+      ],
+      "properties": {
+        "areasUnit": {
+          "type": "string",
+          "enum": [
+            "HA",
+            "A"
+          ]
+        },
+        "locale": {
+          "type": "string",
+          "enum": [
+            "en",
+            "fr",
+            "nl",
+            "cz"
+          ]
+        },
+        "precipitationsUnit": {
+          "type": "string",
+          "enum": [
+            "MM",
+            "INCH"
+          ]
+        },
+        "smallVolumesUnit": {
+          "type": "string",
+          "enum": [
+            "L",
+            "GAL_US"
+          ]
+        },
+        "speedsUnit": {
+          "type": "string",
+          "enum": [
+            "KPH",
+            "MPH"
+          ]
+        },
+        "temperaturesUnit": {
+          "type": "string",
+          "enum": [
+            "C",
+            "F"
+          ]
+        },
+        "volumesUnit": {
+          "type": "string",
+          "enum": [
+            "M3",
+            "CU_YD"
+          ]
+        },
+        "weightsUnit": {
+          "type": "string",
+          "enum": [
+            "T",
+            "SH_TN"
+          ]
+        }
+      }
+    },
+    "DevicesCollection": {
+      "type": "object",
+      "required": [
+        "items",
+        "models",
+        "devices",
+        "devicesStatuses",
+        "devicesSummaries"
+      ],
+      "properties": {
+        "models": {
+          "$ref": "#/definitions/ModelsItemsHash"
+        },
+        "devicesStatuses": {
+          "$ref": "#/definitions/DeviceStatusesItemsHash"
+        },
+        "devicesSummaries": {
+          "$ref": "#/definitions/SummariesItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9A-Z]+$"
+          }
+        }
+      }
+    },
+    "DevicesItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9A-Z]+$": {
+          "$ref": "#/definitions/DeviceItem"
+        }
+      }
+    },
+    "DeviceEntry": {
+      "type": "object",
+      "required": [
+        "entry",
+        "models",
+        "devices",
+        "devicesStatuses"
+      ],
+      "properties": {
+        "models": {
+          "$ref": "#/definitions/ModelsItemsHash"
+        },
+        "devicesStatuses": {
+          "$ref": "#/definitions/DeviceStatusesItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^[0-9A-Z]+$"
+        }
+      }
+    },
+    "DeviceItem": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9A-Z]+$"
+        },
+        "contents": {
+          "$ref": "#/definitions/Device"
+        },
+        "accessPeriods": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "role",
+              "startDate",
+              "endDate"
+            ],
+            "properties": {
+              "role": {
+                "type": "string",
+                "enum": [
+                  "owner",
+                  "user",
+                  "guest",
+                  "collaborator"
+                ]
+              },
+              "startDate": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "endDate": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        "identification": {
+          "type": "string"
+        },
+        "modelId": {
+          "type": "number"
+        },
+        "userId": {
+          "type": "number"
+        },
+        "organisationId": {
+          "type": "number"
+        }
+      }
+    },
+    "Device": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DevicesMovesHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9A-Z]+$": {
+          "$ref": "#/definitions/DeviceMoves"
+        }
+      }
+    },
+    "DeviceMoves": {
+      "type": "object",
+      "required": [
+        "count",
+        "dates"
+      ],
+      "properties": {
+        "count": {
+          "type": "number"
+        },
+        "dates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "DeviceStatistics": {
+      "type": "object",
+      "required": [
+        "entry",
+        "models",
+        "devices",
+        "measures"
+      ],
+      "properties": {
+        "models": {
+          "$ref": "#/definitions/ModelsItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^[0-9A-Z]+$"
+        },
+        "measures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "key": {
+                "type": "number"
+              },
+              "docCount": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "DeviceDegreeDays": {
+      "type": "object",
+      "required": [
+        "entry",
+        "models",
+        "devices",
+        "measures"
+      ],
+      "properties": {
+        "models": {
+          "$ref": "#/definitions/ModelsItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^[0-9A-Z]+$"
+        },
+        "degreeDays": {
+          "$ref": "#/definitions/DeviceDegreeDayItemsHash"
+        }
+      }
+    },
+    "DeviceDegreeDayItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9A-Z]+$": {
+          "$ref": "#/definitions/DeviceDegreeDay"
+        }
+      }
+    },
+    "DeviceDegreeDay": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "date",
+          "count",
+          "min",
+          "max",
+          "mean"
+        ],
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "count": {
+            "type": "number"
+          },
+          "min": {
+            "type": "number"
+          },
+          "max": {
+            "type": "number"
+          },
+          "mean": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "DeviceSummaryEntry": {
+      "type": "object",
+      "required": [
+        "entry",
+        "models",
+        "devices",
+        "devicesSummaries"
+      ],
+      "properties": {
+        "models": {
+          "$ref": "#/definitions/ModelsItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "devicesSummaries": {
+          "$ref": "#/definitions/SummariesItemsHash"
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^[0-9A-Z]+$"
+        }
+      }
+    },
+    "SummariesItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9A-Z]+$": {
+          "$ref": "#/definitions/DeviceSummaryItem"
+        }
+      }
+    },
+    "DeviceSummaryItem": {
+      "type": "object",
+      "patternProperties": {
+        "^(RH_AIR_H1|TEMP_AIR_H1|WIND_MEAN|WIND_MAX|RAIN_TIC|MOVE)$": {
+          "type": "object",
+          "required": [
+            "lastMeasure",
+            "lastHour",
+            "last3Hour",
+            "lastDay",
+            "lastWeek"
+          ],
+          "properties": {
+            "lastMeasure": {
+              "type": "number"
+            },
+            "lastHour": {
+              "type": "number"
+            },
+            "last3Hours": {
+              "type": "number"
+            },
+            "lastDay": {
+              "type": "number"
+            },
+            "lastWeek": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "DeviceForecasts": {
+      "type": "object",
+      "required": [
+        "entry",
+        "models",
+        "devices",
+        "forecasts"
+      ],
+      "properties": {
+        "models": {
+          "$ref": "#/definitions/ModelsItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^[0-9A-Z]+$"
+        },
+        "forecasts": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "DeviceStatusesItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9A-Z]+$": {
+          "$ref": "#/definitions/DeviceStatusItem"
+        }
+      }
+    },
+    "DeviceStatusItem": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9A-Z]+$"
+        },
+        "contents": {
+          "$ref": "#/definitions/DeviceStatus"
+        }
+      }
+    },
+    "DeviceStatus": {
+      "type": "object",
+      "required": [
+        "firmware",
+        "reboot",
+        "move",
+        "gpsFix",
+        "active",
+        "turnOffDate",
+        "rebootDate",
+        "moveDate",
+        "gpsFixDate",
+        "activeDate",
+        "lastStatusUpdateDate",
+        "signalNR",
+        "batt",
+        "lastDataDate",
+        "latitude",
+        "altitude",
+        "longitude",
+        "hdop",
+        "svSatelits",
+        "gpsFixFailed"
+      ],
+      "properties": {
+        "firmware": {
+          "type": "string"
+        },
+        "reboot": {
+          "type": "number"
+        },
+        "move": {
+          "type": "number"
+        },
+        "gpsFix": {
+          "type": "number"
+        },
+        "active": {
+          "type": "number"
+        },
+        "turnOffDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rebootDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "moveDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "gpsFixDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "activeDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "manufacturedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastStatusUpdateDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "signalNR": {
+          "type": "number"
+        },
+        "battery": {
+          "type": "string"
+        },
+        "lastDataTime": {
+          "type": "number"
+        },
+        "latitude": {
+          "type": "number"
+        },
+        "altitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "hdop": {
+          "type": "string"
+        },
+        "svSatelits": {
+          "type": "number"
+        },
+        "gpsFixFailed": {
+          "type": "string"
+        }
+      }
+    },
+    "ModelsItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/ModelItem"
+        }
+      }
+    },
+    "ModelItem": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "contents": {
+          "$ref": "#/definitions/Model"
+        }
+      }
+    },
+    "Model": {
+      "type": "object",
+      "required": [
+        "name",
+        "conception",
+        "manufacturing",
+        "calibration",
+        "weight"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "externalDiameter": {
+          "type": "number"
+        },
+        "conception": {
+          "type": "string"
+        },
+        "manufacturing": {
+          "type": "string"
+        },
+        "calibration": {
+          "type": "string"
+        },
+        "height": {
+          "type": "number"
+        },
+        "weight": {
+          "type": "number"
+        }
+      }
+    },
+    "DisplaysCollection": {
+      "type": "object",
+      "required": [
+        "items",
+        "displays",
+        "devices",
+        "measures"
+      ],
+      "properties": {
+        "measures": {
+          "$ref": "#/definitions/MeasuresItemsHash"
+        },
+        "displays": {
+          "$ref": "#/definitions/DisplaysItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$"
+          }
+        }
+      }
+    },
+    "DisplayEntry": {
+      "type": "object",
+      "required": [
+        "entry",
+        "displays",
+        "devices",
+        "measures"
+      ],
+      "properties": {
+        "measures": {
+          "$ref": "#/definitions/MeasuresItemsHash"
+        },
+        "displays": {
+          "$ref": "#/definitions/DisplaysItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "entry": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        }
+      }
+    },
+    "DisplaysItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/DisplayItem"
+        }
+      }
+    },
+    "DisplayItem": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "contents": {
+          "$ref": "#/definitions/Display"
+        }
+      }
+    },
+    "DisplayInput": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "measures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Measure"
+          }
+        },
+        "contents": {
+          "$ref": "#/definitions/Display"
+        }
+      }
+    },
+    "Display": {
+      "type": "object",
+      "required": [
+        "name",
+        "measuresIds"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "measuresIds": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "CollaboratorsCollection": {
+      "type": "object",
+      "required": [
+        "items",
+        "collaborators",
+        "users",
+        "devices"
+      ],
+      "properties": {
+        "users": {
+          "$ref": "#/definitions/UsersItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "collaborators": {
+          "$ref": "#/definitions/CollaboratorsItemsHash"
+        },
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$"
+          }
+        }
+      }
+    },
+    "CollaboratorEntry": {
+      "type": "object",
+      "required": [
+        "entry",
+        "collaborators",
+        "users",
+        "devices"
+      ],
+      "properties": {
+        "users": {
+          "$ref": "#/definitions/UsersItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "collaborators": {
+          "$ref": "#/definitions/CollaboratorsItemsHash"
+        },
+        "entry": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        }
+      }
+    },
+    "CollaboratorsItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/CollaboratorItem"
+        }
+      }
+    },
+    "CollaboratorItem": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "contents": {
+          "$ref": "#/definitions/Collaborator"
+        }
+      }
+    },
+    "CollaboratorInvite": {
+      "type": "object",
+      "required": [
+        "sharedDevicesIds",
+        "user"
+      ],
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/MaybeIncompleteUser"
+        },
+        "sharedDevicesIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "callbackPath": {
+          "type": "string"
+        }
+      }
+    },
+    "Collaborator": {
+      "type": "object",
+      "required": [
+        "collaboratorUserId",
+        "sharedDevicesIds"
+      ],
+      "properties": {
+        "collaboratorUserId": {
+          "type": "number"
+        },
+        "sharedDevicesIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "GuestsCollection": {
+      "type": "object",
+      "required": [
+        "items",
+        "guests",
+        "users",
+        "devices"
+      ],
+      "properties": {
+        "users": {
+          "$ref": "#/definitions/UsersItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "guests": {
+          "$ref": "#/definitions/GuestsItemsHash"
+        },
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$"
+          }
+        }
+      }
+    },
+    "GuestEntry": {
+      "type": "object",
+      "required": [
+        "entry",
+        "guests",
+        "users",
+        "devices"
+      ],
+      "properties": {
+        "users": {
+          "$ref": "#/definitions/UsersItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "guests": {
+          "$ref": "#/definitions/GuestsItemsHash"
+        },
+        "entry": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        }
+      }
+    },
+    "GuestsItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/GuestItem"
+        }
+      }
+    },
+    "GuestItem": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "contents": {
+          "$ref": "#/definitions/Guest"
+        }
+      }
+    },
+    "GuestInvite": {
+      "type": "object",
+      "required": [
+        "sharedDevicesIds",
+        "user"
+      ],
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/MaybeIncompleteUser"
+        },
+        "sharedDevicesIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "callbackPath": {
+          "type": "string"
+        }
+      }
+    },
+    "Guest": {
+      "type": "object",
+      "required": [
+        "guestUserId",
+        "sharedDevicesIds"
+      ],
+      "properties": {
+        "guestUserId": {
+          "type": "number"
+        },
+        "sharedDevicesIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "MeasuresItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/MeasureItem"
+        }
+      }
+    },
+    "MeasureItem": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "contents": {
+          "$ref": "#/definitions/Measure"
+        }
+      }
+    },
+    "Measure": {
+      "type": "object",
+      "required": [
+        "deviceSerial",
+        "measures"
+      ],
+      "properties": {
+        "deviceSerial": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "measures": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "TEMP_AIR_H1",
+              "RAIN_TIC",
+              "RH_AIR_H1",
+              "WIND_MEAN",
+              "WIND_DIRECTION"
+            ]
+          }
+        }
+      }
+    },
+    "CropsCollection": {
+      "type": "object",
+      "required": [
+        "items",
+        "crops"
+      ],
+      "properties": {
+        "crops": {
+          "$ref": "#/definitions/CropsItemsHash"
+        },
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$"
+          }
+        }
+      }
+    },
+    "CropEntry": {
+      "type": "object",
+      "required": [
+        "entry",
+        "crops"
+      ],
+      "properties": {
+        "crops": {
+          "$ref": "#/definitions/CropsItemsHash"
+        },
+        "entry": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        }
+      }
+    },
+    "CropsItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/CropItem"
+        }
+      }
+    },
+    "CropItem": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "hits": {
+          "type": "number"
+        },
+        "contents": {
+          "$ref": "#/definitions/Crop"
+        }
+      }
+    },
+    "Crop": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "OperationsCollection": {
+      "type": "object",
+      "required": [
+        "items",
+        "operations"
+      ],
+      "properties": {
+        "operations": {
+          "$ref": "#/definitions/OperationsItemsHash"
+        },
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$"
+          }
+        }
+      }
+    },
+    "OperationEntry": {
+      "type": "object",
+      "required": [
+        "entry",
+        "operations"
+      ],
+      "properties": {
+        "operations": {
+          "$ref": "#/definitions/OperationsItemsHash"
+        },
+        "entry": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        }
+      }
+    },
+    "OperationsItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/OperationItem"
+        }
+      }
+    },
+    "OperationItem": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "contents": {
+          "$ref": "#/definitions/Operation"
+        }
+      }
+    },
+    "Operation": {
+      "type": "object",
+      "required": [
+        "name",
+        "type",
+        "displaysIds",
+        "devicesIds",
+        "startDate",
+        "details"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "irrigation",
+            "spraying",
+            "seeding"
+          ]
+        },
+        "displaysIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$"
+          }
+        },
+        "devicesIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z0-9]+$"
+          }
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "details": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "AlertsCollection": {
+      "type": "object",
+      "required": [
+        "items",
+        "operations"
+      ],
+      "properties": {
+        "operations": {
+          "$ref": "#/definitions/AlertsItemsHash"
+        },
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$"
+          }
+        }
+      }
+    },
+    "AlertEntry": {
+      "type": "object",
+      "required": [
+        "entry",
+        "operations"
+      ],
+      "properties": {
+        "operations": {
+          "$ref": "#/definitions/AlertsItemsHash"
+        },
+        "entry": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        }
+      }
+    },
+    "AlertsItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/AlertItem"
+        }
+      }
+    },
+    "AlertItem": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "contents": {
+          "$ref": "#/definitions/Alert"
+        }
+      }
+    },
+    "Alert": {
+      "type": "object",
+      "required": [
+        "name",
+        "devicesIds",
+        "displaysIds"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "irrigation",
+            "spraying",
+            "seeding"
+          ]
+        },
+        "displaysIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$"
+          }
+        },
+        "devicesIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9A-Z]+$"
+          }
+        },
+        "notification": {
+          "type": "number"
+        },
+        "notificationList": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "email",
+              "sms",
+              "alarm"
+            ]
+          }
+        },
+        "alertParameters": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "active": {
+                "type": "boolean"
+              },
+              "min": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              },
+              "span": {
+                "type": "number"
+              },
+              "from": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "to": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "base": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "pluviometry",
+                  "pluviometryAggregate",
+                  "hygrometry",
+                  "temperature",
+                  "temperatureAggregate",
+                  "temperatureDegreeDay",
+                  "windMeanSpeed",
+                  "windGustsSpeed",
+                  "wetTemperature"
+                ]
+              },
+              "invitedUsersEmails": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "clock": {
+                "type": "object",
+                "properties": {
+                  "active": {
+                    "type": "boolean"
+                  },
+                  "start": {
+                    "type": "number"
+                  },
+                  "stop": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "AggregationsCollection": {
+      "type": "object",
+      "required": [
+        "items",
+        "aggregations"
+      ],
+      "properties": {
+        "aggregations": {
+          "$ref": "#/definitions/AggregationsItemsHash"
+        },
+        "aggregationsResults": {
+          "$ref": "#/definitions/AggregationsResultsHash"
+        },
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$"
+          }
+        }
+      }
+    },
+    "AggregationEntry": {
+      "type": "object",
+      "required": [
+        "entry",
+        "aggregations"
+      ],
+      "properties": {
+        "aggregations": {
+          "$ref": "#/definitions/AggregationsItemsHash"
+        },
+        "entry": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        }
+      }
+    },
+    "AggregationsItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/AggregationItem"
+        }
+      }
+    },
+    "AggregationItem": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "contents": {
+          "$ref": "#/definitions/Aggregation"
+        }
+      }
+    },
+    "Aggregation": {
+      "type": "object",
+      "required": [
+        "type",
+        "name",
+        "devicesIds"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "RAIN_TIC",
+            "TEMP_AIR",
+            "DEGREE_DAY"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "to": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "span": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "base": {
+          "type": "integer"
+        },
+        "devicesIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9A-Z]+$"
+          }
+        }
+      }
+    },
+    "AggregationsResultsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/AggregationResult"
+        }
+      }
+    },
+    "AggregationResult": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "RAIN_TIC",
+            "TEMP_AIR_H1"
+          ]
+        },
+        "RAIN_TIC": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            }
+          }
+        },
+        "TEMP_AIR": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "Emails": {
+      "type": "array",
+      "items": {
+        "subject": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "from": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "to": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Session": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "token",
+        "expirationDate",
+        "userId",
+        "organisationId"
+      ],
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "expirationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "userId": {
+          "type": "number"
+        },
+        "organisationId": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
