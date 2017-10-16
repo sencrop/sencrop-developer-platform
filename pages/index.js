@@ -55,6 +55,12 @@ const Index = () => (
       on <a href="https://github.com/sencrop/sencrop-developer-platform"
         >GitHub</a>,
     </p>
+    <h2>Developer Mailing List</h2>
+    <form action="/" target="_blank">
+      <p>Keep informed on our API evolutions:</p>
+      <label>Email: <input type="email" autocapitalize="none" autocorrect="off" name="email" placeholder="dennis.richie@heaven.org" required="required" /></label>
+      <input type="submit" />
+    </form>
   </Layout>
 )
 
