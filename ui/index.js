@@ -61,6 +61,51 @@ injectGlobal`
       appearance: none;
       margin: 0; 
     }
+    input {
+      display: inline-block;
+      outline: none;
+      padding: ${spacing(2 / 3)} ${spacing()};
+      border: 1px solid ${color('anthracite', 'light')};
+      transition: border-color 150ms ease-out;
+      border-radius: 4px;
+      background-color: #fff;
+
+      &:hover, &:focus, &:active {
+        border-color: ${color('anthracite')};
+      }
+      
+      ::-webkit-input-placeholder {
+        color: #b2b2b2;
+      }
+      :-moz-placeholder {
+        color: #b2b2b2;
+      }
+      :-ms-input-placeholder {
+        color: #b2b2b2;
+      }
+      ::-moz-placeholder {
+        color: #b2b2b2;
+      }
+    }
+    input[type=submit] {
+      background: linear-gradient(10deg, ${color('green')} 35%, ${color('green', 'light')} 65%);
+      font-weight: 400;
+      color: #fff;
+      box-shadow: 0px 15px 24px 0px rgba(8,37,25, .15);
+      border-radius: 4px;
+      border: none;
+      margin-left: ${spacing(0.5)};
+      &:hover {
+        color: #fff;
+        box-shadow: 0px 15px 30px 0px rgba(8,37,25, .25);
+        background: linear-gradient(10deg, ${color('green', 'light')} 35%, ${color('green', 'light')} 65%);
+      }
+
+      &:focus,
+      &:active {
+        background: linear-gradient(10deg, ${color('green')} 35%, ${color('green', 'light')} 65%);
+      }
+    }
     pre {
       margin-top: 0 !important;
       background-color: #fff !important;
