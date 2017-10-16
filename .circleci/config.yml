@@ -27,7 +27,11 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn run build
+      - run:
+          name: Build the final website
+          no_output_timeout: 30m
+          command: |
+            yarn run build
       - run: yarn run export
 
       - run: sudo apt-get install python-pip python-dev build-essential
