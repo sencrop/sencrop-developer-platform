@@ -1,3 +1,13 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/sencrop/sencrop-developer-platform/compare/v1.0.0...v1.0.1) (2017-10-16)
+
+
+### Bug Fixes
+
+* **CI:** Fix timeout errors due to build time ([aff52af](https://github.com/sencrop/sencrop-developer-platform/commit/aff52af))
+
+
+
 <a name="0.0.0"></a>
 # 1.0.0 (2017-10-16)
 
