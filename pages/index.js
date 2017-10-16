@@ -56,10 +56,18 @@ const Index = () => (
         >GitHub</a>,
     </p>
     <h2>Developer Mailing List</h2>
-    <form action="/" target="_blank">
+    <form method="post" action="https://evomedia.us3.list-manage.com/subscribe/post?u=c993ab1c009fbcbc61dea24cd&amp;id=b7ef162deb" target="_blank">
+      <div style={{
+          position: 'absolute',
+          left: '-5000px'
+        }}
+        aria-hidden="true"
+        >
+        <input type="text" name="b_c993ab1c009fbcbc61dea24cd_b7ef162deb" tabIndex="-1" value="" />
+      </div>
       <p>Keep informed on our API evolutions:</p>
-      <label>Email: <input type="email" autocapitalize="none" autocorrect="off" name="email" placeholder="dennis.richie@heaven.org" required="required" /></label>
-      <input type="submit" />
+      <label>Email: <input type="email" autocapitalize="none" autoCorrect="off" name="EMAIL" placeholder="dennis.richie@heaven.org" required="required" /></label>
+      <input type="submit" name="subscribe" value="Subscribe" />
     </form>
   </Layout>
 )
