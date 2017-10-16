@@ -139,6 +139,203 @@ const SENCROP_RAW_DATA_PAYLOAD = `
   }
 ]
 `;
+const CURL_SENCROP_DATA_CODE = `
+# Get hourly aggregated data for two days
+curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/hourly?beforeDate=2017-10-07T07:34:32.000Z&days=2&measures=WIND_DIRECTION,WIND_MEAN"\
+  -H "Authorization: Bearer xxxxx"
+# Get daily aggregated data for two days
+curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/hourly?beforeDate=2017-10-07T07:34:32.000Z&days=2&measures=WIND_DIRECTION,WIND_MEAN"\
+  -H "Authorization: Bearer xxxxx"
+`;
+const SENCROP_DATA_PAYLOAD = `
+{
+  "models": {
+    "8": {
+      "id": 8,
+      "contents": {
+        "name": "Windcrop",
+        "conception": "France - Lille",
+        "manufacturing": "Europe-France",
+        "calibration": "Ok",
+        "weight": 3.1
+      }
+    }
+  },
+  "devices": {
+    "B16BA4": {
+      "id": "B16BA4",
+      "accessPeriods": [{
+        "role": "owner",
+        "endDate": "2038-01-19T03:14:07.000Z"
+      }],
+      "modelId": 8,
+      "userId": 1664,
+      "identification": "WC666999",
+      "contents": {
+        "name": "My Windcrop"
+      }
+    }
+  },
+  "entry": "B16BA4",
+  "measures": {
+    "interval": "1h",
+    "data": [{
+      "key": 1507186800000,
+      "WIND_MEAN": {
+        "value": 15.5
+      },
+      "WIND_DIRECTION": {
+        "value": 262
+      },
+      "docCount": 4
+    },
+    {
+      "key": 1507190400000,
+      "WIND_MEAN": {
+        "value": 19.416666666666668
+      },
+      "WIND_DIRECTION": {
+        "value": 281
+      },
+      "docCount": 12
+    },
+    { '...': '...' },
+    {
+      "key": 1507359600000,
+      "WIND_MEAN": {
+        "value": 15.5
+      },
+      "WIND_DIRECTION": {
+        "value": 222
+      },
+      "docCount": 6
+    }]
+  }
+}
+`;
+const CURL_SENCROP_STATISTICS_CODE = `
+# Get device statistics for two days
+curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&measures=WIND_DIRECTION,WIND_MEAN"\
+  -H "Authorization: Bearer xxxxx"
+`;
+const SENCROP_STATISTICS_PAYLOAD = `
+{
+  "models": {
+    "8": {
+      "id": 8,
+      "contents": {
+        "name": "Windcrop",
+        "conception": "France - Lille",
+        "manufacturing": "Europe-France",
+        "calibration": "Ok",
+        "weight": 3.1
+      }
+    }
+  },
+  "devices": {
+    "B16BA4": {
+      "id": "B16BA4",
+      "accessPeriods": [{
+        "role": "owner",
+        "endDate": "2038-01-19T03:14:07.000Z"
+      }],
+      "modelId": 8,
+      "userId": 1664,
+      "identification": "WC666999",
+      "contents": {
+        "name": "My Windcrop"
+      }
+    }
+  },
+  "entry": "B16BA4",
+  "measures": {
+    "interval": "1d",
+    "data": [{
+      "key": 1507186800000,
+      "WIND_MEAN": {
+        "value": 15.5
+      },
+      "WIND_DIRECTION": {
+        "value": 262
+      },
+      "docCount": 4
+    },
+    {
+      "key": 1507190400000,
+      "WIND_MEAN": {
+        "value": 19.416666666666668
+      },
+      "WIND_DIRECTION": {
+        "value": 281
+      },
+      "docCount": 12
+    },
+    { '...': '...' },
+    {
+      "key": 1507359600000,
+      "WIND_MEAN": {
+        "value": 15.5
+      },
+      "WIND_DIRECTION": {
+        "value": 222
+      },
+      "docCount": 6
+    }]
+  }
+}
+`;
+const CURL_SENCROP_GEOBASED_CODE = `
+# Get geobased statistics
+curl "https://api.sencrop.com/v1/users/1664/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&measures=WIND_DIRECTION,RAIN_TIC"\
+  -H "Authorization: Bearer xxxxx"
+# Get geobased fixed scale data
+curl "https://api.sencrop.com/v1/users/1664/data/hourly?beforeDate=2017-01-01T00:00:00.000Z&days=3&measures=WIND_DIRECTION,RAIN_TIC"\
+  -H "Authorization: Bearer xxxxx"
+`;
+const SENCROP_GEOBASED_PAYLOAD = `
+{
+  "measures": {
+    "interval": "1d",
+    "data": [{
+      "key": 1507186800000,
+      "WIND_MEAN": {
+        "precision": 80,
+        "value": 15.5
+      },
+      "RAIN_TIC": {
+        "precision": 99,
+        "value": 3
+      },
+      "docCount": 4
+    },
+    {
+      "key": 1507190400000,
+      "WIND_MEAN": {
+        "precision": 80,
+        "value": 19.416666666666668
+      },
+      "RAIN_TIC": {
+        "precision": 99,
+        "value": 0.5
+      },
+      "docCount": 12
+    },
+    { '...': '...' },
+    {
+      "key": 1507359600000,
+      "WIND_MEAN": {
+        "precision": 80,
+        "value": 15.5
+      },
+      "RAIN_TIC": {
+        "precision": 99,
+        "value": 0
+      },
+      "docCount": 6
+    }]
+  }
+}
+`;
 
 const Index = () => (
   <Layout title={ 'API Guide' } description={
@@ -254,13 +451,110 @@ const Index = () => (
       SENCROP_RAW_DATA_PAYLOAD
     }</SyntaxHighlighter>
     <p>
-      The <code>date</code>, <code>type</code> and
-      <code>value</code> fields are self explanatory.
+      The <code>date</code>, <code>type</code>
+      and <code>value</code> fields are self explanatory.
       The <code>discarded</code> field is a bit more
       special, he means that our algorithm detected
       that the measure was wrong. It can be due to
       many different issues (hardware failure,
       bad installation, network failures etc...).
+    </p>
+    <h2>Reading device data</h2>
+    <p>
+      The raw data is cool but you may want a bit
+      more insight on the data you retrieve.
+    </p>
+    <p>
+      For this purpose we brought to you two kind
+      of endpoints.
+    </p>
+    <SyntaxHighlighter language="javascript" style={docco}>{
+      CURL_SENCROP_DATA_CODE
+    }</SyntaxHighlighter>
+    <p>The result will look like this:</p>
+    <SyntaxHighlighter language="json" style={docco}>{
+      SENCROP_DATA_PAYLOAD
+    }</SyntaxHighlighter>
+    <p>
+      Each measures are aggregated depending on
+      its nature. The wind, temperature, relative
+      humidity are simple averages while the rain
+      is a sum instead. The wind direction is a
+      vector sum.
+    </p>
+    <h3>Adaptive scale data</h3>
+    <p>
+      Here, what matters for you is to get
+      data for a given period. In this case,
+      we automatically choose the right scale
+      in order for you to get best insights
+      with no performance hint.
+    </p>
+    <SyntaxHighlighter language="javascript" style={docco}>{
+      CURL_SENCROP_STATISTICS_CODE
+    }</SyntaxHighlighter>
+    <p>The result will look like this:</p>
+    <SyntaxHighlighter language="json" style={docco}>{
+      SENCROP_STATISTICS_PAYLOAD
+    }</SyntaxHighlighter>
+    <h2>Geobased data</h2>
+    <p>
+      The geobased data provides your insights around
+      a given position instead of a single device.
+      Indeed, during its usage, a device may be moved
+      or shutdown. Also, some devices can provide you
+      rain measures while others will instead give
+      you rain data.
+    </p>
+    <p>
+      For that purpose, you may prefer get available data
+      for a given place in your Sencrop network.
+    </p>
+
+    <SyntaxHighlighter language="javascript" style={docco}>{
+      CURL_SENCROP_GEOBASED_CODE
+    }</SyntaxHighlighter>
+    <p>The result will look like this:</p>
+    <SyntaxHighlighter language="json" style={docco}>{
+      SENCROP_GEOBASED_PAYLOAD
+    }</SyntaxHighlighter>
+    <p>
+      You can noticee a new property
+      called <code>precision</code> that tells
+      you how precise is the result. Indeed,
+      the devices on which are based the data
+      may not be at the exact position you
+      provided but instead in a ten kilometers
+      ring around it.
+    </p>
+    <p>
+      This precision field goes from 0 to 100
+      and is based on statistical studies we
+      made upfront.
+    </p>
+    <h2>Limits</h2>
+    <p>
+      Since we are in an early alpha publication
+      of this API, we do not yet provide feedback
+      on rate limitations and how to prevent it.
+      You will not reach the limit until you make
+      a hundred calls per minutes which should be
+      sufficient.
+    </p>
+    <p>
+      Contact us if you think you need a more
+      intensive access to the data in the
+      meanwhile.
+    </p>
+    <p>
+      So you read it all? Impressive! You are
+      now in the best conditions to use our
+      API! You can try it interactively with
+      our <Link href="/reference"><a>API
+      reference</a></Link> or directly dive
+      into code with our JavaScript SDK.
+      Check out our <Link href="/tools"><a>open-source
+      tools</a></Link>!
     </p>
   </Layout>
 )
