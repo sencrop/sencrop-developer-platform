@@ -8,7 +8,7 @@ const APIReference = () => (
   <Layout title={ 'API Reference' } description={
 `An exhaustive list of every endpoints you may use
  in our API.`.replace(/\n/, '')
-  }>
+  } reference>
     <h1>API Reference</h1>
     <Head>
       <link rel="stylesheet" href="/static/styles/swagger-ui.css"/>

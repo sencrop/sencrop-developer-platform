@@ -1,14 +1,10 @@
 import Head from 'next/head'
+import styled from 'styled-components';
 import Header from './Header'
-
-const layoutStyle = {
-  margin: 20,
-  padding: 20,
-  border: '1px solid #DDD'
-}
+import { color, spacing } from '../ui'
 
 const Layout = (props) => (
-  <div style={layoutStyle}>
+  <div>
     <Head>
       <meta charSet="utf-8"/>
       <title>{
@@ -26,13 +22,24 @@ const Layout = (props) => (
       }/>
       <link rel="icon" type="image/png" href="/images/favicon.png"/>
       <meta name="robots" content="index,follow"/>
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" />
     </Head>
-    <Header />
-    {props.children}
-    <style jsx>{`
-      h1 { color: red; }
-    `}</style>
+    <Header
+      home={props.home}
+      guide={props.guide}
+      reference={props.reference}
+      tools={props.tools}
+    />
+    <Wrapper>
+      {props.children}
+    </Wrapper>
   </div>
 )
 
 export default Layout
+
+const Wrapper = styled.div`
+  width: 80%;
+  max-width: 1200px;
+  margin: ${spacing()} auto;
+`;

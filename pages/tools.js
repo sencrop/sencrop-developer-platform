@@ -1,11 +1,9 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/styles';
 
-const INSTALL_CODE = `
-npm install --save sencrop-js-api-client
+const INSTALL_CODE = `npm install --save sencrop-js-api-client
 `;
-const USAGE_CODE = `
-import API from 'sencrop-js-api-client';
+const USAGE_CODE = `import API from 'sencrop-js-api-client';
 
 API.getUserDeviceStatistics({
   authorization: 'Bearer yolo-token',
@@ -28,7 +26,7 @@ import Layout from '../components/Layout'
 const Index = () => (
   <Layout title={ 'Tools' } description={
 `Get some more tooling to interact with our API.`.replace(/\n/, '')
-  }>
+  } tools>
     <h1>Tools</h1>
     <h2>Swagger/OpenAPI Definition</h2>
     <p>

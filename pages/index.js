@@ -5,7 +5,7 @@ const Index = () => (
   <Layout title={ 'Bring super powers to farmers!' } description={
 `Welcome to the Sencrop Developer Platform!
  Build new farming practices by using our API!`.replace(/\n/, '')
-  }>
+  } home>
     <h1>Sencrop Developer Platform</h1>
     <p><strong>
       Warning: Our API is currently in a very

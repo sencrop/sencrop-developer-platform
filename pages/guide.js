@@ -5,24 +5,20 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/styles';
 
 const PING_ENDPOINT = 'https://api.sencrop.com/v1/ping';
-const CURL_PING_CODE = `
-curl ${PING_ENDPOINT}
+const CURL_PING_CODE = `curl ${PING_ENDPOINT}
 # Answers: {"pong":"pong"}
 `;
-const TOKEN_RETRIEVAL_CODE = `
-console.log({
+const TOKEN_RETRIEVAL_CODE = `console.log({
   token: 'Bearer ' +
     JSON.parse(localStorage.state).user.token,
   userid: JSON.parse(localStorage.state).user.id,
 })
 // Prints: { token: 'Bearer xxxxxxxx', userId: 1664 }
 `;
-const CURL_SENCROP_DEVICES_CODE = `
-curl https://api.sencrop.com/v1/users/1664/devices\
+const CURL_SENCROP_DEVICES_CODE = `curl https://api.sencrop.com/v1/users/1664/devices\
   -H "Authorization: Bearer xxxxx"
 `;
-const SENCROP_DEVICES_PAYLOAD = `
-{
+const SENCROP_DEVICES_PAYLOAD = `{
   "items": [
     "BI6BA46",
     "114711"
@@ -71,12 +67,10 @@ const SENCROP_DEVICES_PAYLOAD = `
   }
 }
 `;
-const CURL_SENCROP_RAW_DATA_CODE = `
-curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/raw?size=100&beforeDate=2017-10-10T00:00:00Z&measures=TEMP_AIR_H1"\
+const CURL_SENCROP_RAW_DATA_CODE = `curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/raw?size=100&beforeDate=2017-10-10T00:00:00Z&measures=TEMP_AIR_H1"\
   -H "Authorization: Bearer xxxxx"
 `;
-const SENCROP_RAW_DATA_PAYLOAD = `
-[
+const SENCROP_RAW_DATA_PAYLOAD = `[
   {
     "date": "2017-10-09T23:54:07.000Z",
     "type": "RH_AIR_H1",
@@ -139,16 +133,14 @@ const SENCROP_RAW_DATA_PAYLOAD = `
   }
 ]
 `;
-const CURL_SENCROP_DATA_CODE = `
-# Get hourly aggregated data for two days
+const CURL_SENCROP_DATA_CODE = `# Get hourly aggregated data for two days
 curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/hourly?beforeDate=2017-10-07T07:34:32.000Z&days=2&measures=WIND_DIRECTION,WIND_MEAN"\
   -H "Authorization: Bearer xxxxx"
 # Get daily aggregated data for two days
 curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/hourly?beforeDate=2017-10-07T07:34:32.000Z&days=2&measures=WIND_DIRECTION,WIND_MEAN"\
   -H "Authorization: Bearer xxxxx"
 `;
-const SENCROP_DATA_PAYLOAD = `
-{
+const SENCROP_DATA_PAYLOAD = `{
   "models": {
     "8": {
       "id": 8,
@@ -213,13 +205,11 @@ const SENCROP_DATA_PAYLOAD = `
   }
 }
 `;
-const CURL_SENCROP_STATISTICS_CODE = `
-# Get device statistics for two days
+const CURL_SENCROP_STATISTICS_CODE = `# Get device statistics for two days
 curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&measures=WIND_DIRECTION,WIND_MEAN"\
   -H "Authorization: Bearer xxxxx"
 `;
-const SENCROP_STATISTICS_PAYLOAD = `
-{
+const SENCROP_STATISTICS_PAYLOAD = `{
   "models": {
     "8": {
       "id": 8,
@@ -284,16 +274,14 @@ const SENCROP_STATISTICS_PAYLOAD = `
   }
 }
 `;
-const CURL_SENCROP_GEOBASED_CODE = `
-# Get geobased statistics
+const CURL_SENCROP_GEOBASED_CODE = `# Get geobased statistics
 curl "https://api.sencrop.com/v1/users/1664/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&measures=WIND_DIRECTION,RAIN_TIC"\
   -H "Authorization: Bearer xxxxx"
 # Get geobased fixed scale data
 curl "https://api.sencrop.com/v1/users/1664/data/hourly?beforeDate=2017-01-01T00:00:00.000Z&days=3&measures=WIND_DIRECTION,RAIN_TIC"\
   -H "Authorization: Bearer xxxxx"
 `;
-const SENCROP_GEOBASED_PAYLOAD = `
-{
+const SENCROP_GEOBASED_PAYLOAD = `{
   "measures": {
     "interval": "1d",
     "data": [{
@@ -340,7 +328,7 @@ const SENCROP_GEOBASED_PAYLOAD = `
 const Index = () => (
   <Layout title={ 'API Guide' } description={
 `A simple guide to help you using our API.`.replace(/\n/, '')
-  }>
+  } guide>
     <h1>API Guide</h1>
     <p>
       The Sencrop API allows you to retrieve
