@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import Layout from '../components/Layout'
 
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/styles';
+import SyntaxHighlighter, { registerLanguage } from "react-syntax-highlighter/dist/light"
+import js from 'react-syntax-highlighter/dist/languages/javascript'
+import docco from 'react-syntax-highlighter/dist/styles/docco'
+
+registerLanguage('javascript', js);
 
 const PING_ENDPOINT = 'https://api.sencrop.com/v1/ping';
 const CURL_PING_CODE = `curl ${PING_ENDPOINT}
