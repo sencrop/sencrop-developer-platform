@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import styled from 'styled-components';
 import Header from './Header'
+import GA from './GA'
+import NoSSR from 'react-no-ssr';
 import { color, spacing } from '../ui'
 
 const Layout = (props) => (
@@ -33,6 +35,9 @@ const Layout = (props) => (
     <Wrapper>
       {props.children}
     </Wrapper>
+    <NoSSR>
+      <GA />
+    </NoSSR>
   </div>
 )
 

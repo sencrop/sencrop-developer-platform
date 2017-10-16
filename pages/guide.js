@@ -345,8 +345,10 @@ const Index = () => (
       You can simply hit the Sencrop API
       by simply opening ou ping endpoint
       in you browser:<br/>
-      <a href="${PING_ENDPOINT}"
-      >${PING_ENDPOINT}</a>
+      <a href="{PING_ENDPOINT}"
+      >{PING_ENDPOINT}</a>
+    </p>
+    <p>
       You probably noticed we are using the
       https protocol so that informations
       transiting between your systems and

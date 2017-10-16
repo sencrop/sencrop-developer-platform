@@ -43,6 +43,7 @@
     "next": "^4.0.3",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-ga": "^2.3.5",
     "react-no-ssr": "^1.1.0",
     "react-syntax-highlighter": "^5.7.0",
     "sencrop-js-api-client": "^1.0.0",
