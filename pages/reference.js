@@ -16,6 +16,9 @@ const APIReference = () => (
     <NoSSR>
       <Swagger/>
     </NoSSR>
+    <style jsx>{`
+      .swagger-ui .info .title small pre { background-color: inherit !important; }
+    `}</style>
   </Layout>
 )
 

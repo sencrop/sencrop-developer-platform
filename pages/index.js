@@ -66,7 +66,7 @@ const Index = () => (
         <input type="text" name="b_c993ab1c009fbcbc61dea24cd_b7ef162deb" tabIndex="-1" value="" />
       </div>
       <p>Keep informed on our API evolutions:</p>
-      <label>Email: <input type="email" autocapitalize="none" autoCorrect="off" name="EMAIL" placeholder="dennis.richie@heaven.org" required="required" /></label>
+      <label>Email: <input type="email" autoCapitalize="none" autoCorrect="off" name="EMAIL" placeholder="dennis.richie@heaven.org" required="required" /></label>
       <input type="submit" name="subscribe" value="Subscribe" />
     </form>
   </Layout>

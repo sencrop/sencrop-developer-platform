@@ -55,6 +55,22 @@ const SENCROP_DEVICES_PAYLOAD = `{
       }
     },
   },
+  "devicesStatuses": {
+    "BI6BA46": {
+      "id": "BI6BA46",
+      "contents": {
+        "latitude": 43.7799,
+        "longitude": 1.31287
+      }
+    },
+    "114711": {
+      "id": "114711",
+      "contents": {
+        "latitude": 43.7799,
+        "longitude": 1.3128
+      }
+    },
+  },
   "models": {
     "7": {
       "id": 7,
@@ -70,7 +86,7 @@ const SENCROP_DEVICES_PAYLOAD = `{
   }
 }
 `;
-const CURL_SENCROP_RAW_DATA_CODE = `curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/raw?size=100&beforeDate=2017-10-10T00:00:00Z&measures=TEMP_AIR_H1"\
+const CURL_SENCROP_RAW_DATA_CODE = `curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/raw?size=100&beforeDate=2017-10-10T00:00:00Z&measures=RH_AIR_H1,TEMP_AIR_H1"\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_RAW_DATA_PAYLOAD = `[
@@ -140,7 +156,7 @@ const CURL_SENCROP_DATA_CODE = `# Get hourly aggregated data for two days
 curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/hourly?beforeDate=2017-10-07T07:34:32.000Z&days=2&measures=WIND_DIRECTION,WIND_MEAN"\
   -H "Authorization: Bearer xxxxx"
 # Get daily aggregated data for two days
-curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/hourly?beforeDate=2017-10-07T07:34:32.000Z&days=2&measures=WIND_DIRECTION,WIND_MEAN"\
+curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/daily?beforeDate=2017-10-07T07:34:32.000Z&days=2&measures=WIND_DIRECTION,WIND_MEAN"\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_DATA_PAYLOAD = `{
@@ -277,11 +293,12 @@ const SENCROP_STATISTICS_PAYLOAD = `{
   }
 }
 `;
-const CURL_SENCROP_GEOBASED_CODE = `# Get geobased statistics
-curl "https://api.sencrop.com/v1/users/1664/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&measures=WIND_DIRECTION,RAIN_TIC"\
+const CURL_SENCROP_GEOBASED_CODE = `
+# Get geobased statistics
+curl "https://api.sencrop.com/v1/users/1664/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&measures=WIND_MEAN,RAIN_TIC"\
   -H "Authorization: Bearer xxxxx"
 # Get geobased fixed scale data
-curl "https://api.sencrop.com/v1/users/1664/data/hourly?beforeDate=2017-01-01T00:00:00.000Z&days=3&measures=WIND_DIRECTION,RAIN_TIC"\
+curl "https://api.sencrop.com/v1/users/1664/data/hourly?beforeDate=2017-01-01T00:00:00.000Z&days=3&measures=WIND_MEAN,RAIN_TIC"\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_GEOBASED_PAYLOAD = `{
@@ -452,6 +469,12 @@ const Index = () => (
       many different issues (hardware failure,
       bad installation, network failures etc...).
     </p>
+    <p>
+      Note that the `size` query parameter is
+      mandatory and limited to a few values.
+      Check out the API reference for more
+      information.
+    </p>
     <h2>Reading device data</h2>
     <p>
       The raw data is cool but you may want a bit
@@ -474,6 +497,12 @@ const Index = () => (
       humidity are simple averages while the rain
       is a sum instead. The wind direction is a
       vector sum.
+    </p>
+    <p>
+      Note that the `days` query parameter is
+      mandatory and limited to a few values.
+      Check out the API reference for more
+      information.
     </p>
     <h3>Adaptive scale data</h3>
     <p>
@@ -524,6 +553,12 @@ const Index = () => (
       This precision field goes from 0 to 100
       and is based on statistical studies we
       made upfront.
+    </p>
+    <p>
+      Note that the `days` query parameter is
+      mandatory and limited to a few values.
+      Check out the API reference for more
+      information.
     </p>
     <h2>Limits</h2>
     <p>
