@@ -295,10 +295,10 @@ const SENCROP_STATISTICS_PAYLOAD = `{
 `;
 const CURL_SENCROP_GEOBASED_CODE = `
 # Get geobased statistics
-curl "https://api.sencrop.com/v1/users/1664/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&measures=WIND_MEAN,RAIN_TIC"\
+curl "https://api.sencrop.com/v1/users/1664/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&latitude=37.234894&longitude=-115.81082&measures=WIND_MEAN,RAIN_TIC"\
   -H "Authorization: Bearer xxxxx"
 # Get geobased fixed scale data
-curl "https://api.sencrop.com/v1/users/1664/data/hourly?beforeDate=2017-01-01T00:00:00.000Z&days=3&measures=WIND_MEAN,RAIN_TIC"\
+curl "https://api.sencrop.com/v1/users/1664/data/hourly?beforeDate=2017-01-01T00:00:00.000Z&days=3&latitude=37.234894&longitude=-115.81082&measures=WIND_MEAN,RAIN_TIC"\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_GEOBASED_PAYLOAD = `{
@@ -541,7 +541,7 @@ const Index = () => (
       SENCROP_GEOBASED_PAYLOAD
     }</SyntaxHighlighter>
     <p>
-      You can noticee a new property
+      You can notice a new property
       called <code>precision</code> that tells
       you how precise is the result. Indeed,
       the devices on which are based the data
@@ -552,7 +552,11 @@ const Index = () => (
     <p>
       This precision field goes from 0 to 100
       and is based on statistical studies we
-      made upfront.
+      made upfront. That precision may vary
+      depending on the kind of measure. It
+      may also change since we will probably
+      reshape our statistical algorithms
+      for more sharp results.
     </p>
     <p>
       Note that the `days` query parameter is
@@ -574,6 +578,7 @@ const Index = () => (
       intensive access to the data in the
       meanwhile.
     </p>
+    <h2>What's next ?</h2>
     <p>
       So you read it all? Impressive! You are
       now in the best conditions to use our
