@@ -1,3 +1,14 @@
+<a name="1.0.3"></a>
+## [1.0.3](https://github.com/sencrop/sencrop-developer-platform/compare/v1.0.2...v1.0.3) (2017-10-31)
+
+
+### Bug Fixes
+
+* **API Guide:** Fix geolocated data calls ([0835c37](https://github.com/sencrop/sencrop-developer-platform/commit/0835c37))
+* **Docs:** Fix typo and mistakes in the documentation ([0f0a862](https://github.com/sencrop/sencrop-developer-platform/commit/0f0a862))
+
+
+
 <a name="1.0.2"></a>
 ## 1.0.2 (2017-10-16)
 
