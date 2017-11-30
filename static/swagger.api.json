@@ -59,7 +59,8 @@
               "$ref": "#/definitions/CropsCollection"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/utils/checkSignup": {
@@ -141,7 +142,8 @@
           "200": {
             "description": "Password change email sent"
           }
-        }
+        },
+        "tags": []
       }
     },
     "/password": {
@@ -180,7 +182,8 @@
           "201": {
             "description": "Password changed"
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/sign_in": {
@@ -223,7 +226,8 @@
               "$ref": "#/definitions/Session"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/verify": {
@@ -266,6 +270,73 @@
               "$ref": "#/definitions/Session"
             }
           }
+        },
+        "tags": []
+      }
+    },
+    "/partners/{partnerId}/devices": {
+      "get": {
+        "operationId": "getPartnerDevices",
+        "summary": "Retrieves the devices a partner has access to.",
+        "security": {
+          "token": [
+            "ROLE_PARTNER"
+          ]
+        },
+        "tags": [
+          "partner"
+        ],
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "partnerId",
+            "in": "path",
+            "type": "number",
+            "description": "The partner organisation id",
+            "pattern": "^[0-9]+$",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number",
+            "description": "The number of items to retrieve",
+            "pattern": "^[0-9]+$",
+            "enum": [
+              10,
+              50,
+              100
+            ],
+            "required": true
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "type": "number",
+            "description": "The index in results",
+            "pattern": "^[0-9]+$",
+            "min": 0,
+            "multipleOf": 10,
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The devices collection",
+            "schema": {
+              "$ref": "#/definitions/PartnerDevicesCollection"
+            }
+          }
         }
       }
     },
@@ -273,6 +344,11 @@
       "post": {
         "operationId": "postUser",
         "summary": "Create a user.",
+        "security": {
+          "token": [
+            "ROLE_ADMIN"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -303,13 +379,19 @@
               "$ref": "#/definitions/UserItem"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}": {
       "get": {
         "operationId": "getUser",
         "summary": "Get a user's profile.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -344,11 +426,17 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       },
       "put": {
         "operationId": "putUser",
         "summary": "Update a user's profile.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -388,13 +476,19 @@
               "$ref": "#/definitions/UserItem"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/guests": {
       "get": {
         "operationId": "getUserGuests",
         "summary": "Get a user's guests.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -429,11 +523,17 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       },
       "post": {
         "operationId": "postUserGuest",
         "summary": "Create a user's guest.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -486,13 +586,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/guests/{guestId}": {
       "put": {
         "operationId": "putUserGuest",
         "summary": "Update a user's guest.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -540,11 +646,17 @@
               "$ref": "#/definitions/GuestEntry"
             }
           }
-        }
+        },
+        "tags": []
       },
       "delete": {
         "operationId": "deleteUserGuest",
         "summary": "Delete a user's guest.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [],
         "parameters": [
@@ -576,13 +688,20 @@
           "404": {
             "description": "The user's guest were successfully deleted."
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/collaborators": {
       "get": {
         "operationId": "getUserCollaborators",
         "summary": "Get a user's collaborators.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
+        "tags": [],
         "consumes": [],
         "produces": [
           "application/json"
@@ -622,6 +741,11 @@
       "post": {
         "operationId": "postUserCollaborator",
         "summary": "Create a user's collaborator.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -674,13 +798,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/collaborators/{collaboratorId}": {
       "put": {
         "operationId": "putUserCollaborator",
         "summary": "Update a user's collaborator.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -728,11 +858,17 @@
               "$ref": "#/definitions/CollaboratorEntry"
             }
           }
-        }
+        },
+        "tags": []
       },
       "delete": {
         "operationId": "deleteUserCollaborator",
         "summary": "Delete a user's collaborator.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [],
         "parameters": [
@@ -764,13 +900,19 @@
           "404": {
             "description": "The user's collaborator were successfully deleted."
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/aggregations": {
       "get": {
         "operationId": "getUserAggregations",
         "summary": "Get a user's aggregations.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -813,11 +955,17 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       },
       "post": {
         "operationId": "postUserAggregation",
         "summary": "Create a user's aggregation.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -863,13 +1011,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/aggregations/{aggregationId}": {
       "put": {
         "operationId": "putUserAggregation",
         "summary": "Update a user's aggregation.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -917,11 +1071,17 @@
               "$ref": "#/definitions/AggregationEntry"
             }
           }
-        }
+        },
+        "tags": []
       },
       "delete": {
         "operationId": "deleteUserAggregation",
         "summary": "Delete a user's aggregation.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [],
         "parameters": [
@@ -953,13 +1113,19 @@
           "404": {
             "description": "The user's aggregation were successfully deleted."
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/displays": {
       "get": {
         "operationId": "getUserDisplays",
         "summary": "Get a user's displays.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -994,11 +1160,17 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       },
       "post": {
         "operationId": "postUserDisplay",
         "summary": "Create a user's display.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -1044,13 +1216,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/displays/{displayId}": {
       "get": {
         "operationId": "getUserDisplay",
         "summary": "Get a user's display.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1093,11 +1271,17 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       },
       "put": {
         "operationId": "putUserDisplay",
         "summary": "Update a user's display.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -1145,11 +1329,17 @@
               "$ref": "#/definitions/DisplayEntry"
             }
           }
-        }
+        },
+        "tags": []
       },
       "delete": {
         "operationId": "deleteUserDisplay",
         "summary": "Delete a user's display.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [],
         "parameters": [
@@ -1181,13 +1371,19 @@
           "404": {
             "description": "The user's display were successfully deleted."
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/devices": {
       "get": {
         "operationId": "getUserDevices",
         "summary": "Get a user's devices.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1249,13 +1445,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/devices/{deviceId}": {
       "get": {
         "operationId": "getUserDevice",
         "summary": "Get a user's device.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1274,8 +1476,8 @@
             "required": true,
             "description": "The device id",
             "name": "deviceId",
-            "pattern": "^[0-9A-Z]+$",
-            "type": "string"
+            "pattern": "^[0-9]+$",
+            "type": "number"
           },
           {
             "in": "header",
@@ -1298,11 +1500,17 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       },
       "put": {
         "operationId": "putUserDevice",
         "summary": "Update a user's device.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -1322,9 +1530,9 @@
             "in": "path",
             "required": true,
             "description": "The device id",
-            "pattern": "^[0-9A-Z]+$",
+            "pattern": "^[0-9]+$",
             "name": "deviceId",
-            "type": "string"
+            "type": "number"
           },
           {
             "in": "header",
@@ -1350,13 +1558,19 @@
               "$ref": "#/definitions/DeviceItem"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/devices/{deviceId}/shares/{sharesType}": {
       "put": {
         "operationId": "putUserDeviceShares",
         "summary": "Update a user's device shares.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -1377,8 +1591,8 @@
             "required": true,
             "description": "The device id",
             "name": "deviceId",
-            "pattern": "^[0-9A-Z]+$",
-            "type": "string"
+            "pattern": "^[0-9]+$",
+            "type": "number"
           },
           {
             "in": "path",
@@ -1418,13 +1632,19 @@
               }
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/devices/{deviceId}/statistics": {
       "get": {
         "operationId": "getUserDeviceStatistics",
         "summary": "Get a user's device's device's statistics.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1443,8 +1663,8 @@
             "required": true,
             "description": "The device id",
             "name": "deviceId",
-            "pattern": "^[0-9A-Z]+$",
-            "type": "string"
+            "pattern": "^[0-9]+$",
+            "type": "number"
           },
           {
             "in": "header",
@@ -1507,13 +1727,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/devices/{deviceId}/data/raw": {
       "get": {
         "operationId": "getUserDeviceRawData",
         "summary": "Get a user's device's raw data.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1532,8 +1758,8 @@
             "required": true,
             "description": "The device id",
             "name": "deviceId",
-            "pattern": "^[0-9A-Z]+$",
-            "type": "string"
+            "pattern": "^[0-9]+$",
+            "type": "number"
           },
           {
             "in": "header",
@@ -1628,13 +1854,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/devices/{deviceId}/data/hourly": {
       "get": {
         "operationId": "getUserDeviceHourlyData",
         "summary": "Get a user's device's hourly data.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1653,8 +1885,8 @@
             "required": true,
             "description": "The device id",
             "name": "deviceId",
-            "pattern": "^[0-9A-Z]+$",
-            "type": "string"
+            "pattern": "^[0-9]+$",
+            "type": "number"
           },
           {
             "in": "header",
@@ -1721,13 +1953,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/devices/{deviceId}/data/daily": {
       "get": {
         "operationId": "getUserDeviceDailyData",
         "summary": "Get a user's device's daily data.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1746,8 +1984,8 @@
             "required": true,
             "description": "The device id",
             "name": "deviceId",
-            "pattern": "^[0-9A-Z]+$",
-            "type": "string"
+            "pattern": "^[0-9]+$",
+            "type": "number"
           },
           {
             "in": "header",
@@ -1814,13 +2052,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/devices/{deviceId}/countinuousStatistics": {
       "get": {
         "operationId": "getUserDeviceContinuousStatistics",
         "summary": "Get a user's device's continuous device's statistics.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1839,8 +2083,8 @@
             "required": true,
             "description": "The device id",
             "name": "deviceId",
-            "pattern": "^[0-9A-Z]+$",
-            "type": "string"
+            "pattern": "^[0-9]+$",
+            "type": "number"
           },
           {
             "in": "header",
@@ -1903,13 +2147,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/devices/{deviceId}/degreeDays": {
       "get": {
         "operationId": "getUserDeviceDegreeDays",
         "summary": "Get a user's device's degree days.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1928,8 +2178,8 @@
             "required": true,
             "description": "The device id",
             "name": "deviceId",
-            "pattern": "^[0-9A-Z]+$",
-            "type": "string"
+            "pattern": "^[0-9]+$",
+            "type": "number"
           },
           {
             "in": "header",
@@ -1968,13 +2218,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/devices/{deviceId}/summaries/{date}": {
       "get": {
         "operationId": "getUserDeviceSummary",
         "summary": "Get a user's device's summary at a given date.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -1993,8 +2249,8 @@
             "required": true,
             "description": "The device id",
             "name": "deviceId",
-            "pattern": "^[0-9A-Z]+$",
-            "type": "string"
+            "pattern": "^[0-9]+$",
+            "type": "number"
           },
           {
             "in": "header",
@@ -2046,13 +2302,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/devices/{deviceId}/forecasts": {
       "get": {
         "operationId": "getUserDeviceForecasts",
         "summary": "Get a user's device's forecasts.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2071,8 +2333,16 @@
             "required": true,
             "description": "The device id",
             "name": "deviceId",
-            "pattern": "^[0-9A-Z]+$",
-            "type": "string"
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "description": "Date of the forecasts",
+            "type": "string",
+            "format": "date-time",
+            "required": true
           },
           {
             "in": "header",
@@ -2095,13 +2365,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/forecasts": {
       "get": {
         "operationId": "getUserForecasts",
         "summary": "Get a user's forecasts.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2136,6 +2412,13 @@
             "type": "number"
           },
           {
+            "in": "query",
+            "name": "date",
+            "description": "Date of the forecasts",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
             "in": "header",
             "name": "Authorization",
             "description": "Authorization with Bearer mecanism",
@@ -2156,13 +2439,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/data/daily": {
       "get": {
         "operationId": "getUserDailyData",
         "summary": "Get a user's daily data for a given geo location.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2261,13 +2550,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/data/hourly": {
       "get": {
         "operationId": "getUserHourlyData",
         "summary": "Get a user's hourly data for a given geo location.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2366,13 +2661,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/preferences": {
       "get": {
         "operationId": "getUserPreferences",
         "summary": "Get a user's preferences.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2407,11 +2708,17 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       },
       "put": {
         "operationId": "putUserPreferences",
         "summary": "Update a user's preferences.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -2451,13 +2758,19 @@
               "$ref": "#/definitions/UserPreferences"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/organisations/{organisationId}/operations": {
       "get": {
         "operationId": "getOrganisationOperations",
         "summary": "Get a organisation's operations.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2492,11 +2805,17 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       },
       "post": {
         "operationId": "postOrganisationOperation",
         "summary": "Create an organisation's operation.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -2542,13 +2861,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/organisations/{organisationId}/operations/{operationId}": {
       "get": {
         "operationId": "getOrganisationOperation",
         "summary": "Retrieve an organisation's operation.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2591,11 +2916,17 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       },
       "put": {
         "operationId": "putOrganisationOperation",
         "summary": "Update an organisation's operation.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -2649,11 +2980,17 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       },
       "delete": {
         "operationId": "deleteOrganisationOperation",
         "summary": "Delete an organisation's operation.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2687,13 +3024,19 @@
           "204": {
             "description": "The organisation's operation does not exist anymore"
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/alerts": {
       "get": {
         "operationId": "getUserAlerts",
         "summary": "Get a user's alerts.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [
           "application/json"
@@ -2723,16 +3066,22 @@
             }
           },
           "404": {
-            "description": "Organisation does not exists",
+            "description": "User does not exists",
             "schema": {
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "tags": []
       },
       "post": {
         "operationId": "postUserAlert",
         "summary": "Create a user's alert.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -2772,13 +3121,19 @@
               "$ref": "#/definitions/AlertEntry"
             }
           }
-        }
+        },
+        "tags": []
       }
     },
     "/users/{userId}/alerts/{alertId}": {
       "put": {
         "operationId": "putUserAlert",
         "summary": "Update a user's alert.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [
           "application/json"
         ],
@@ -2826,11 +3181,17 @@
               "$ref": "#/definitions/AlertEntry"
             }
           }
-        }
+        },
+        "tags": []
       },
       "delete": {
         "operationId": "deleteUserAlert",
         "summary": "Delete a user's alert.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
         "consumes": [],
         "produces": [],
         "parameters": [
@@ -2862,7 +3223,8 @@
           "404": {
             "description": "The user's alert were successfully deleted."
           }
-        }
+        },
+        "tags": []
       }
     },
     "/organisations": {
@@ -2972,7 +3334,8 @@
               "$ref": "#/definitions/OrganisationItem"
             }
           }
-        }
+        },
+        "tags": []
       }
     }
   },
@@ -3022,7 +3385,7 @@
     "UsersItemsHash": {
       "type": "object",
       "patternProperties": {
-        "^[0-9A-Z]+$": {
+        "^[0-9]+$": {
           "$ref": "#/definitions/UserItem"
         }
       }
@@ -3198,6 +3561,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "identification": {
+          "type": "string"
         }
       }
     },
@@ -3274,6 +3640,46 @@
         }
       }
     },
+    "PartnerDevicesCollection": {
+      "type": "object",
+      "required": [
+        "items",
+        "models",
+        "devices",
+        "devicesStatuses",
+        "organisations",
+        "users"
+      ],
+      "properties": {
+        "models": {
+          "$ref": "#/definitions/ModelsItemsHash"
+        },
+        "devicesStatuses": {
+          "$ref": "#/definitions/DeviceStatusesItemsHash"
+        },
+        "devices": {
+          "$ref": "#/definitions/DevicesItemsHash"
+        },
+        "users": {
+          "$ref": "#/definitions/UsersItemsHash"
+        },
+        "organisations": {
+          "$ref": "#/definitions/OrganisationsItemsHash"
+        },
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$"
+          }
+        },
+        "total": {
+          "type": "number",
+          "min": 0
+        }
+      }
+    },
     "DevicesCollection": {
       "type": "object",
       "required": [
@@ -3300,8 +3706,8 @@
           "type": "array",
           "uniqueItems": true,
           "items": {
-            "type": "string",
-            "pattern": "^[0-9A-Z]+$"
+            "type": "number",
+            "pattern": "^[0-9]+$"
           }
         }
       }
@@ -3309,7 +3715,7 @@
     "DevicesItemsHash": {
       "type": "object",
       "patternProperties": {
-        "^[0-9A-Z]+$": {
+        "^[0-9]+$": {
           "$ref": "#/definitions/DeviceItem"
         }
       }
@@ -3333,8 +3739,7 @@
           "$ref": "#/definitions/DevicesItemsHash"
         },
         "entry": {
-          "type": "string",
-          "pattern": "^[0-9A-Z]+$"
+          "type": "number"
         }
       }
     },
@@ -3345,8 +3750,7 @@
       ],
       "properties": {
         "id": {
-          "type": "string",
-          "pattern": "^[0-9A-Z]+$"
+          "type": "number"
         },
         "contents": {
           "$ref": "#/definitions/Device"
@@ -3356,18 +3760,33 @@
           "items": {
             "type": "object",
             "required": [
-              "role",
+              "deviceId",
+              "userId",
+              "type",
               "startDate",
               "endDate"
             ],
             "properties": {
-              "role": {
+              "deviceId": {
+                "type": "number"
+              },
+              "userId": {
+                "type": "number"
+              },
+              "delegatorId": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
                 "type": "string",
                 "enum": [
                   "owner",
                   "user",
                   "guest",
-                  "collaborator"
+                  "collaborator",
+                  "partner"
                 ]
               },
               "startDate": {
@@ -3382,7 +3801,12 @@
           }
         },
         "identification": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^(WCP?|RC|SC|UMO)[0-9]{6}$"
+        },
+        "serial": {
+          "type": "string",
+          "pattern": "^[A-Z0-9]+$"
         },
         "modelId": {
           "type": "number"
@@ -3409,7 +3833,7 @@
     "DevicesMovesHash": {
       "type": "object",
       "patternProperties": {
-        "^[0-9A-Z]+$": {
+        "^[0-9]+$": {
           "$ref": "#/definitions/DeviceMoves"
         }
       }
@@ -3451,7 +3875,7 @@
         },
         "entry": {
           "type": "string",
-          "pattern": "^[0-9A-Z]+$"
+          "pattern": "^[0-9]+$"
         },
         "measures": {
           "type": "array",
@@ -3476,7 +3900,7 @@
         "entry",
         "models",
         "devices",
-        "measures"
+        "degreeDays"
       ],
       "properties": {
         "models": {
@@ -3486,8 +3910,8 @@
           "$ref": "#/definitions/DevicesItemsHash"
         },
         "entry": {
-          "type": "string",
-          "pattern": "^[0-9A-Z]+$"
+          "type": "number",
+          "pattern": "^[0-9]+$"
         },
         "degreeDays": {
           "$ref": "#/definitions/DeviceDegreeDayItemsHash"
@@ -3497,7 +3921,7 @@
     "DeviceDegreeDayItemsHash": {
       "type": "object",
       "patternProperties": {
-        "^[0-9A-Z]+$": {
+        "^[0-9]+$": {
           "$ref": "#/definitions/DeviceDegreeDay"
         }
       }
@@ -3553,14 +3977,14 @@
         },
         "entry": {
           "type": "string",
-          "pattern": "^[0-9A-Z]+$"
+          "pattern": "^[0-9]+$"
         }
       }
     },
     "SummariesItemsHash": {
       "type": "object",
       "patternProperties": {
-        "^[0-9A-Z]+$": {
+        "^[0-9]+$": {
           "$ref": "#/definitions/DeviceSummaryItem"
         }
       }
@@ -3614,7 +4038,7 @@
         },
         "entry": {
           "type": "string",
-          "pattern": "^[0-9A-Z]+$"
+          "pattern": "^[0-9]+$"
         },
         "forecasts": {
           "type": "object",
@@ -3625,7 +4049,7 @@
     "DeviceStatusesItemsHash": {
       "type": "object",
       "patternProperties": {
-        "^[0-9A-Z]+$": {
+        "^[0-9]+$": {
           "$ref": "#/definitions/DeviceStatusItem"
         }
       }
@@ -3637,8 +4061,11 @@
       ],
       "properties": {
         "id": {
-          "type": "string",
-          "pattern": "^[0-9A-Z]+$"
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "measuresCount": {
+          "type": "number"
         },
         "contents": {
           "$ref": "#/definitions/DeviceStatus"
@@ -3649,55 +4076,61 @@
       "type": "object",
       "required": [
         "firmware",
-        "reboot",
-        "move",
-        "gpsFix",
-        "active",
-        "turnOffDate",
-        "rebootDate",
-        "moveDate",
-        "gpsFixDate",
-        "activeDate",
-        "lastStatusUpdateDate",
-        "signalNR",
-        "batt",
-        "lastDataDate",
+        "battery",
+        "signal",
         "latitude",
-        "altitude",
         "longitude",
-        "hdop",
-        "svSatelits",
-        "gpsFixFailed"
+        "altitude",
+        "locationSatellites",
+        "locationPrecision",
+        "lastLocationDate",
+        "lastLocationFailureDate",
+        "lastMoveDate",
+        "lastRebootDate",
+        "lastStatusUpdateDate"
       ],
       "properties": {
         "firmware": {
           "type": "string"
         },
-        "reboot": {
+        "battery": {
           "type": "number"
         },
-        "move": {
+        "signal": {
           "type": "number"
         },
-        "gpsFix": {
+        "latitude": {
           "type": "number"
         },
-        "active": {
+        "longitude": {
           "type": "number"
         },
-        "turnOffDate": {
+        "altitude": {
+          "type": "number"
+        },
+        "locationSatellites": {
+          "type": "number"
+        },
+        "locationPrecision": {
+          "type": "number"
+        },
+        "lastLocationDate": {
           "type": "string",
           "format": "date-time"
         },
-        "rebootDate": {
+        "lastLocationFailureDate": {
           "type": "string",
           "format": "date-time"
         },
-        "moveDate": {
+        "lastRebootDate": {
           "type": "string",
           "format": "date-time"
         },
-        "gpsFixDate": {
+        "lastMoveDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastStatusUpdateDate": {
           "type": "string",
           "format": "date-time"
         },
@@ -3708,37 +4141,6 @@
         "manufacturedDate": {
           "type": "string",
           "format": "date-time"
-        },
-        "lastStatusUpdateDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "signalNR": {
-          "type": "number"
-        },
-        "battery": {
-          "type": "string"
-        },
-        "lastDataTime": {
-          "type": "number"
-        },
-        "latitude": {
-          "type": "number"
-        },
-        "altitude": {
-          "type": "number"
-        },
-        "longitude": {
-          "type": "number"
-        },
-        "hdop": {
-          "type": "string"
-        },
-        "svSatelits": {
-          "type": "number"
-        },
-        "gpsFixFailed": {
-          "type": "string"
         }
       }
     },
@@ -3996,7 +4398,8 @@
         "sharedDevicesIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "number",
+            "pattern": "^[0-9]+$"
           }
         },
         "callbackPath": {
@@ -4017,7 +4420,8 @@
         "sharedDevicesIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "number",
+            "pattern": "^[0-9]+$"
           }
         }
       }
@@ -4110,7 +4514,8 @@
         "sharedDevicesIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "number",
+            "pattern": "^[0-9]+$"
           }
         },
         "callbackPath": {
@@ -4131,7 +4536,8 @@
         "sharedDevicesIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "number",
+            "pattern": "^[0-9]+$"
           }
         }
       }
@@ -4162,12 +4568,12 @@
     "Measure": {
       "type": "object",
       "required": [
-        "deviceSerial",
+        "deviceId",
         "measures"
       ],
       "properties": {
-        "deviceSerial": {
-          "type": "string"
+        "deviceId": {
+          "type": "number"
         },
         "startDate": {
           "type": "string",
@@ -4358,8 +4764,8 @@
           "type": "array",
           "uniqueItems": true,
           "items": {
-            "type": "string",
-            "pattern": "^[A-Z0-9]+$"
+            "type": "number",
+            "pattern": "^[0-9]+$"
           }
         },
         "startDate": {
@@ -4430,6 +4836,18 @@
           "type": "number",
           "pattern": "^[0-9]+$"
         },
+        "userId": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "lastTriggerDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "activationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
         "contents": {
           "$ref": "#/definitions/Alert"
         }
@@ -4439,35 +4857,23 @@
       "type": "object",
       "required": [
         "name",
-        "devicesIds",
-        "displaysIds"
+        "active",
+        "devicesIds"
       ],
       "properties": {
         "name": {
           "type": "string"
         },
-        "type": {
-          "type": "string",
-          "enum": [
-            "irrigation",
-            "spraying",
-            "seeding"
-          ]
-        },
-        "displaysIds": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "type": "number",
-            "pattern": "^[0-9]+$"
-          }
+        "active": {
+          "type": "boolean"
         },
         "devicesIds": {
           "type": "array",
           "uniqueItems": true,
+          "minItems": 1,
           "items": {
-            "type": "string",
-            "pattern": "^[0-9A-Z]+$"
+            "type": "number",
+            "pattern": "^[0-9]+$"
           }
         },
         "notification": {
@@ -4653,8 +5059,8 @@
           "type": "array",
           "minItems": 1,
           "items": {
-            "type": "string",
-            "pattern": "^[0-9A-Z]+$"
+            "type": "number",
+            "pattern": "^[0-9]+$"
           }
         }
       }
@@ -4701,27 +5107,30 @@
     "Emails": {
       "type": "array",
       "items": {
-        "subject": {
-          "type": "string"
-        },
-        "text": {
-          "type": "string"
-        },
-        "html": {
-          "type": "string"
-        },
-        "from": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
+        "type": "object",
+        "properties": {
+          "subject": {
             "type": "string"
-          }
-        },
-        "to": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
+          },
+          "text": {
             "type": "string"
+          },
+          "html": {
+            "type": "string"
+          },
+          "from": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "to": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
           }
         }
       }
