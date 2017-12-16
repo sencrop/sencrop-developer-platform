@@ -47,7 +47,7 @@ const Index = () => (
     <p>
       We wish you an exciting journey through the
       Sencrop world! Feel free
-      to <a href="javascript: alert('501')">contact
+      to <a href="https://sencrop.typeform.com/to/XzDjNC">contact
       us</a> if you have any question!
     </p>
     <p>
