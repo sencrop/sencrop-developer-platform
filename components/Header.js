@@ -6,16 +6,16 @@ const Header = (props) => (
   <Wrapper>
     <Image src={logoUrl} />
     <StyledLink href="/">
-      <a className={props.home && 'active'}>Home</a>
+      <a className={props.home && 'active' || 'not'}>Home</a>
     </StyledLink>
     <StyledLink href="/guide">
-      <a className={props.guide && 'active'}>API Guide</a>
+      <a className={props.guide && 'active' || 'not'}>API Guide</a>
     </StyledLink>
     <StyledLink href="/reference">
       <a className={props.reference ? 'active' : 'not'}>API Reference</a>
     </StyledLink>
     <StyledLink href="/tools">
-      <a className={props.tools && 'active'}>Tools</a>
+      <a className={props.tools && 'active' || 'not'}>Tools</a>
     </StyledLink>
     <a href="https://sencrop.typeform.com/to/dFLmCl"
       target="_blank">
@@ -62,4 +62,3 @@ const Wrapper = styled.div`
 const StyledLink = styled(Link)`
   ${props => props.active && 'color: red !important;'}
 `;
-
