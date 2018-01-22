@@ -363,8 +363,8 @@ const Index = () => (
     <h2>First contact</h2>
     <p>
       You can simply hit the Sencrop API
-      by simply opening ou ping endpoint
-      in you browser:<br/>
+      by simply opening our ping endpoint
+      in your browser:<br/>
       <a href="{PING_ENDPOINT}"
       >{PING_ENDPOINT}</a>
     </p>
@@ -402,7 +402,7 @@ const Index = () => (
       in.
     </p>
     <p>
-      We will soon provide you a interface
+      We will soon provide you an interface
       to manage your applications token but
       in the meanwhile, you can open the
       developer console and copy/paste this

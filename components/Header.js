@@ -11,6 +11,9 @@ const Header = (props) => (
     <StyledLink href="/guide">
       <a className={props.guide && 'active'}>API Guide</a>
     </StyledLink>
+    <StyledLink href="/partners">
+      <a className={props.partners && 'active'}>Partners API</a>
+    </StyledLink>
     <StyledLink href="/reference">
       <a className={props.reference ? 'active' : 'not'}>API Reference</a>
     </StyledLink>
@@ -62,4 +65,3 @@ const Wrapper = styled.div`
 const StyledLink = styled(Link)`
   ${props => props.active && 'color: red !important;'}
 `;
-

@@ -29,6 +29,7 @@ const Layout = (props) => (
     <Header
       home={props.home}
       guide={props.guide}
+      partners={props.partners}
       reference={props.reference}
       tools={props.tools}
     />
