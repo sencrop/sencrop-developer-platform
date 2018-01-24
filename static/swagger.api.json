@@ -63,6 +63,25 @@
         "tags": []
       }
     },
+    "/modules": {
+      "get": {
+        "operationId": "getModules",
+        "summary": "Get the modules",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of the modules",
+            "schema": {
+              "$ref": "#/definitions/ModulesCollection"
+            }
+          }
+        },
+        "tags": []
+      }
+    },
     "/utils/checkSignup": {
       "post": {
         "operationId": "postSignupCheck",
@@ -1682,6 +1701,160 @@
             "schema": {
               "$ref": "#/definitions/DeviceItem"
             }
+          }
+        },
+        "tags": []
+      }
+    },
+    "/users/{userId}/devices/{deviceId}/modules": {
+      "get": {
+        "operationId": "getUserDeviceModules",
+        "summary": "Get the modules a user activated on its device",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "pattern": "^[0-9]+$",
+            "name": "deviceId",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of the modules activated on the given user device",
+            "schema": {
+              "$ref": "#/definitions/ModulesCollection"
+            }
+          }
+        },
+        "tags": []
+      }
+    },
+    "/users/{userId}/devices/{deviceId}/modules/{moduleId}": {
+      "put": {
+        "operationId": "putUserDeviceModule",
+        "summary": "Add a module to a user's device",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "pattern": "^[0-9]+$",
+            "name": "deviceId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The module id",
+            "pattern": "^[0-9]+$",
+            "name": "moduleId",
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "description": "The module settings",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Module sucessfully activated on the user device"
+          }
+        },
+        "tags": []
+      },
+      "delete": {
+        "operationId": "deleteUserDeviceModule",
+        "summary": "Disable a module for a user's device",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The device id",
+            "pattern": "^[0-9]+$",
+            "name": "deviceId",
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "required": true,
+            "description": "The module id",
+            "pattern": "^[0-9]+$",
+            "name": "moduleId",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Module sucessfully disabled for the user device"
           }
         },
         "tags": []
@@ -3920,6 +4093,9 @@
               "userId": {
                 "type": "number"
               },
+              "moduleId": {
+                "type": "number"
+              },
               "delegatorId": {
                 "type": "number"
               },
@@ -4815,6 +4991,97 @@
       "properties": {
         "name": {
           "type": "string"
+        }
+      }
+    },
+    "ModulesCollection": {
+      "type": "object",
+      "required": [
+        "items",
+        "modules"
+      ],
+      "properties": {
+        "modules": {
+          "$ref": "#/definitions/ModulesItemsHash"
+        },
+        "items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "pattern": "^[0-9]+$"
+          }
+        }
+      }
+    },
+    "ModuleEntry": {
+      "type": "object",
+      "required": [
+        "entry",
+        "modules"
+      ],
+      "properties": {
+        "modules": {
+          "$ref": "#/definitions/ModulesItemsHash"
+        },
+        "organisations": {
+          "$ref": "#/definitions/OrganisationsItemsHash"
+        },
+        "entry": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        }
+      }
+    },
+    "ModulesItemsHash": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/ModuleItem"
+        }
+      }
+    },
+    "ModuleItem": {
+      "type": "object",
+      "required": [
+        "contents"
+      ],
+      "properties": {
+        "id": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "organisationId": {
+          "type": "number",
+          "pattern": "^[0-9]+$"
+        },
+        "contents": {
+          "$ref": "#/definitions/Module"
+        }
+      }
+    },
+    "Module": {
+      "type": "object",
+      "required": [
+        "name",
+        "code",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "data",
+            "schedule",
+            "ftp",
+            "partner"
+          ]
         }
       }
     },
