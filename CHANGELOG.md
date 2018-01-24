@@ -1,3 +1,15 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.0.4...v1.1.0) (2018-01-24)
+
+
+### Features
+
+* **API Reference:** Update the Swagger definition ([3eb9763](https://github.com/sencrop/sencrop-developer-platform/commit/3eb9763))
+* **Contact form:** Adding the link to the contact form ([b5f9855](https://github.com/sencrop/sencrop-developer-platform/commit/b5f9855))
+* **Partners:** Add a page for the partner API ([c3dbf37](https://github.com/sencrop/sencrop-developer-platform/commit/c3dbf37))
+
+
+
 <a name="1.0.4"></a>
 ## [1.0.4](https://github.com/sencrop/sencrop-developer-platform/compare/v1.0.3...v1.0.4) (2017-11-30)
 
