@@ -1,3 +1,14 @@
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/sencrop/sencrop-developer-platform/compare/v1.1.0...v1.1.1) (2018-01-24)
+
+
+### Bug Fixes
+
+* **Build:** Fix the partners page export ([a8b32b2](https://github.com/sencrop/sencrop-developer-platform/commit/a8b32b2))
+* **Dependencies:** Update the Swagger via the NPM module instead ([4d50155](https://github.com/sencrop/sencrop-developer-platform/commit/4d50155))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.0.4...v1.1.0) (2018-01-24)
 
