@@ -385,15 +385,31 @@ const Index = () => (
     <p>
       Most of our API requires you to pass
       a token via the Bearer HTTP mecanism.
+      To interact with our servers, you will
+      need to choose a way to get one.
+    </p>
+    <h3>Via OAuth2</h3>
+    <p>
       We plan to integrate OAuth authentication
       that will provide you a way to obtain
-      that token from our users.
+      a token from our users. Subscribe to our
+      mailing list to be informed of the OAuth2
+      support.
     </p>
+    <h3>Via the Partners API</h3>
     <p>
-      Currently, since our public API is in a
-      call for advice state, you can only use
-      our API with your own token, generated
-      on our application.
+      The <Link href="/partners"><a>Partners
+      API</a></Link> allows you to ask our
+      users an access to their data in a
+      privilegied way. You first need to meet
+      us to get that access.
+    </p>
+    <h3>Via the Sencrop app</h3>
+    <p>
+      Otherwise, for your own account, you
+      can use our API with your own token,
+      generated on our application, for
+      testing purposes.
     </p>
     <p>
       To grab a token, just connect to
@@ -403,7 +419,7 @@ const Index = () => (
     </p>
     <p>
       We will soon provide you an interface
-      to manage your applications token but
+      to manage your applications tokens but
       in the meanwhile, you can open the
       developer console and copy/paste this
       snippet:
@@ -426,12 +442,12 @@ const Index = () => (
     </p>
     <p>
       Or just continue your journey through
-      our API!
+      our API guide!
     </p>
     <h2>Listing your devices</h2>
     <p>
       Before retrieving your data you may want
-      to simply liste your own Sencrop Devices:
+      to simply list your own Sencrop Devices:
     </p>
     <SyntaxHighlighter language="javascript" style={docco}>{
       CURL_SENCROP_DEVICES_CODE
