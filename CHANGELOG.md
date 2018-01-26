@@ -1,3 +1,13 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.1.1...v1.2.0) (2018-01-26)
+
+
+### Features
+
+* **API Guide:** Mention the partners API in the API guide ([faddca4](https://github.com/sencrop/sencrop-developer-platform/commit/faddca4))
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/sencrop/sencrop-developer-platform/compare/v1.1.0...v1.1.1) (2018-01-24)
 
