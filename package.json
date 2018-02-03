@@ -36,6 +36,9 @@
   },
   "keywords": [],
   "author": "",
+  "contributors": [
+    "Cynthia HENAFF <cynthia+npm@henaff.io> (https://henaff.io)"
+  ],
   "license": "MIT",
   "dependencies": {
     "babel-plugin-styled-components": "^1.2.1",
