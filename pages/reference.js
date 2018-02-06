@@ -16,8 +16,17 @@ const APIReference = () => (
     <NoSSR>
       <Swagger/>
     </NoSSR>
-    <style jsx>{`
+
+    {/* The CSS code for pre in ../ui/index.js overrides the CSS code in swagger-ui. The following code resolves this issue */}
+    <style>{`
+      /* Version bubble */
       .swagger-ui .info .title small pre { background-color: inherit !important; }
+
+      /* Base Url */
+      .swagger-ui .base-url { background-color: inherit !important; }
+
+      /* Payloads */
+      .swagger-ui .microlight { background-color: #41444e !important; color: #FFF !important; }
     `}</style>
   </Layout>
 )
