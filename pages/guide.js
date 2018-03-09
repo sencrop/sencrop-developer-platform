@@ -580,6 +580,37 @@ const Index = () => (
       Check out the API reference for more
       information.
     </p>
+    <h2>Units</h2>
+    <p>
+      The API returns values in fixed units.
+      We use the{' '}
+      <a href="https://en.wikipedia.org/wiki/International_System_of_Units">
+        international system of units
+      </a>{' '}
+      where applicable so that you can convert
+      it on you side with ease. Here are the
+      various units we use:
+    </p>
+    <ul>
+      <li><strong>RAIN_TIC</strong>: pluviometry measured in{' '}
+        <a href="https://en.wikipedia.org/wiki/Rain#Measurement">millimeters (mm)</a>,
+      </li>
+      <li><strong>TEMP_AIR*</strong>: temperature measured in{' '}
+        <a href="https://en.wikipedia.org/wiki/Celsius">degree Celsius (°C)</a>,
+      </li>
+      <li><strong>RH_AIR*</strong>: relative humidity measured in{' '}
+        <a href="https://en.wikipedia.org/wiki/Relative_humidity#Definition">percentage (%)</a>,
+      </li>
+      <li><strong>WIND_MEAN/WIND_MAX</strong>: wind measured in{' '}
+        <a href="https://en.wikipedia.org/wiki/Kilometres_per_hour">kilometers per hour (km·h−1)</a>,
+      </li>
+      <li><strong>WIND_DIRECTION</strong>: wind direction angle with the North in{' '}
+        <a href="https://en.wikipedia.org/wiki/Degree_(angle)">degrees (°)</a>,
+      </li>
+      <li><strong>WET_TEMPERATURE</strong>: wet bulb temperature in{' '}
+        <a href="https://en.wikipedia.org/wiki/Wet-bulb_temperature">degree Celsius (°C)</a>.
+      </li>
+    </ul>
     <h2>Limits</h2>
     <p>
       Since we are in an early alpha publication
