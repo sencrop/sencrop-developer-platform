@@ -20,7 +20,7 @@ Router.onRouteChangeComplete = () => {
   );
 };
 
-module.exports = (props) => {
+export default (props) => {
   if(!initialized) {
     ReactGA.initialize(GA_ID);
     initialized = true;

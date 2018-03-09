@@ -484,49 +484,6 @@
         }
       }
     },
-    "/users": {
-      "post": {
-        "operationId": "postUser",
-        "summary": "Create a user.",
-        "security": {
-          "token": [
-            "ROLE_ADMIN"
-          ]
-        },
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "description": "The new user to create",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/MaybeIncompleteUser"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "The user were created",
-            "schema": {
-              "$ref": "#/definitions/UserItem"
-            }
-          }
-        },
-        "tags": []
-      }
-    },
     "/users/{userId}": {
       "get": {
         "operationId": "getUser",
@@ -1079,6 +1036,12 @@
             "type": "boolean"
           },
           {
+            "in": "query",
+            "description": "Wether you want to get only original data or eventually patched ones to avoid holes.",
+            "name": "patched",
+            "type": "boolean"
+          },
+          {
             "in": "header",
             "name": "Authorization",
             "description": "Authorization with Bearer mecanism",
@@ -1261,10 +1224,10 @@
         "tags": []
       }
     },
-    "/users/{userId}/displays": {
+    "/users/{userId}/deviceGroups": {
       "get": {
-        "operationId": "getUserDisplays",
-        "summary": "Get a user's displays.",
+        "operationId": "getUserDeviceGroups",
+        "summary": "Get a user's devices groups.",
         "security": {
           "token": [
             "ROLE_USER"
@@ -1293,9 +1256,9 @@
         ],
         "responses": {
           "200": {
-            "description": "The requested user's displays",
+            "description": "The requested user's device group",
             "schema": {
-              "$ref": "#/definitions/DisplaysCollection"
+              "$ref": "#/definitions/DeviceGroupsCollection"
             }
           },
           "404": {
@@ -1308,8 +1271,8 @@
         "tags": []
       },
       "post": {
-        "operationId": "postUserDisplay",
-        "summary": "Create a user's display.",
+        "operationId": "postUserDeviceGroup",
+        "summary": "Create a user's device group.",
         "security": {
           "token": [
             "ROLE_USER"
@@ -1339,19 +1302,19 @@
           },
           {
             "in": "body",
-            "description": "The user's display",
+            "description": "The user's device group",
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DisplayInput"
+              "$ref": "#/definitions/DeviceGroupInput"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "The created user's display",
+            "description": "The created user's device group",
             "schema": {
-              "$ref": "#/definitions/DisplayEntry"
+              "$ref": "#/definitions/DeviceGroupEntry"
             }
           },
           "404": {
@@ -1364,10 +1327,10 @@
         "tags": []
       }
     },
-    "/users/{userId}/displays/{displayId}": {
+    "/users/{userId}/deviceGroups/{deviceGroupId}": {
       "get": {
-        "operationId": "getUserDisplay",
-        "summary": "Get a user's display.",
+        "operationId": "getUserDeviceGroup",
+        "summary": "Get a user's devices group.",
         "security": {
           "token": [
             "ROLE_USER"
@@ -1389,8 +1352,8 @@
           {
             "in": "path",
             "required": true,
-            "description": "The display id",
-            "name": "displayId",
+            "description": "The device group id",
+            "name": "deviceGroupId",
             "pattern": "^[0-9]+$",
             "type": "number"
           },
@@ -1404,9 +1367,9 @@
         ],
         "responses": {
           "200": {
-            "description": "The requested user's display",
+            "description": "The requested user's device group",
             "schema": {
-              "$ref": "#/definitions/DisplayEntry"
+              "$ref": "#/definitions/DeviceGroupEntry"
             }
           },
           "404": {
@@ -1419,8 +1382,8 @@
         "tags": []
       },
       "put": {
-        "operationId": "putUserDisplay",
-        "summary": "Update a user's display.",
+        "operationId": "putUserDeviceGroup",
+        "summary": "Update a user's device group.",
         "security": {
           "token": [
             "ROLE_USER"
@@ -1444,9 +1407,9 @@
           {
             "in": "path",
             "required": true,
-            "description": "The display id",
+            "description": "The deviceGroup id",
             "pattern": "^[0-9]+$",
-            "name": "displayId",
+            "name": "deviceGroupId",
             "type": "string"
           },
           {
@@ -1458,27 +1421,27 @@
           },
           {
             "in": "body",
-            "description": "The user's display",
+            "description": "The user's device group",
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DisplayInput"
+              "$ref": "#/definitions/DeviceGroupInput"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "The user's display updated",
+            "description": "The user's device group updated",
             "schema": {
-              "$ref": "#/definitions/DisplayEntry"
+              "$ref": "#/definitions/DeviceGroupEntry"
             }
           }
         },
         "tags": []
       },
       "delete": {
-        "operationId": "deleteUserDisplay",
-        "summary": "Delete a user's display.",
+        "operationId": "deleteUserDeviceGroup",
+        "summary": "Delete a user's device group.",
         "security": {
           "token": [
             "ROLE_USER"
@@ -1498,8 +1461,8 @@
           {
             "in": "path",
             "required": true,
-            "description": "The display id",
-            "name": "displayId",
+            "description": "The device group id",
+            "name": "deviceGroupId",
             "pattern": "^[0-9]+$",
             "type": "number"
           },
@@ -1513,7 +1476,7 @@
         ],
         "responses": {
           "404": {
-            "description": "The user's display were successfully deleted."
+            "description": "The user's device group were successfully deleted."
           }
         },
         "tags": []
@@ -1542,13 +1505,6 @@
             "type": "number"
           },
           {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
             "in": "query",
             "description": "The status date",
             "name": "date",
@@ -1574,6 +1530,40 @@
                 "WET_TEMPERATURE"
               ]
             }
+          },
+          {
+            "in": "query",
+            "description": "Wether you want to get only original data or eventually patched ones to avoid holes.",
+            "name": "patched",
+            "type": "boolean"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number",
+            "description": "The number of items to retrieve",
+            "pattern": "^[0-9]+$",
+            "enum": [
+              10,
+              50,
+              100
+            ]
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "type": "number",
+            "description": "The index in results",
+            "pattern": "^[0-9]+$",
+            "min": 0,
+            "multipleOf": 10
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -1587,6 +1577,66 @@
             "description": "User does not exists",
             "schema": {
               "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "tags": []
+      },
+      "post": {
+        "operationId": "postUserDevice",
+        "summary": "Setup a user's device.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The user id",
+            "pattern": "^[0-9]+$",
+            "name": "userId",
+            "type": "number"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "description": "The user device activation couple",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "identification": {
+                  "type": "string",
+                  "pattern": "^(WCP?|RC|SC|UMO)[0-9]{6}$"
+                },
+                "activationCode": {
+                  "type": "string",
+                  "pattern": "^[A-F0-9]{4}$"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The user's device created",
+            "schema": {
+              "$ref": "#/definitions/DeviceItem"
             }
           }
         },
@@ -2007,7 +2057,8 @@
                 "WIND_MAX",
                 "WIND_DIRECTION",
                 "RAIN_TIC",
-                "MOVE"
+                "MOVE",
+                "WET_TEMPERATURE"
               ]
             }
           },
@@ -2066,13 +2117,6 @@
             "type": "number"
           },
           {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
             "in": "query",
             "required": true,
             "description": "The date before which the data starts being retrieved",
@@ -2116,6 +2160,13 @@
                 "ALT"
               ]
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -2193,13 +2244,6 @@
             "type": "number"
           },
           {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
             "in": "query",
             "required": true,
             "description": "The date before which the data starts being retrieved",
@@ -2217,6 +2261,7 @@
               1,
               2,
               7,
+              20,
               31
             ]
           },
@@ -2239,9 +2284,17 @@
                 "RAIN_TIC",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
-                "TEMP_AIR_H1_MAX"
+                "TEMP_AIR_H1_MAX",
+                "WET_TEMPERATURE"
               ]
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -2292,13 +2345,6 @@
             "type": "number"
           },
           {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
             "in": "query",
             "required": true,
             "description": "The date before which the data starts being retrieved",
@@ -2338,9 +2384,17 @@
                 "RAIN_TIC",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
-                "TEMP_AIR_H1_MAX"
+                "TEMP_AIR_H1_MAX",
+                "WET_TEMPERATURE"
               ]
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -2433,7 +2487,8 @@
                 "WIND_MAX",
                 "WIND_DIRECTION",
                 "RAIN_TIC",
-                "MOVE"
+                "MOVE",
+                "WET_TEMPERATURE"
               ]
             }
           },
@@ -2492,13 +2547,6 @@
             "type": "number"
           },
           {
-            "in": "header",
-            "name": "Authorization",
-            "description": "Authorization with Bearer mecanism",
-            "type": "string",
-            "required": true
-          },
-          {
             "in": "query",
             "required": true,
             "description": "The statistics start date",
@@ -2513,6 +2561,13 @@
             "name": "endDate",
             "type": "string",
             "format": "date-time"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -2683,6 +2738,7 @@
       "get": {
         "operationId": "getUserForecasts",
         "summary": "Get a user's forecasts.",
+        "tags": [],
         "security": {
           "token": [
             "ROLE_USER"
@@ -2749,8 +2805,7 @@
               "$ref": "#/definitions/Error"
             }
           }
-        },
-        "tags": []
+        }
       }
     },
     "/users/{userId}/data/daily": {
@@ -2842,7 +2897,8 @@
                 "RAIN_TIC",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
-                "TEMP_AIR_H1_MAX"
+                "TEMP_AIR_H1_MAX",
+                "WET_TEMPERATURE"
               ]
             }
           }
@@ -2931,6 +2987,7 @@
               1,
               2,
               7,
+              20,
               31
             ]
           },
@@ -2953,7 +3010,8 @@
                 "RAIN_TIC",
                 "TEMP_AIR_H1",
                 "TEMP_AIR_H1_MIN",
-                "TEMP_AIR_H1_MAX"
+                "TEMP_AIR_H1_MAX",
+                "WET_TEMPERATURE"
               ]
             }
           }
@@ -3647,6 +3705,58 @@
           }
         }
       }
+    },
+    "/organisations/{organisationId}": {
+      "put": {
+        "operationId": "putOrganisation",
+        "summary": "Update an organisation.",
+        "security": {
+          "token": [
+            "ROLE_USER"
+          ]
+        },
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "description": "The organisation id",
+            "name": "organisationId",
+            "pattern": "^[0-9]+$",
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "description": "The modified organisation",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrganisationItem"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization with Bearer mecanism",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The organisation were sucessfully updated",
+            "schema": {
+              "$ref": "#/definitions/OrganisationItem"
+            }
+          }
+        },
+        "tags": []
+      }
     }
   },
   "securityDefinitions": {
@@ -3826,6 +3936,17 @@
         "id": {
           "type": "number"
         },
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "customer",
+              "partner",
+              "admin"
+            ]
+          }
+        },
         "contents": {
           "$ref": "#/definitions/Organisation"
         }
@@ -3837,11 +3958,29 @@
       "required": [
         "name",
         "city",
+        "country",
         "address",
-        "zipcode"
+        "zipcode",
+        "locale",
+        "timeZone"
       ],
       "properties": {
         "name": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "string"
+        },
+        "identification": {
           "type": "string"
         },
         "locale": {
@@ -3852,33 +3991,6 @@
         "timeZone": {
           "type": "string",
           "maxLength": 50
-        },
-        "isSencrop": {
-          "type": "number"
-        },
-        "city": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
-        },
-        "zipcode": {
-          "type": "string"
-        },
-        "area": {
-          "type": "number"
-        },
-        "irrigation": {
-          "type": "boolean"
-        },
-        "crops": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "identification": {
-          "type": "string"
         }
       }
     },
@@ -4029,6 +4141,10 @@
             "type": "number",
             "pattern": "^[0-9]+$"
           }
+        },
+        "total": {
+          "type": "number",
+          "min": 0
         }
       }
     },
@@ -4099,6 +4215,10 @@
               "delegatorId": {
                 "type": "number"
               },
+              "parameters": {
+                "type": "object",
+                "additionalProperties": true
+              },
               "name": {
                 "type": "string"
               },
@@ -4117,6 +4237,10 @@
                 "format": "date-time"
               },
               "endDate": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "deletionDate": {
                 "type": "string",
                 "format": "date-time"
               }
@@ -4523,23 +4647,15 @@
         }
       }
     },
-    "DisplaysCollection": {
+    "DeviceGroupsCollection": {
       "type": "object",
       "required": [
         "items",
-        "displays",
-        "devices",
-        "measures"
+        "deviceGroups"
       ],
       "properties": {
-        "measures": {
-          "$ref": "#/definitions/MeasuresItemsHash"
-        },
-        "displays": {
-          "$ref": "#/definitions/DisplaysItemsHash"
-        },
-        "devices": {
-          "$ref": "#/definitions/DevicesItemsHash"
+        "deviceGroups": {
+          "$ref": "#/definitions/DeviceGroupsItemsHash"
         },
         "items": {
           "type": "array",
@@ -4551,23 +4667,15 @@
         }
       }
     },
-    "DisplayEntry": {
+    "DeviceGroupEntry": {
       "type": "object",
       "required": [
         "entry",
-        "displays",
-        "devices",
-        "measures"
+        "deviceGroups"
       ],
       "properties": {
-        "measures": {
-          "$ref": "#/definitions/MeasuresItemsHash"
-        },
-        "displays": {
-          "$ref": "#/definitions/DisplaysItemsHash"
-        },
-        "devices": {
-          "$ref": "#/definitions/DevicesItemsHash"
+        "deviceGroups": {
+          "$ref": "#/definitions/DeviceGroupsItemsHash"
         },
         "entry": {
           "type": "number",
@@ -4575,15 +4683,15 @@
         }
       }
     },
-    "DisplaysItemsHash": {
+    "DeviceGroupsItemsHash": {
       "type": "object",
       "patternProperties": {
         "^[0-9]+$": {
-          "$ref": "#/definitions/DisplayItem"
+          "$ref": "#/definitions/DeviceGroupItem"
         }
       }
     },
-    "DisplayItem": {
+    "DeviceGroupItem": {
       "type": "object",
       "required": [
         "contents"
@@ -4594,41 +4702,40 @@
           "pattern": "^[0-9]+$"
         },
         "contents": {
-          "$ref": "#/definitions/Display"
+          "$ref": "#/definitions/DeviceGroup"
         }
       }
     },
-    "DisplayInput": {
+    "DeviceGroupInput": {
       "type": "object",
       "required": [
         "contents"
       ],
       "properties": {
-        "measures": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Measure"
-          }
-        },
         "contents": {
-          "$ref": "#/definitions/Display"
+          "$ref": "#/definitions/DeviceGroup"
         }
       }
     },
-    "Display": {
+    "DeviceGroup": {
       "type": "object",
       "required": [
         "name",
-        "measuresIds"
+        "devicesIds"
       ],
       "properties": {
         "name": {
           "type": "string"
         },
-        "measuresIds": {
+        "description": {
+          "type": "string"
+        },
+        "devicesIds": {
           "type": "array",
+          "minItems": 1,
           "items": {
-            "type": "number"
+            "type": "number",
+            "pattern": "^[0-9]+$"
           }
         }
       }
@@ -5149,7 +5256,6 @@
       "required": [
         "name",
         "type",
-        "displaysIds",
         "devicesIds",
         "startDate",
         "details"
@@ -5169,6 +5275,7 @@
         "displaysIds": {
           "type": "array",
           "uniqueItems": true,
+          "description": "Deprecated. Won't be used, here for backward compatibility.",
           "items": {
             "type": "number",
             "pattern": "^[0-9]+$"
