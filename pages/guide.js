@@ -580,6 +580,53 @@ const Index = () => (
       Check out the API reference for more
       information.
     </p>
+    <h2>Time buckets</h2>
+    <p>
+      Various measures are aggregated into time
+      buckets. The buckets are computed according
+      to the user&apos;s timezone per default.
+      Here are the various intervals you
+      may encounter:
+    </p>
+    <ul>
+      <li>
+        <strong>15m</strong>:
+        the bucket key will point the start of the
+        buckets with the first one beeing the first
+        15 minutes part of fours containing the given
+        start date,
+      </li>
+      <li>
+        <strong>30m</strong>:
+        the bucket key will point the start of the
+        buckets with the first one beeing the first
+        30 minutes part of fours containing the given
+        start date,
+      </li>
+      <li>
+        <strong>hour</strong>:
+        the bucket key will point the start of days
+        hours inside the given time interval,
+      </li>
+      <li>
+        <strong>week</strong>:
+        the bucket key will point the start of weeks
+        between the provided start and end dates
+        (starting on sunday),
+      </li>
+      <li>
+        <strong>month</strong>:
+        the bucket key will point the start of months
+        for each month between the provided start and
+        end dates,
+      </li>
+      <li>
+        <strong>year</strong>:
+        the bucket key will point the start of years
+        for each year between the provided start and
+        end dates.
+      </li>
+    </ul>
     <h2>Units</h2>
     <p>
       The API returns values in fixed units.
