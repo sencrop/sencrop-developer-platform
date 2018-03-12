@@ -39,7 +39,9 @@ const Index = () => (
     <p>
       For instance, you may like to import
       it <a href="https://www.getpostman.com/docs/postman/collections/data_formats"
-      >into Postman</a>.
+      >into Postman</a> or automatically{' '}
+      <a href="https://swagger.io/swagger-codegen/">create
+      an API client</a> for your favorite programming language.
     </p>
     <h2>JavaScript SDK</h2>
     <p>
