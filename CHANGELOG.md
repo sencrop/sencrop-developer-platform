@@ -1,3 +1,19 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.2.0...v1.3.0) (2018-03-12)
+
+
+### Bug Fixes
+
+* **API Guide:** Fix various typo errors ([2cccc37](https://github.com/sencrop/sencrop-developer-platform/commit/2cccc37))
+
+
+### Features
+
+* **Mailing List:** Improve the mailing list visibility ([0f8f899](https://github.com/sencrop/sencrop-developer-platform/commit/0f8f899))
+* **Tools:** Suggest using automatically generated clients ([b3a9085](https://github.com/sencrop/sencrop-developer-platform/commit/b3a9085))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.1.1...v1.2.0) (2018-01-26)
 

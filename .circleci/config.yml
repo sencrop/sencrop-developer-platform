@@ -48,7 +48,7 @@ jobs:
       - deploy:
           name: Deploy to production
           command: |
-            if [[ "${CIRCLE_TAG}" =~ "^v[0-9]+\.[0-9]+\.[0-9]+" ]]; then
+            if [[ "${CIRCLE_TAG}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
               aws s3 sync out s3://sencrop-developer-platform-production --acl public-read --region eu-central-1
               aws cloudfront create-invalidation --distribution-id $PRODUCTION_CLOUDFRONT_ID --paths "/*"
             fi
