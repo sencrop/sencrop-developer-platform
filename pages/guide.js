@@ -153,10 +153,10 @@ const SENCROP_RAW_DATA_PAYLOAD = `[
 ]
 `;
 const CURL_SENCROP_DATA_CODE = `# Get hourly aggregated data for two days
-curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/hourly?beforeDate=2017-10-07T07:34:32.000Z&days=2&measures=WIND_DIRECTION,WIND_MEAN"\
+curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/hourly?beforeDate=2017-10-07T07:34:32.000Z&days=7&measures=WIND_DIRECTION,WIND_MEAN"\
   -H "Authorization: Bearer xxxxx"
 # Get daily aggregated data for two days
-curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/daily?beforeDate=2017-10-07T07:34:32.000Z&days=2&measures=WIND_DIRECTION,WIND_MEAN"\
+curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/daily?beforeDate=2017-10-07T07:34:32.000Z&days=90&measures=WIND_DIRECTION,WIND_MEAN"\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_DATA_PAYLOAD = `{
@@ -225,7 +225,7 @@ const SENCROP_DATA_PAYLOAD = `{
 }
 `;
 const CURL_SENCROP_STATISTICS_CODE = `# Get device statistics for two days
-curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&measures=WIND_DIRECTION,WIND_MEAN"\
+curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&measures=WIND_DIRECTION,WIND_MEAN&patched=false"\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_STATISTICS_PAYLOAD = `{
@@ -457,10 +457,19 @@ const Index = () => (
       SENCROP_DEVICES_PAYLOAD
     }</SyntaxHighlighter>
     <p>
-      The <code>items</code> property indicates
-      your the collection of devices you can access
+      The <code>items</code> property tells
+      you the collection of devices you can access
       to. While the <code>devices</code> hash
       allows your to pickup the devices details.
+    </p>
+    <p>
+      You may ask why using that format. It allows
+      our payload to avoid repating the same
+      informations several times while not
+      requiring you to use a specific JSON loader.
+      It also allows us to significantly reduce
+      our app memory footprint by easing hash
+      merges accross our various states.
     </p>
     <h2>Reading raw device data</h2>
     <p>
@@ -531,6 +540,12 @@ const Index = () => (
     <SyntaxHighlighter language="javascript" style={docco}>{
       CURL_SENCROP_STATISTICS_CODE
     }</SyntaxHighlighter>
+    <p>
+      Note the patched parameter that allows your to retrieve
+      only not patched data (ie only real device data). Setting
+      it to true or not specifying it will not return
+      extrapolated leaking data refills.
+    </p>
     <p>The result will look like this:</p>
     <SyntaxHighlighter language="json" style={docco}>{
       SENCROP_STATISTICS_PAYLOAD
@@ -672,7 +687,7 @@ const Index = () => (
       intensive access to the data in the
       meanwhile.
     </p>
-    <h2>What's next ?</h2>
+    <h2>What&apos;s next ?</h2>
     <p>
       So you read it all? Impressive! You are
       now in the best conditions to use our

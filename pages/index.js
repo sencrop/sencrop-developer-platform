@@ -27,9 +27,9 @@ export default class Index extends React.Component {
       </strong></p>
       <p>
         Welcome on board! At Sencrop, we love
-        developers. This platform's goal is
+        developers. This platform&apos;s goal is
         intended to bring you everything you
-        need to invent tomorrow's farming
+        need to invent tomorrow&apos;s farming
         practices.
       </p>
       <p>
@@ -46,7 +46,7 @@ export default class Index extends React.Component {
       <p>
         Also, you can directly check
         our <Link href="/reference"><a>API
-        reference</a></Link>
+        reference</a></Link>{' '}
         for a more direct appraoch.
       </p>
       <p>
@@ -63,7 +63,7 @@ export default class Index extends React.Component {
       <p>
         PS: This website source can be found
         on <a href="https://github.com/sencrop/sencrop-developer-platform"
-          >GitHub</a>,
+          >GitHub</a>.
       </p>
       <h2 id="mailing_list">Developer Mailing List</h2>
       <form method="post" action="https://evomedia.us3.list-manage.com/subscribe/post?u=c993ab1c009fbcbc61dea24cd&amp;id=b7ef162deb" target="_blank">
