@@ -10,6 +10,14 @@ const APIReference = () => (
  in our API.`.replace(/\n/, '')
   } reference>
     <h1>API Reference</h1>
+    <p>
+      <strong>Warning:</strong>{' '}
+      Currently, error codes ain&apos;t well documented
+      and the API errors returned for bad inputs may
+      feel a bit cryptic. We recommend using the API
+      reference "Try It Out" to get a sandboxed way to
+      use the API.
+    </p>
     <Head>
       <link rel="stylesheet" href="/static/styles/swagger-ui.css"/>
     </Head>
