@@ -1,3 +1,8 @@
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.3.0...v1.4.0) (2018-03-13)
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.2.0...v1.3.0) (2018-03-12)
 
