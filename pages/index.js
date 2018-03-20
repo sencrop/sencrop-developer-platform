@@ -12,22 +12,23 @@ export default class Index extends React.Component {
     } home>
       <h1>Sencrop Developer Platform</h1>
       <p><strong>
-        Warning: Our API is currently in an
-        early state and may change. Using it
-        right now implies acknowledging some
-        changes may be done in a non backward
-        compatible way. To keep informed of
-        those changes, please subscribe to
-        our <NoSSR onSSR={<span>mailing list</span>}><a href="#mailing_list" onClick={(e) => {
+        Warning: Our API is currently in
+        a very early state. Using it right now
+        implies acknowledging you want to be an
+        early adopter and you accept we might do
+        some changes in a non backward compatible
+        way. Of course we will try to avoid this
+        kind of changes and will alert you early
+        on. Don&apos;t forget to subscribe to our{' '}
+        <NoSSR onSSR={<span>mailing list</span>}><a href="#mailing_list" onClick={(e) => {
           e.preventDefault();
           this.refs.email.focus();
-        }}>mailing list</a></NoSSR> and we will
-        do our best to take in count your use of
-        the API in future developments.
+        }}>developer mailing list</a></NoSSR> to
+        be warned of those changes.
       </strong></p>
       <p>
         Welcome on board! At Sencrop, we love
-        developers. This platform&apos;s goal is
+        developers. This platform&apos;s is
         intended to bring you everything you
         need to invent tomorrow&apos;s farming
         practices.
