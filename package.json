@@ -1,6 +1,6 @@
 {
   "name": "sencrop-developer-platform",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "The Sencrop Developer Platform website",
   "main": "index.js",
   "metapak": {

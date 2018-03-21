@@ -1,3 +1,13 @@
+<a name="1.4.2"></a>
+## [1.4.2](https://github.com/sencrop/sencrop-developer-platform/compare/v1.4.1...v1.4.2) (2018-03-21)
+
+
+### Bug Fixes
+
+* **API Guide:** Fix the ping url link ([97d0b9c](https://github.com/sencrop/sencrop-developer-platform/commit/97d0b9c))
+
+
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/sencrop/sencrop-developer-platform/compare/v1.4.0...v1.4.1) (2018-03-20)
 
