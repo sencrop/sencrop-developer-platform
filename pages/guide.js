@@ -365,7 +365,7 @@ const Index = () => (
       You can simply hit the Sencrop API
       by simply opening our ping endpoint
       in your browser:<br/>
-      <a href="{PING_ENDPOINT}"
+      <a href={PING_ENDPOINT}
       >{PING_ENDPOINT}</a>
     </p>
     <p>
