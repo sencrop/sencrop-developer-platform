@@ -1,3 +1,13 @@
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.4.2...v1.5.0) (2018-04-27)
+
+
+### Features
+
+* **API Reference:** Update the Swagger ([c72bc43](https://github.com/sencrop/sencrop-developer-platform/commit/c72bc43))
+
+
+
 <a name="1.4.2"></a>
 ## [1.4.2](https://github.com/sencrop/sencrop-developer-platform/compare/v1.4.1...v1.4.2) (2018-03-21)
 
