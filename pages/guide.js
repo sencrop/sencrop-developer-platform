@@ -845,6 +845,18 @@ const Index = () => (
         <a href="https://en.wikipedia.org/wiki/Wet-bulb_temperature">degree Celsius (°C)</a>.
       </li>
     </ul>
+    <p>
+      Please note that despite its counter intuitive name,
+      the <code>WIND_MEAN</code> measure should be considered as
+      an instantaneous measure. It were called so since it is the
+      average wind spead measured by the device for the time range
+      of a single recard (usually 10 minutes).
+    </p>
+    <p>
+      Also, the <code>WIND_MAX</code> measure is not a maximun but
+      the wind gusts instead. We will probably rename those measures
+      and deprecate thoses names in a near future.
+    </p>
     <h2>Limits</h2>
     <p>
       Since we are in an early alpha publication
