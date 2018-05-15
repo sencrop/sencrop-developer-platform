@@ -1,3 +1,23 @@
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.5.0...v1.6.0) (2018-05-15)
+
+
+### Bug Fixes
+
+* **Assets:** Fix assets ([a80d99b](https://github.com/sencrop/sencrop-developer-platform/commit/a80d99b)), closes [#16](https://github.com/sencrop/sencrop-developer-platform/issues/16)
+* **Layout:** Attempt to fix static assets ([efad916](https://github.com/sencrop/sencrop-developer-platform/commit/efad916)), closes [#16](https://github.com/sencrop/sencrop-developer-platform/issues/16)
+
+
+### Features
+
+* **API Guide:** Add bash syntaxic coloration ([41b1d8a](https://github.com/sencrop/sencrop-developer-platform/commit/41b1d8a))
+* **API Guide:** Add infos on badly named WIND_* measures ([2d87344](https://github.com/sencrop/sencrop-developer-platform/commit/2d87344)), closes [#17](https://github.com/sencrop/sencrop-developer-platform/issues/17)
+* **API Guide:** Improve time buckets description and usage ([dcb9745](https://github.com/sencrop/sencrop-developer-platform/commit/dcb9745)), closes [#14](https://github.com/sencrop/sencrop-developer-platform/issues/14)
+* **Partner API:** Add some insight on a possible error on token creation ([010924b](https://github.com/sencrop/sencrop-developer-platform/commit/010924b)), closes [#15](https://github.com/sencrop/sencrop-developer-platform/issues/15)
+* **Partners API:** Add information on the module delegation flow ([72cbb77](https://github.com/sencrop/sencrop-developer-platform/commit/72cbb77)), closes [#18](https://github.com/sencrop/sencrop-developer-platform/issues/18)
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.4.2...v1.5.0) (2018-04-27)
 
