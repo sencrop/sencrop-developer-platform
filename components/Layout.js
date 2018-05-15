@@ -22,7 +22,7 @@ const Layout = (props) => (
         props.title ||
         'A page of the Sencrop Developer Platform.'
       }/>
-      <link rel="icon" type="image/png" href="/images/favicon.png"/>
+      <link rel="icon" type="image/png" href="/static//images/favicon.png"/>
       <meta name="robots" content="index,follow"/>
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" />
     </Head>

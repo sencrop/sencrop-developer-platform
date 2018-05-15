@@ -1,10 +1,9 @@
 import styled, { css } from 'styled-components'
 import { Link, color, spacing } from '../ui'
-import logoUrl from '../static/images/logo.png'
 
 const Header = (props) => (
   <Wrapper>
-    <Image src={logoUrl} />
+    <Image src="/static/images/logo.png" />
     <StyledLink href="/">
       <a className={props.home && 'active' || 'not'}>Home</a>
     </StyledLink>
