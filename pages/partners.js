@@ -98,6 +98,11 @@ const Partners = () => (
       your can use the <code>/partners/{'{'}partnerId{'}'}/devices</code>{' '}
       endpoint.
     </p>
+    <p>
+      If you try to create a token for a user with none of
+      your modules activated you will get a{' '}
+      <code>E_MODULE_NOT_ACTIVATED</code> error.
+    </p>
     <h3>SMS flow</h3>
     <p>
       You can obtain a token from our users by sending
