@@ -60,7 +60,7 @@
     "css-loader": "^0.28.10",
     "cz-conventional-changelog": "^2.1.0",
     "metapak": "1.0.3",
-    "metapak-sencrop": "5.0.0",
+    "metapak-sencrop": "5.1.0",
     "style-loader": "^0.19.1"
   },
   "engines": {
