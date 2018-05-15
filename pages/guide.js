@@ -18,7 +18,7 @@ const TOKEN_RETRIEVAL_CODE = `console.log({
 })
 // Prints: { token: 'Bearer xxxxxxxx', userId: 1664 }
 `;
-const CURL_SENCROP_DEVICES_CODE = `curl https://api.sencrop.com/v1/users/1664/devices\
+const CURL_SENCROP_DEVICES_CODE = `curl 'https://api.sencrop.com/v1/users/1664/devices'\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_DEVICES_PAYLOAD = `{
@@ -342,6 +342,148 @@ const SENCROP_GEOBASED_PAYLOAD = `{
       "docCount": 6
     }]
   }
+}`;
+
+const SENCROP_TIME_BUCKET_CODE = `
+import API from 'sencrop-js-api-client';
+import moment from 'moment-timezone';
+
+API.getUserDeviceStatistics({
+  userId: 86,
+  deviceId: 33,
+  authorization: 'Bearer yolo-token',
+  startDate: moment().tz('Europe/Paris').startOf('year').toISOString(),
+  endDate: moment().tz('Europe/Paris').endOf('year').toISOString(),
+  measures: ['TEMP_AIR_H1'],
+}, {
+  // Here goes any Axios request configuration override
+  // See: https://github.com/mzabriskie/axios#request-config
+  timeout: 40000,
+})
+.then({ data } => {
+  console.log(data);
+});
+`;
+
+const SENCROP_TIME_BUCKET_PAYLOAD = `
+{
+  "devices": {
+    "33": {
+      "id": 33,
+      "accessPeriods": [
+        {
+          "id": 10279,
+          "deviceId": 33,
+          "userId": 86,
+          "type": "owner",
+          "startDate": "2018-02-14T15:15:00.000Z"
+        }
+      ],
+      "modelId": 7,
+      "userId": 1217,
+      "organisationId": 1061,
+      "previousDevicesIds": [
+        1308
+      ],
+      "identification": "RC001664",
+      "serial": "ABBACA",
+      "contents": {
+        "name": ""
+      }
+    }
+  },
+  "models": {
+    "7": {
+      "id": 7,
+      "contents": {
+        "name": "Raincrop",
+        "externalDiameter": 0.206,
+        "conception": "France - Lille",
+        "manufacturing": "Europe-France",
+        "calibration": "Ok",
+        "weight": 3.5
+      }
+    }
+  },
+  "entry": 33,
+  "measures": {
+    "interval": "month",
+    "data": [
+      {
+        "key": 1512082800000,
+        "TEMP_AIR_H1": {},
+        "docCount": 0
+      },
+      {
+        "key": 1514761200000,
+        "TEMP_AIR_H1": {},
+        "docCount": 0
+      },
+      {
+        "key": 1517439600000,
+        "TEMP_AIR_H1": {
+          "value": 0.7823753330795595
+        },
+        "docCount": 7881
+      },
+      {
+        "key": 1519858800000,
+        "TEMP_AIR_H1": {
+          "value": 5.929323899371062
+        },
+        "docCount": 8904
+      },
+      {
+        "key": 1522533600000,
+        "TEMP_AIR_H1": {
+          "value": 12.416400462962963
+        },
+        "docCount": 8640
+      },
+      {
+        "key": 1525125600000,
+        "TEMP_AIR_H1": {
+          "value": 14.189615931721207
+        },
+        "docCount": 4218
+      },
+      {
+        "key": 1527804000000,
+        "TEMP_AIR_H1": {},
+        "docCount": 0
+      },
+      {
+        "key": 1530396000000,
+        "TEMP_AIR_H1": {},
+        "docCount": 0
+      },
+      {
+        "key": 1533074400000,
+        "TEMP_AIR_H1": {},
+        "docCount": 0
+      },
+      {
+        "key": 1535752800000,
+        "TEMP_AIR_H1": {},
+        "docCount": 0
+      },
+      {
+        "key": 1538344800000,
+        "TEMP_AIR_H1": {},
+        "docCount": 0
+      },
+      {
+        "key": 1541026800000,
+        "TEMP_AIR_H1": {},
+        "docCount": 0
+      },
+      {
+        "key": 1543618800000,
+        "TEMP_AIR_H1": {},
+        "docCount": 0
+      }
+    ]
+  }
 }
 `;
 
@@ -449,7 +591,7 @@ const Index = () => (
       Before retrieving your data you may want
       to simply list your own Sencrop Devices:
     </p>
-    <SyntaxHighlighter language="javascript" style={docco}>{
+    <SyntaxHighlighter language="bash" style={docco}>{
       CURL_SENCROP_DEVICES_CODE
     }</SyntaxHighlighter>
     <p>The result will look like this:</p>
@@ -478,7 +620,7 @@ const Index = () => (
       direct output by simply requesting the
       following endpoint:
     </p>
-    <SyntaxHighlighter language="javascript" style={docco}>{
+    <SyntaxHighlighter language="bash" style={docco}>{
       CURL_SENCROP_RAW_DATA_CODE
     }</SyntaxHighlighter>
     <p>The result will look like this:</p>
@@ -509,7 +651,7 @@ const Index = () => (
       For this purpose we brought to you two kind
       of endpoints.
     </p>
-    <SyntaxHighlighter language="javascript" style={docco}>{
+    <SyntaxHighlighter language="bash" style={docco}>{
       CURL_SENCROP_DATA_CODE
     }</SyntaxHighlighter>
     <p>The result will look like this:</p>
@@ -537,7 +679,7 @@ const Index = () => (
       in order for you to get best insights
       with no performance hint.
     </p>
-    <SyntaxHighlighter language="javascript" style={docco}>{
+    <SyntaxHighlighter language="bash" style={docco}>{
       CURL_SENCROP_STATISTICS_CODE
     }</SyntaxHighlighter>
     <p>
@@ -564,7 +706,7 @@ const Index = () => (
       for a given place in your Sencrop network.
     </p>
 
-    <SyntaxHighlighter language="javascript" style={docco}>{
+    <SyntaxHighlighter language="bash" style={docco}>{
       CURL_SENCROP_GEOBASED_CODE
     }</SyntaxHighlighter>
     <p>The result will look like this:</p>
@@ -642,6 +784,36 @@ const Index = () => (
         end dates.
       </li>
     </ul>
+    <p>
+      You have to be aware of the fact that time buckets are aligned
+      on days/months/years boundaries in the user's timezone. So,
+      if you need to get the current year statistics for a french user,
+      you need to set <code>startDate/endDate</code> values in the
+      <code>Europe/Paris</code> timezone.
+    </p>
+    <p>
+      For instance, with JavaScript and using the <a href="https://momentjs.com/">MomentJS
+      library</a> you would end up with some code looking like
+      the following:
+    </p>
+    <SyntaxHighlighter language="javascript" style={docco}>{
+      SENCROP_TIME_BUCKET_CODE
+    }</SyntaxHighlighter>
+    <p>The result will look like this:</p>
+    <SyntaxHighlighter language="json" style={docco}>{
+      SENCROP_TIME_BUCKET_PAYLOAD
+    }</SyntaxHighlighter>
+    <p>
+      Beware that not aligning on the user's timezone may lead
+      to incomplete buckets at boundaries of the returned data.
+      Also, if you retrieve a bucket for the current month, you
+      only have a partial bucket for that month since it has not
+      ended yet. In the above result you can see that the may
+      month is not terminated yet so the bucket has a limited
+      number of measures (see the <code>docCount</code>{' '}
+      property) and the following buckets are empty since they
+      represent future months.
+    </p>
     <h2>Units</h2>
     <p>
       The API returns values in fixed units.
