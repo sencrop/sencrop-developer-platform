@@ -7,6 +7,13 @@ import docco from 'react-syntax-highlighter/dist/styles/docco'
 
 registerLanguage('javascript', js);
 
+const CURL_SENCROP_TOKEN_CREATION = `
+curl https://api.sencrop.com/v1/partners/1/tokens \
+  -X POST --data '{"email":"nicolas@sencrop.com", "code": "MODULE"}' \
+  -H 'Content-Type: application/json' \
+  -u 'alibaba:open_sesame'
+`;
+
 const CURL_SENCROP_TOKEN_REQUEST = `
 curl https://api.sencrop.com/v1/partners/1/tokenRequests \
   -X POST --data '{"email":"nicolas@sencrop.com"}' \
@@ -21,7 +28,7 @@ curl https://api.sencrop.com/v1/partners/1/tokens \
   -u 'alibaba:open_sesame'
 `;
 
-const SENCROP_TOKEN_CLAIM_PAYLOAD = `{
+const SENCROP_TOKEN_CLAIM_PAYLOAD = `
 {
   "userId":1,
   "organisationId":1,
@@ -67,10 +74,40 @@ const Partners = () => (
       by your side but in the meanwhile, please
       contact us to renew it.
     </p>
-    <h2>Delegation flow</h2>
+    <h2>Delegation flows</h2>
     <p>
-      Obtaining a token from our users,
-      involves 4 distinct steps.
+      You can obtain a token from our users via 2
+      distinct flows currently, the SMS flow or the
+      module flow.
+    </p>
+    <h3>Module flow</h3>
+    <p>
+      This flow allows you to directly create tokens
+      for our users. The prerequisite is that the user
+      must have activated at least one of your modules
+      on their Sencrop application.
+    </p>
+    <SyntaxHighlighter language="bash" style={docco}>{
+      CURL_SENCROP_TOKEN_CREATION
+    }</SyntaxHighlighter>
+    <SyntaxHighlighter language="javascript" style={docco}>{
+      SENCROP_TOKEN_CLAIM_PAYLOAD
+    }</SyntaxHighlighter>
+    <p>
+      To see the users that enabled on of your modules,
+      your can use the <code>/partners/{'{'}partnerId{'}'}/devices</code>{' '}
+      endpoint.
+    </p>
+    <h3>SMS flow</h3>
+    <p>
+      You can obtain a token from our users by sending
+      them an SMS with a validation code that allows
+      you to request the users authorization to access
+      their data.
+    </p>
+    <p>
+      Obtaining a token via this flow involves 4 distinct
+      steps.
     </p>
     <p>
       First, you must collect the Sencrop
@@ -89,7 +126,7 @@ const Partners = () => (
       a token allowing you to act on the behalf
       of that user.
     </p>
-    <h3>Requesting a token</h3>
+    <h4>Requesting a token</h4>
     <p>
       To request a token just call the following
       endpoint with your API client id and secret:
@@ -101,7 +138,7 @@ const Partners = () => (
       This will send a SMS to the user with
       an authorization code.
     </p>
-    <h3>Creating a token</h3>
+    <h4>Creating a token</h4>
     <p>
       To create the token just call the following
       endpoint with your API client id and secret:
