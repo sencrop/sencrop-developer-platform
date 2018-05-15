@@ -1,6 +1,7 @@
-import SyntaxHighlighter, { registerLanguage } from "react-syntax-highlighter/dist/light"
-import js from 'react-syntax-highlighter/dist/languages/javascript'
-import docco from 'react-syntax-highlighter/dist/styles/docco'
+import SyntaxHighlighter, { registerLanguage } from "react-syntax-highlighter/light"
+import js from 'react-syntax-highlighter/languages/hljs/javascript'
+import bash from 'react-syntax-highlighter/languages/hljs/bash'
+import docco from 'react-syntax-highlighter/styles/hljs/docco'
 
 const INSTALL_CODE = `npm install --save sencrop-js-api-client
 `;

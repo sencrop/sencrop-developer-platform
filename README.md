@@ -8,6 +8,9 @@
 > The Sencrop Developer Platform website
 
 
+
+[//]: # (::contents:start)
+
 This repository contains the code that powers the [Sencrop Developers Platform](https://developers.sencrop.com).
 
 This project is based on [NextJS](https://github.com/zeit/next.js/),
@@ -27,6 +30,8 @@ To start working on the project, run:
 ```sh
 npm run dev
 ```
+
+[//]: # (::contents:end)
 
 # License
 [MIT](https://github.com/sencrop/sencrop-developer-platform/blob/master/LICENSE.md)
