@@ -3,9 +3,11 @@ import Layout from '../components/Layout'
 
 import SyntaxHighlighter, { registerLanguage } from "react-syntax-highlighter/dist/light"
 import js from 'react-syntax-highlighter/dist/languages/javascript'
+import bash from 'react-syntax-highlighter/dist/languages/bash'
 import docco from 'react-syntax-highlighter/dist/styles/docco'
 
 registerLanguage('javascript', js);
+registerLanguage('bash', bash);
 
 const PING_ENDPOINT = 'https://api.sencrop.com/v1/ping';
 const CURL_PING_CODE = `curl ${PING_ENDPOINT}
