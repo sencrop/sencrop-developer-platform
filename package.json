@@ -21,7 +21,6 @@
     "build": "next build",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "cli": "env NODE_ENV=${NODE_ENV:-cli}",
-    "cpswaggerdefinition": "cp node_modules/sencrop-js-api-client/src/swagger.api.json static/swagger.api.json",
     "cpswaggerstyles": "cp node_modules/swagger-ui-dist/swagger-ui.css static/styles/swagger-ui.css",
     "cz": "env NODE_ENV=${NODE_ENV:-cli} git cz",
     "dev": "next",
@@ -29,7 +28,7 @@
     "lint": "echo \"WARNING: No linter configured\"",
     "metapak": "metapak",
     "postinstall": "npm run metapak --silent",
-    "prebuild": "npm run cpswaggerstyles && npm run cpswaggerdefinition",
+    "prebuild": "npm run cpswaggerstyles",
     "preversion": "npm run lint",
     "start": "next start",
     "version": "npm run changelog && git add CHANGELOG.md"
@@ -49,7 +48,6 @@
     "react-ga": "^2.4.1",
     "react-no-ssr": "^1.1.0",
     "react-syntax-highlighter": "^7.0.4",
-    "sencrop-js-api-client": "^1.7.0",
     "styled-components": "^2.4.0",
     "swagger-ui-dist": "^3.12.0"
   },

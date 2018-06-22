@@ -14,7 +14,7 @@ const DOM_ID = "swagger-ui"
 class Swagger extends Component {
   componentDidMount() {
     const ui = SwaggerUIBundle({
-      url: "/static/swagger.api.json",
+      url:  "https://api.sencrop.com/v1/openAPI",
       dom_id: `#${ DOM_ID }`,
       presets: [
         SwaggerUIBundle.presets.apis,
