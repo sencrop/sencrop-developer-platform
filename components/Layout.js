@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Header from './Header'
 import GA from './GA'
 import NoSSR from 'react-no-ssr';
@@ -33,19 +33,25 @@ const Layout = (props) => (
       reference={props.reference}
       tools={props.tools}
     />
-    <Wrapper>
+    <Wrapper className={props.layout}>
       {props.children}
     </Wrapper>
+    
     <NoSSR>
       <GA />
     </NoSSR>
   </div>
 )
 
-export default Layout
+export default Layout;
 
 const Wrapper = styled.div`
   width: 80%;
   max-width: 1200px;
   margin: ${spacing()} auto;
+  &.full {
+    width: 100%; 
+    max-width: initial;
+    margin: auto;
+  } 
 `;

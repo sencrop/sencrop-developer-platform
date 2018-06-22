@@ -48,8 +48,10 @@
     "react-ga": "^2.4.1",
     "react-no-ssr": "^1.1.0",
     "react-syntax-highlighter": "^7.0.4",
+    "redoc": "^2.0.0-alpha.20",
     "styled-components": "^2.4.0",
-    "swagger-ui-dist": "^3.12.0"
+    "swagger-ui-dist": "^3.12.0",
+    "tslib": "^1.9.1"
   },
   "devDependencies": {
     "babel-plugin-inline-import": "^2.0.6",

@@ -44,7 +44,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   background-color: #fff;
-  paddind-left: ${spacing()};
+  padding-left: ${spacing()};
   box-shadow: 0 8px 16px rgba(0,0,0,.15);
   a {
     color: ${color('anthracite')};

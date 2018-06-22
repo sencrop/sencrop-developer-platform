@@ -116,7 +116,7 @@ injectGlobal`
   }
 `;
 
-export const Link = styled(({ active, ...rest }) => <NextLink {...rest} />)`
+export const Link = styled(({ active, className, ...rest }) => <NextLink {...rest} />)`
   cursor: pointer;
   color: ${color('green')};
 
