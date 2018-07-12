@@ -1,3 +1,10 @@
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+dotenv.config({
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
+});
+
 module.exports = {
   exportPathMap: function () {
     return {
@@ -8,14 +15,14 @@ module.exports = {
       '/tools': { page: '/tools' },
     }
   },
-  webpack: (config, { buildId, dev }) => {
-    /*console.log(config)
-    config.module.rules = config.module.rules.concat([
-      {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
-      }
-    ]);*/
-    return config
+  webpack: config => {
+    const env = Object.keys(process.env).reduce((acc, curr) => {
+      acc[`process.env.${curr}`] = JSON.stringify(process.env[curr]);
+      return acc;
+    }, {});
+
+    config.plugins.push(new webpack.DefinePlugin(env));
+
+    return config;
   }
 }

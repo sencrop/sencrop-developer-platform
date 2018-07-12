@@ -27,13 +27,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run:
-          name: Build the final website
-          no_output_timeout: 30m
-          command: |
-            yarn run build
-      - run: yarn run export
-
       - run: sudo apt-get install python-pip python-dev build-essential
       - run: sudo pip install awscli
 
@@ -41,6 +34,8 @@ jobs:
           name: Deploy to preproduction
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              NODE_ENV=preproduction yarn run build
+              yarn run export
               aws s3 sync out s3://sencrop-developer-platform-preproduction --acl public-read --region eu-central-1
               aws cloudfront create-invalidation --distribution-id $PREPRODUCTION_CLOUDFRONT_ID --paths "/*"
             fi
@@ -49,6 +44,8 @@ jobs:
           name: Deploy to production
           command: |
             if [[ "$(git describe --tags)" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              NODE_ENV=production yarn run build
+              yarn run export
               aws s3 sync out s3://sencrop-developer-platform-production --acl public-read --region eu-central-1
               aws cloudfront create-invalidation --distribution-id $PRODUCTION_CLOUDFRONT_ID --paths "/*"
             fi
