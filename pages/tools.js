@@ -2,6 +2,7 @@ import SyntaxHighlighter, { registerLanguage } from "react-syntax-highlighter/li
 import js from 'react-syntax-highlighter/languages/hljs/javascript'
 import bash from 'react-syntax-highlighter/languages/hljs/bash'
 import docco from 'react-syntax-highlighter/styles/hljs/docco'
+import Anchor from '../components/Anchor'
 
 const INSTALL_CODE = `npm install --save sencrop-js-api-client
 `;
@@ -30,7 +31,7 @@ const Index = () => (
 `Get some more tooling to interact with our API.`.replace(/\n/, '')
   } tools>
     <h1>Tools</h1>
-    <h2>Swagger/OpenAPI Definition</h2>
+    <h2><Anchor text="Swagger/OpenAPI Definition" /></h2>
     <p>
       You can <a href="/static/swagger.api.json"
       download="sencrop-v1.swagger.js"
@@ -44,7 +45,7 @@ const Index = () => (
       <a href="https://swagger.io/swagger-codegen/">create
       an API client</a> for your favorite programming language.
     </p>
-    <h2>JavaScript SDK</h2>
+    <h2><Anchor text="JavaScript SDK" /></h2>
     <p>
       To use our API writing less code, you can
       also use our JavaScript SDK.

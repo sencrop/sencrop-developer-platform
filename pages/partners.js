@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Layout from '../components/Layout'
+import Anchor from '../components/Anchor'
 
 import SyntaxHighlighter, { registerLanguage } from "react-syntax-highlighter/light"
 import js from 'react-syntax-highlighter/languages/hljs/javascript'
@@ -75,13 +76,13 @@ const Partners = () => (
       by your side but in the meanwhile, please
       contact us to renew it.
     </p>
-    <h2>Delegation flows</h2>
+    <h2><Anchor text="Delegation flows" /></h2>
     <p>
       You can obtain a token from our users via 2
       distinct flows currently, the SMS flow or the
       module flow.
     </p>
-    <h3>Module flow</h3>
+    <h3><Anchor text="Module flow" /></h3>
     <p>
       This flow allows you to directly create tokens
       for our users. The prerequisite is that the user
@@ -104,7 +105,7 @@ const Partners = () => (
       your modules activated you will get a{' '}
       <code>E_MODULE_NOT_ACTIVATED</code> error.
     </p>
-    <h3>SMS flow</h3>
+    <h3><Anchor text="SMS flow" /></h3>
     <p>
       You can obtain a token from our users by sending
       them an SMS with a validation code that allows
@@ -132,7 +133,7 @@ const Partners = () => (
       a token allowing you to act on the behalf
       of that user.
     </p>
-    <h4>Requesting a token</h4>
+    <h4><Anchor text="Requesting a token" /></h4>
     <p>
       To request a token just call the following
       endpoint with your API client id and secret:
@@ -144,7 +145,7 @@ const Partners = () => (
       This will send a SMS to the user with
       an authorization code.
     </p>
-    <h4>Creating a token</h4>
+    <h4><Anchor text="Creating a token" /></h4>
     <p>
       To create the token just call the following
       endpoint with your API client id and secret:
@@ -158,7 +159,7 @@ const Partners = () => (
     <p>
       That token allows your to access the user
       data through the
-      API. <Link href="/guide"><a>See our API
+      API. <Link href="/guide"><a>See our API{' '}
       guide</a></Link> for more information
       on its usage.
     </p>

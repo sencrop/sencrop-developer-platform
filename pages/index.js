@@ -3,6 +3,7 @@ import Layout from '../components/Layout'
 import NoSSR from 'react-no-ssr';
 import ReactDOM from 'react-dom'
 import React from 'react'
+import Anchor from '../components/Anchor'
 
 export default class Index extends React.Component {
   render() {
@@ -66,7 +67,7 @@ export default class Index extends React.Component {
         on <a href="https://github.com/sencrop/sencrop-developer-platform"
           >GitHub</a>.
       </p>
-      <h2 id="mailing_list">Developer Mailing List</h2>
+      <h2><Anchor text="Developer Mailing List" id="mailing_list" /></h2>
       <form method="post" action="https://evomedia.us3.list-manage.com/subscribe/post?u=c993ab1c009fbcbc61dea24cd&amp;id=b7ef162deb" target="_blank">
         <div style={{
             position: 'absolute',

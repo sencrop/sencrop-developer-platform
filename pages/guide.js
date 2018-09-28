@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Layout from '../components/Layout'
+import Anchor from '../components/Anchor'
 
 import SyntaxHighlighter, { registerLanguage } from "react-syntax-highlighter/light"
 import js from 'react-syntax-highlighter/languages/hljs/javascript'
@@ -504,7 +505,7 @@ const Index = () => (
       choices in order to help you grasp our
       API internals quicker.
     </p>
-    <h2>First contact</h2>
+    <h2><Anchor text="First contact" /></h2>
     <p>
       You can simply hit the Sencrop API
       by simply opening our ping endpoint
@@ -525,14 +526,14 @@ const Index = () => (
     <SyntaxHighlighter language="bash" style={docco}>{
       CURL_PING_CODE
     }</SyntaxHighlighter>
-    <h2>Get your token</h2>
+    <h2><Anchor text="Get your token" /></h2>
     <p>
       Most of our API requires you to pass
       a token via the Bearer HTTP mecanism.
       To interact with our servers, you will
       need to choose a way to get one.
     </p>
-    <h3>Via OAuth2</h3>
+    <h3><Anchor text="Via OAuth2" /></h3>
     <p>
       We plan to integrate OAuth authentication
       that will provide you a way to obtain
@@ -540,7 +541,7 @@ const Index = () => (
       mailing list to be informed of the OAuth2
       support.
     </p>
-    <h3>Via the Partners API</h3>
+    <h3><Anchor text="Via the Partners API" /></h3>
     <p>
       The <Link href="/partners"><a>Partners
       API</a></Link> allows you to ask our
@@ -548,7 +549,7 @@ const Index = () => (
       privilegied way. You first need to meet
       us to get that access.
     </p>
-    <h3>Via the Sencrop app</h3>
+    <h3><Anchor text="Via the Sencrop app" /></h3>
     <p>
       Otherwise, for your own account, you
       can use our API with your own token,
@@ -588,7 +589,7 @@ const Index = () => (
       Or just continue your journey through
       our API guide!
     </p>
-    <h2>Listing your devices</h2>
+    <h2><Anchor text="Listing your devices" /></h2>
     <p>
       Before retrieving your data you may want
       to simply list your own Sencrop Devices:
@@ -615,7 +616,7 @@ const Index = () => (
       our app memory footprint by easing hash
       merges accross our various states.
     </p>
-    <h2>Reading raw device data</h2>
+    <h2><Anchor text="Reading raw device data" /></h2>
     <p>
       Your devices regularly send meteoroligical
       data to our servers. You can get their
@@ -644,7 +645,7 @@ const Index = () => (
       Check out the API reference for more
       information.
     </p>
-    <h2>Reading device data</h2>
+    <h2><Anchor text="Reading device data" /></h2>
     <p>
       The raw data is cool but you may want a bit
       more insight on the data you retrieve.
@@ -694,7 +695,7 @@ const Index = () => (
     <SyntaxHighlighter language="json" style={docco}>{
       SENCROP_STATISTICS_PAYLOAD
     }</SyntaxHighlighter>
-    <h2>Geobased data</h2>
+    <h2><Anchor text="Geobased data" /></h2>
     <p>
       The geobased data provides your insights around
       a given position instead of a single device.
@@ -739,7 +740,7 @@ const Index = () => (
       Check out the API reference for more
       information.
     </p>
-    <h2>Time buckets</h2>
+    <h2><Anchor text="Time buckets" /></h2>
     <p>
       Various measures are aggregated into time
       buckets. The buckets are computed according
@@ -816,7 +817,7 @@ const Index = () => (
       property) and the following buckets are empty since they
       represent future months.
     </p>
-    <h2>Units</h2>
+    <h2><Anchor text="Units" /></h2>
     <p>
       The API returns values in fixed units.
       We use the{' '}
@@ -853,7 +854,7 @@ const Index = () => (
       <code>RAIN_TIC</code>) are still supported but deprecated. We will probably
       remove those measures in a near future.
     </p>
-    <h2>Limits</h2>
+    <h2><Anchor text="Limits" /></h2>
     <p>
       Since we are in an early alpha publication
       of this API, we do not yet provide feedback
@@ -867,7 +868,7 @@ const Index = () => (
       intensive access to the data in the
       meanwhile.
     </p>
-    <h2>What&apos;s next ?</h2>
+    <h2><Anchor text="What&apos;s next ?" /></h2>
     <p>
       So you read it all? Impressive! You are
       now in the best conditions to use our
