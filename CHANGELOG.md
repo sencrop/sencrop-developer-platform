@@ -1,3 +1,15 @@
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.6.0...v1.7.0) (2018-09-28)
+
+
+### Features
+
+* **Anchor component:** Add a component to link to docs sections easyer ([507242d](https://github.com/sencrop/sencrop-developer-platform/commit/507242d))
+* **API:** use prod api endpoint to display doc reference ([f650081](https://github.com/sencrop/sencrop-developer-platform/commit/f650081))
+* **Swagger:** Swagger url based on env ([a2193c4](https://github.com/sencrop/sencrop-developer-platform/commit/a2193c4))
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.5.0...v1.6.0) (2018-05-15)
 
