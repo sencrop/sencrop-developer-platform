@@ -88,77 +88,77 @@ const SENCROP_DEVICES_PAYLOAD = `{
   }
 }
 `;
-const CURL_SENCROP_RAW_DATA_CODE = `curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/raw?size=100&beforeDate=2017-10-10T00:00:00Z&measures=RH_AIR_H1,TEMP_AIR_H1"\
+const CURL_SENCROP_RAW_DATA_CODE = `curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/raw?size=100&beforeDate=2017-10-10T00:00:00Z&measures=RELATIVE_HUMIDITY,TEMPERATURE"\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_RAW_DATA_PAYLOAD = `[
   {
     "date": "2017-10-09T23:54:07.000Z",
-    "type": "RH_AIR_H1",
+    "type": "RELATIVE_HUMIDITY",
     "value": 65.2,
     "discarded": false
   },
   {
     "date": "2017-10-09T23:54:07.000Z",
-    "type": "TEMP_AIR_H1",
+    "type": "TEMPERATURE",
     "value": 15.100000000000001,
     "discarded": false
   },
   {
     "date": "2017-10-09T23:39:07.000Z",
-    "type": "RH_AIR_H1",
+    "type": "RELATIVE_HUMIDITY",
     "value": 66.7,
     "discarded": false
   },
   {
     "date": "2017-10-09T23:39:07.000Z",
-    "type": "TEMP_AIR_H1",
+    "type": "TEMPERATURE",
     "value": 14.8,
     "discarded": false
   },
   {
     "date": "2017-10-09T23:24:06.000Z",
-    "type": "TEMP_AIR_H1",
+    "type": "TEMPERATURE",
     "value": 14.9,
     "discarded": false
   },
   {
     "date": "2017-10-09T23:24:06.000Z",
-    "type": "RH_AIR_H1",
+    "type": "RELATIVE_HUMIDITY",
     "value": 65.7,
     "discarded": false
   },
   {
     "date": "2017-10-09T23:09:07.000Z",
-    "type": "RH_AIR_H1",
+    "type": "RELATIVE_HUMIDITY",
     "value": 67.4,
     "discarded": false
   },
   {
     "date": "2017-10-09T23:09:07.000Z",
-    "type": "TEMP_AIR_H1",
+    "type": "TEMPERATURE",
     "value": 14.5,
     "discarded": false
   },
   {
     "date": "2017-10-09T22:54:06.000Z",
-    "type": "TEMP_AIR_H1",
+    "type": "TEMPERATURE",
     "value": 15,
     "discarded": false
   },
   {
     "date": "2017-10-09T22:54:06.000Z",
-    "type": "RH_AIR_H1",
+    "type": "RELATIVE_HUMIDITY",
     "value": 64.2,
     "discarded": false
   }
 ]
 `;
 const CURL_SENCROP_DATA_CODE = `# Get hourly aggregated data for two days
-curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/hourly?beforeDate=2017-10-07T07:34:32.000Z&days=7&measures=WIND_DIRECTION,WIND_MEAN"\
+curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/hourly?beforeDate=2017-10-07T07:34:32.000Z&days=7&measures=WIND_DIRECTION,WIND_SPEED"\
   -H "Authorization: Bearer xxxxx"
 # Get daily aggregated data for two days
-curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/daily?beforeDate=2017-10-07T07:34:32.000Z&days=90&measures=WIND_DIRECTION,WIND_MEAN"\
+curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/daily?beforeDate=2017-10-07T07:34:32.000Z&days=90&measures=WIND_DIRECTION,WIND_SPEED"\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_DATA_PAYLOAD = `{
@@ -194,7 +194,7 @@ const SENCROP_DATA_PAYLOAD = `{
     "interval": "1h",
     "data": [{
       "key": 1507186800000,
-      "WIND_MEAN": {
+      "WIND_SPEED": {
         "value": 15.5
       },
       "WIND_DIRECTION": {
@@ -204,7 +204,7 @@ const SENCROP_DATA_PAYLOAD = `{
     },
     {
       "key": 1507190400000,
-      "WIND_MEAN": {
+      "WIND_SPEED": {
         "value": 19.416666666666668
       },
       "WIND_DIRECTION": {
@@ -215,7 +215,7 @@ const SENCROP_DATA_PAYLOAD = `{
     { '...': '...' },
     {
       "key": 1507359600000,
-      "WIND_MEAN": {
+      "WIND_SPEED": {
         "value": 15.5
       },
       "WIND_DIRECTION": {
@@ -227,7 +227,7 @@ const SENCROP_DATA_PAYLOAD = `{
 }
 `;
 const CURL_SENCROP_STATISTICS_CODE = `# Get device statistics for two days
-curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&measures=WIND_DIRECTION,WIND_MEAN&patched=false"\
+curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&measures=WIND_DIRECTION,WIND_SPEED&patched=false"\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_STATISTICS_PAYLOAD = `{
@@ -263,7 +263,7 @@ const SENCROP_STATISTICS_PAYLOAD = `{
     "interval": "1d",
     "data": [{
       "key": 1507186800000,
-      "WIND_MEAN": {
+      "WIND_SPEED": {
         "value": 15.5
       },
       "WIND_DIRECTION": {
@@ -273,7 +273,7 @@ const SENCROP_STATISTICS_PAYLOAD = `{
     },
     {
       "key": 1507190400000,
-      "WIND_MEAN": {
+      "WIND_SPEED": {
         "value": 19.416666666666668
       },
       "WIND_DIRECTION": {
@@ -284,7 +284,7 @@ const SENCROP_STATISTICS_PAYLOAD = `{
     { '...': '...' },
     {
       "key": 1507359600000,
-      "WIND_MEAN": {
+      "WIND_SPEED": {
         "value": 15.5
       },
       "WIND_DIRECTION": {
@@ -297,10 +297,10 @@ const SENCROP_STATISTICS_PAYLOAD = `{
 `;
 const CURL_SENCROP_GEOBASED_CODE = `
 # Get geobased statistics
-curl "https://api.sencrop.com/v1/users/1664/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&latitude=37.234894&longitude=-115.81082&measures=WIND_MEAN,RAIN_TIC"\
+curl "https://api.sencrop.com/v1/users/1664/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&latitude=37.234894&longitude=-115.81082&measures=WIND_SPEED,RAIN_FALL"\
   -H "Authorization: Bearer xxxxx"
 # Get geobased fixed scale data
-curl "https://api.sencrop.com/v1/users/1664/data/hourly?beforeDate=2017-01-01T00:00:00.000Z&days=3&latitude=37.234894&longitude=-115.81082&measures=WIND_MEAN,RAIN_TIC"\
+curl "https://api.sencrop.com/v1/users/1664/data/hourly?beforeDate=2017-01-01T00:00:00.000Z&days=3&latitude=37.234894&longitude=-115.81082&measures=WIND_SPEED,RAIN_FALL"\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_GEOBASED_PAYLOAD = `{
@@ -308,11 +308,11 @@ const SENCROP_GEOBASED_PAYLOAD = `{
     "interval": "1d",
     "data": [{
       "key": 1507186800000,
-      "WIND_MEAN": {
+      "WIND_SPEED": {
         "precision": 80,
         "value": 15.5
       },
-      "RAIN_TIC": {
+      "RAIN_FALL": {
         "precision": 99,
         "value": 3
       },
@@ -320,11 +320,11 @@ const SENCROP_GEOBASED_PAYLOAD = `{
     },
     {
       "key": 1507190400000,
-      "WIND_MEAN": {
+      "WIND_SPEED": {
         "precision": 80,
         "value": 19.416666666666668
       },
-      "RAIN_TIC": {
+      "RAIN_FALL": {
         "precision": 99,
         "value": 0.5
       },
@@ -333,11 +333,11 @@ const SENCROP_GEOBASED_PAYLOAD = `{
     { '...': '...' },
     {
       "key": 1507359600000,
-      "WIND_MEAN": {
+      "WIND_SPEED": {
         "precision": 80,
         "value": 15.5
       },
-      "RAIN_TIC": {
+      "RAIN_FALL": {
         "precision": 99,
         "value": 0
       },
@@ -356,7 +356,7 @@ API.getUserDeviceStatistics({
   authorization: 'Bearer yolo-token',
   startDate: moment().tz('Europe/Paris').startOf('year').toISOString(),
   endDate: moment().tz('Europe/Paris').endOf('year').toISOString(),
-  measures: ['TEMP_AIR_H1'],
+  measures: ['TEMPERATURE'],
 }, {
   // Here goes any Axios request configuration override
   // See: https://github.com/mzabriskie/axios#request-config
@@ -413,75 +413,75 @@ const SENCROP_TIME_BUCKET_PAYLOAD = `
     "data": [
       {
         "key": 1512082800000,
-        "TEMP_AIR_H1": {},
+        "TEMPERATURE": {},
         "docCount": 0
       },
       {
         "key": 1514761200000,
-        "TEMP_AIR_H1": {},
+        "TEMPERATURE": {},
         "docCount": 0
       },
       {
         "key": 1517439600000,
-        "TEMP_AIR_H1": {
+        "TEMPERATURE": {
           "value": 0.7823753330795595
         },
         "docCount": 7881
       },
       {
         "key": 1519858800000,
-        "TEMP_AIR_H1": {
+        "TEMPERATURE": {
           "value": 5.929323899371062
         },
         "docCount": 8904
       },
       {
         "key": 1522533600000,
-        "TEMP_AIR_H1": {
+        "TEMPERATURE": {
           "value": 12.416400462962963
         },
         "docCount": 8640
       },
       {
         "key": 1525125600000,
-        "TEMP_AIR_H1": {
+        "TEMPERATURE": {
           "value": 14.189615931721207
         },
         "docCount": 4218
       },
       {
         "key": 1527804000000,
-        "TEMP_AIR_H1": {},
+        "TEMPERATURE": {},
         "docCount": 0
       },
       {
         "key": 1530396000000,
-        "TEMP_AIR_H1": {},
+        "TEMPERATURE": {},
         "docCount": 0
       },
       {
         "key": 1533074400000,
-        "TEMP_AIR_H1": {},
+        "TEMPERATURE": {},
         "docCount": 0
       },
       {
         "key": 1535752800000,
-        "TEMP_AIR_H1": {},
+        "TEMPERATURE": {},
         "docCount": 0
       },
       {
         "key": 1538344800000,
-        "TEMP_AIR_H1": {},
+        "TEMPERATURE": {},
         "docCount": 0
       },
       {
         "key": 1541026800000,
-        "TEMP_AIR_H1": {},
+        "TEMPERATURE": {},
         "docCount": 0
       },
       {
         "key": 1543618800000,
-        "TEMP_AIR_H1": {},
+        "TEMPERATURE": {},
         "docCount": 0
       }
     ]
@@ -828,36 +828,30 @@ const Index = () => (
       various units we use:
     </p>
     <ul>
-      <li><strong>RAIN_TIC</strong>: pluviometry measured in{' '}
+      <li><strong>RAIN_FALL</strong>: pluviometry measured in{' '}
         <a href="https://en.wikipedia.org/wiki/Rain#Measurement">millimeters (mm)</a>,
       </li>
-      <li><strong>TEMP_AIR*</strong>: temperature measured in{' '}
+      <li><strong>TEMPERATURE</strong>: temperature measured in{' '}
         <a href="https://en.wikipedia.org/wiki/Celsius">degree Celsius (°C)</a>,
       </li>
-      <li><strong>RH_AIR*</strong>: relative humidity measured in{' '}
+      <li><strong>RELATIVE_HUMIDITY*</strong>: relative humidity measured in{' '}
         <a href="https://en.wikipedia.org/wiki/Relative_humidity#Definition">percentage (%)</a>,
       </li>
-      <li><strong>WIND_MEAN/WIND_MAX</strong>: wind measured in{' '}
+      <li><strong>WIND_SPEED/WIND_MAX</strong>: wind measured in{' '}
         <a href="https://en.wikipedia.org/wiki/Kilometres_per_hour">kilometers per hour (km·h−1)</a>,
       </li>
       <li><strong>WIND_DIRECTION</strong>: wind direction angle with the North in{' '}
-        <a href="https://en.wikipedia.org/wiki/Degree_(angle)">degrees (°)</a>,
+        <a href="https://en.wikipedia.org/wiki/Degree_(angle)">angular degrees (°)</a>,
       </li>
       <li><strong>WET_TEMPERATURE</strong>: wet bulb temperature in{' '}
         <a href="https://en.wikipedia.org/wiki/Wet-bulb_temperature">degree Celsius (°C)</a>.
       </li>
     </ul>
     <p>
-      Please note that despite its counter intuitive name,
-      the <code>WIND_MEAN</code> measure should be considered as
-      an instantaneous measure. It were called so since it is the
-      average wind spead measured by the device for the time range
-      of a single recard (usually 10 minutes).
-    </p>
-    <p>
-      Also, the <code>WIND_MAX</code> measure is not a maximun but
-      the wind gusts instead. We will probably rename those measures
-      and deprecate thoses names in a near future.
+      Please note that the old counter intuitive name (<code>WIND_MAX</code>,
+      <code>WIND_MEAN</code>, <code>RH_AIR_H1</code>, <code>TEMP_AIR_H1</code>,
+      <code>RAIN_TIC</code>) are still supported but deprecated. We will probably
+      remove those measures in a near future.
     </p>
     <h2>Limits</h2>
     <p>
