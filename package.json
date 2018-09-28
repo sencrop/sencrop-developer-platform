@@ -29,7 +29,8 @@
     "metapak": "metapak",
     "postinstall": "npm run metapak --silent",
     "prebuild": "npm run cpswaggerstyles",
-    "preversion": "npm run lint",
+    "precz": "npm run lint && npm run metapak -- -s",
+    "preversion": "npm run lint && npm run metapak -- -s",
     "start": "next start",
     "version": "npm run changelog && git add CHANGELOG.md"
   },
@@ -40,30 +41,30 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "babel-plugin-styled-components": "^1.5.1",
-    "babel-plugin-transform-assets-import-to-string": "^1.1.0",
-    "next": "^6.0.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-ga": "^2.4.1",
+    "babel-plugin-styled-components": "^1.7.1",
+    "babel-plugin-transform-assets-import-to-string": "^1.2.0",
+    "next": "^7.0.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-ga": "^2.5.3",
     "react-no-ssr": "^1.1.0",
     "react-syntax-highlighter": "^7.0.4",
     "styled-components": "^2.4.0",
-    "swagger-ui-dist": "^3.12.0"
+    "swagger-ui-dist": "^3.19.0"
   },
   "devDependencies": {
     "babel-plugin-inline-import": "^2.0.6",
-    "commitizen": "^2.9.6",
-    "conventional-changelog-cli": "^1.3.22",
+    "commitizen": "^2.10.1",
+    "conventional-changelog-cli": "^2.0.5",
     "css-loader": "^0.28.10",
     "cz-conventional-changelog": "^2.1.0",
     "dotenv": "^6.0.0",
     "metapak": "1.0.3",
-    "metapak-sencrop": "5.1.0",
+    "metapak-sencrop": "6.3.2",
     "style-loader": "^0.19.1"
   },
   "engines": {
-    "node": ">=6.10.0"
+    "node": ">=8.10.0"
   },
   "config": {
     "commitizen": {

@@ -41,7 +41,7 @@ I'm a gentledev i:
 ```
 <paste here>
 ```
-If the result is lower than 6.10.0, there is
+If the result is lower than 8.10.0, there is
  poor chances we even have a look to it. Please,
  use the last [NodeJS LTS version](https://nodejs.org/en/).
 

@@ -4,6 +4,7 @@
 # place, your changes would be overriden.
 -->
 
+
 # sencrop-developer-platform
 > The Sencrop Developer Platform website
 
@@ -32,6 +33,9 @@ npm run dev
 ```
 
 [//]: # (::contents:end)
+
+# Useful resources
+- [Changelog](./CHANGELOG.md)
 
 # License
 [MIT](https://github.com/sencrop/sencrop-developer-platform/blob/master/LICENSE.md)
