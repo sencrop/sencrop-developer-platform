@@ -838,7 +838,7 @@ const Index = () => (
       <li><strong>RELATIVE_HUMIDITY*</strong>: relative humidity measured in{' '}
         <a href="https://en.wikipedia.org/wiki/Relative_humidity#Definition">percentage (%)</a>,
       </li>
-      <li><strong>WIND_SPEED/WIND_MAX</strong>: wind measured in{' '}
+      <li><strong>WIND_SPEED/WIND_GUST</strong>: wind measured in{' '}
         <a href="https://en.wikipedia.org/wiki/Kilometres_per_hour">kilometers per hour (km·h−1)</a>,
       </li>
       <li><strong>WIND_DIRECTION</strong>: wind direction angle with the North in{' '}
