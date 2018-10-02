@@ -42,6 +42,9 @@ injectGlobal`
       list-style-type: none;
       padding-left: 0;
     }
+    ul > li:before {
+      content: '- ';
+    }
     a {
       outline: none;
       text-decoration: none;
@@ -54,12 +57,12 @@ injectGlobal`
         text-decoration: underline;
       }
     }
-    input[type=number]::-webkit-inner-spin-button, 
-    input[type=number]::-webkit-outer-spin-button { 
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
-      margin: 0; 
+      margin: 0;
     }
     input {
       display: inline-block;
@@ -73,7 +76,7 @@ injectGlobal`
       &:hover, &:focus, &:active {
         border-color: ${color('anthracite')};
       }
-      
+
       ::-webkit-input-placeholder {
         color: #b2b2b2;
       }
