@@ -26,12 +26,12 @@ const CURL_SENCROP_DEVICES_CODE = `curl 'https://api.sencrop.com/v1/users/1664/d
 `;
 const SENCROP_DEVICES_PAYLOAD = `{
   "items": [
-    "BI6BA46",
-    "114711"
+    33,
+    114711
   ],
   "devices": {
-    "BI6BA46": {
-      "id": "BI6BA46",
+    33: {
+      "id": "33",
       "accessPeriods": [{
         "role": "collaborator",
         "startDate": "2017-03-15T23:00:00.000Z"
@@ -45,7 +45,7 @@ const SENCROP_DEVICES_PAYLOAD = `{
       }
     },
     "114711": {
-      "id": "114711",
+      "id": 114711,
       "accessPeriods": [{
         "role": "collaborator"
       }],
@@ -59,8 +59,8 @@ const SENCROP_DEVICES_PAYLOAD = `{
     },
   },
   "devicesStatuses": {
-    "BI6BA46": {
-      "id": "BI6BA46",
+    "33": {
+      "id": 33,
       "contents": {
         "latitude": 43.7799,
         "longitude": 1.31287
@@ -89,7 +89,7 @@ const SENCROP_DEVICES_PAYLOAD = `{
   }
 }
 `;
-const CURL_SENCROP_RAW_DATA_CODE = `curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/raw?size=100&beforeDate=2017-10-10T00:00:00Z&measures=RELATIVE_HUMIDITY,TEMPERATURE"\
+const CURL_SENCROP_RAW_DATA_CODE = `curl "https://api.sencrop.com/v1/users/1664/devices/33/data/raw?size=100&beforeDate=2017-10-10T00:00:00Z&measures=RELATIVE_HUMIDITY,TEMPERATURE"\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_RAW_DATA_PAYLOAD = `[
@@ -156,28 +156,17 @@ const SENCROP_RAW_DATA_PAYLOAD = `[
 ]
 `;
 const CURL_SENCROP_DATA_CODE = `# Get hourly aggregated data for two days
-curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/hourly?beforeDate=2017-10-07T07:34:32.000Z&days=7&measures=WIND_DIRECTION,WIND_SPEED"\
+curl "https://api.sencrop.com/v1/users/1664/devices/33/data/hourly?beforeDate=2017-10-07T07:34:32.000Z&days=7&measures=WIND_DIRECTION,WIND_SPEED"\
   -H "Authorization: Bearer xxxxx"
 # Get daily aggregated data for two days
-curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/data/daily?beforeDate=2017-10-07T07:34:32.000Z&days=90&measures=WIND_DIRECTION,WIND_SPEED"\
+curl "https://api.sencrop.com/v1/users/1664/devices/33/data/daily?beforeDate=2017-10-07T07:34:32.000Z&days=90&measures=WIND_DIRECTION,WIND_SPEED"\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_DATA_PAYLOAD = `{
-  "models": {
-    "8": {
-      "id": 8,
-      "contents": {
-        "name": "Windcrop",
-        "conception": "France - Lille",
-        "manufacturing": "Europe-France",
-        "calibration": "Ok",
-        "weight": 3.1
-      }
-    }
-  },
+  "item": 33,
   "devices": {
-    "B16BA4": {
-      "id": "B16BA4",
+    "33": {
+      "id": 33,
       "accessPeriods": [{
         "role": "owner",
         "endDate": "2038-01-19T03:14:07.000Z"
@@ -190,7 +179,6 @@ const SENCROP_DATA_PAYLOAD = `{
       }
     }
   },
-  "entry": "B16BA4",
   "measures": {
     "interval": "1h",
     "data": [{
@@ -228,25 +216,14 @@ const SENCROP_DATA_PAYLOAD = `{
 }
 `;
 const CURL_SENCROP_STATISTICS_CODE = `# Get device statistics for two days
-curl "https://api.sencrop.com/v1/users/1664/devices/B16BA4/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&measures=WIND_DIRECTION,WIND_SPEED&patched=false"\
+curl "https://api.sencrop.com/v1/users/1664/devices/33/statistics?startDate=2017-01-01T00:00:00.000Z&endDate=2017-02-01T00:00:00.000Z&measures=WIND_DIRECTION,WIND_SPEED&patched=false"\
   -H "Authorization: Bearer xxxxx"
 `;
 const SENCROP_STATISTICS_PAYLOAD = `{
-  "models": {
-    "8": {
-      "id": 8,
-      "contents": {
-        "name": "Windcrop",
-        "conception": "France - Lille",
-        "manufacturing": "Europe-France",
-        "calibration": "Ok",
-        "weight": 3.1
-      }
-    }
-  },
+  "item": 33,
   "devices": {
-    "B16BA4": {
-      "id": "B16BA4",
+    "33": {
+      "id": 33,
       "accessPeriods": [{
         "role": "owner",
         "endDate": "2038-01-19T03:14:07.000Z"
@@ -259,7 +236,6 @@ const SENCROP_STATISTICS_PAYLOAD = `{
       }
     }
   },
-  "entry": "B16BA4",
   "measures": {
     "interval": "1d",
     "data": [{
@@ -370,6 +346,7 @@ API.getUserDeviceStatistics({
 
 const SENCROP_TIME_BUCKET_PAYLOAD = `
 {
+  "item": 33,
   "devices": {
     "33": {
       "id": 33,
@@ -395,20 +372,6 @@ const SENCROP_TIME_BUCKET_PAYLOAD = `
       }
     }
   },
-  "models": {
-    "7": {
-      "id": 7,
-      "contents": {
-        "name": "Raincrop",
-        "externalDiameter": 0.206,
-        "conception": "France - Lille",
-        "manufacturing": "Europe-France",
-        "calibration": "Ok",
-        "weight": 3.5
-      }
-    }
-  },
-  "entry": 33,
   "measures": {
     "interval": "month",
     "data": [
