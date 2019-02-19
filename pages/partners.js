@@ -179,14 +179,12 @@ const SENCROP_PARTNER_DEVICES_PAYLOAD = `
 }
 `;
 
-
 const CURL_SENCROP_PARTNER_PARAMETERS = `
 curl -X POST "https://api.sencrop.com/v1/partners/{partnerId}}/users/{delegatorId}/devices/{deviceId}/modules/{moduleId}/parameters" \
   --data-binary '{ "enabled": true }'
   -H "Content-Type: application/json"
   -H "Authorization: Bearer your_partner_token"
 `;
-
 
 const Partners = () => (
   <Layout
@@ -209,14 +207,19 @@ const Partners = () => (
     <ol>
       <li>
         your API credentials (application id and application secret) to interact
-        with the partners API endpoint protected via the [Basic
-        Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication)
-        ([RFC 7617](https://tools.ietf.org/html/rfc7617),
+        with the partners API endpoint protected via the{" "}
+        <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">
+          Basic Authentication
+        </a>{" "}
+        (<a href="https://tools.ietf.org/html/rfc7617">RFC 7617</a>),
       </li>
       <li>
         and your API token to interact with the API endpoints protected via the
-        bearer authentication ([RFC
-        6750](https://tools.ietf.org/html/rfc6750.html#section-2.1)).
+        bearer authentication (
+        <a href="https://tools.ietf.org/html/rfc6750.html#section-2.1">
+          RFC 6750
+        </a>
+        ).
       </li>
     </ol>
     <p>
@@ -337,18 +340,20 @@ const Partners = () => (
     <p>You will probably need to check the following values:</p>
     <ul>
       <li>
-        <strong>devices ids</strong>: The <code>items</code> property contains the list of the
-        returned devices ids. You can access to those devices in the{" "}
-        <code>devices</code> property which is the hash of the actual devices.
+        <strong>devices ids</strong>: The <code>items</code> property contains
+        the list of the returned devices ids. You can access to those devices in
+        the <code>devices</code> property which is the hash of the actual
+        devices.
       </li>
       <li>
-        <strong>devices names</strong>: the name a user gave to its device can be found at path{" "}
-        <code>devices[deviceid].contents.name</code>.
+        <strong>devices names</strong>: the name a user gave to its device can
+        be found at path <code>devices[deviceid].contents.name</code>.
       </li>
       <li>
-        <strong>devices identifications</strong>: a human readable unique id (actually printed on
-        the device itsef) that users can use for every support requests can be
-        found at path <code>devices[deviceid].identification</code>.
+        <strong>devices identifications</strong>: a human readable unique id
+        (actually printed on the device itsef) that users can use for every
+        support requests can be found at path{" "}
+        <code>devices[deviceid].identification</code>.
       </li>
       <li>
         <strong>devices models</strong>: the device model id can be found at{" "}
@@ -356,9 +361,9 @@ const Partners = () => (
         and the actual model data at <code>models[modelId]</code>.
       </li>
       <li>
-        <strong>devices access</strong>: contains the various access to the devices. You want to
-        review the <code>partner</code> type accesses in order to know which
-        modules were activated for this device (see at path{" "}
+        <strong>devices access</strong>: contains the various access to the
+        devices. You want to review the <code>partner</code> type accesses in
+        order to know which modules were activated for this device (see at path{" "}
         <code>devices[deviceId].accessPeriods[type=partner].moduleId</code>
         .). You probably want to look at the <code>delegatorId</code> which
         tells you the <code>userId</code> of the user that activated the module
@@ -370,16 +375,17 @@ const Partners = () => (
         users when activating the module on their device.
       </li>
       <li>
-        <strong>users</strong>: you can user the <code>users</code> hash to pick up informations
-        on the user behind the <code>delegatorId</code>. You will probably pick
-        up their email in order to
+        <strong>users</strong>: you can user the <code>users</code> hash to pick
+        up informations on the user behind the <code>delegatorId</code>. You
+        will probably pick up their email in order to
         <a href="#delegation_flows">generate tokens</a> with the module flow to
         access the data they shared with you.
       </li>
       <li>
-        <strong>organisations</strong>: and finally, you may want to know which organisations a
-        user is part of by looking in the <code>organisations</code> hash
-        corresponding to the <code>organisationId</code> found at path
+        <strong>organisations</strong>: and finally, you may want to know which
+        organisations a user is part of by looking in the{" "}
+        <code>organisations</code> hash corresponding to the{" "}
+        <code>organisationId</code> found at path
         <code>users[delegatorId].organisationsIds</code>.
       </li>
     </ul>
