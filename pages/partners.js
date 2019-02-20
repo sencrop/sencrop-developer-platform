@@ -11,40 +11,60 @@ import docco from "react-syntax-highlighter/styles/hljs/docco";
 
 registerLanguage("javascript", js);
 
+const CURL_SENCROP_PARTNER_TOKEN_CREATION = `
+curl 'https://api.sencrop.com/v1/oauth2/token' \\
+  -u '<APPLICATION_ID>:<APPLICATION_SECRET>' \\
+  -X POST --data '{"grant_type": "client_credentials", "scope": "user"}' \\
+  -H 'Content-Type: application/json'
+`;
+const SENCROP_PARTNER_TOKEN_PAYLOAD = `
+{
+    "access_token": "<PARTNER_ACCESS_TOKEN>",
+    "token_type": "bearer",
+    "expires_in": 1500015046639,
+    "refresh_token": "<PARTNER_REFRESH_TOKEN>"
+}
+`;
+
+const CURL_SENCROP_PARTNER_USER_RETRIEVAL = `
+curl 'https://api.sencrop.com/v1/me' \\
+  -H "Authorization: Bearer <PARTNER_ACCESS_TOKEN>" \\
+  -L
+`;
+
 const CURL_SENCROP_TOKEN_CREATION = `
-curl https://api.sencrop.com/v1/partners/{partnerId}}/tokens \
-  -X POST --data '{"email":"nicolas@sencrop.com", "code": "MODULE"}' \
-  -H 'Content-Type: application/json' \
-  -u 'application_id:application_secret'
+curl https://api.sencrop.com/v1/partners/<PARTNER_ID>/tokens \\
+  -u '<APPLICATION_ID>:<APPLICATION_SECRET>' \\
+  -X POST --data '{"email":"nicolas@sencrop.com", "code": "MODULE"}' \\
+  -H 'Content-Type: application/json'
 `;
 
 const CURL_SENCROP_TOKEN_REQUEST = `
-curl https://api.sencrop.com/v1/partners/{partnerId}}/tokenRequests \
-  -X POST --data '{"email":"nicolas@sencrop.com"}' \
-  -H 'Content-Type: application/json' \
-  -u 'application_id:application_secret'
+curl https://api.sencrop.com/v1/partners/<PARTNER_ID>}/tokenRequests \\
+-u '<APPLICATION_ID>:<APPLICATION_SECRET>' \\
+  -X POST --data '{"email":"nicolas@sencrop.com"}' \\
+  -H 'Content-Type: application/json'
 `;
 
 const CURL_SENCROP_TOKEN_CLAIM = `
-curl https://api.sencrop.com/v1/partners/{partnerId}}/tokens \
-  -X POST --data '{"email":"nicolas@sencrop.com", "code": "P6YEES"}' \
-  -H 'Content-Type: application/json' \
-  -u 'application_id:application_secret'
+curl https://api.sencrop.com/v1/partners/<PARTNER_ID>}/tokens \\
+  -u '<APPLICATION_ID>:<APPLICATION_SECRET>' \\
+  -X POST --data '{"email":"nicolas@sencrop.com", "code": "P6YEES"}' \\
+  -H 'Content-Type: application/json'
 `;
 
 const SENCROP_TOKEN_CLAIM_PAYLOAD = `
 {
   "userId":1,
   "organisationId":1,
-  "token":"aac64190008c7f7b216ce91e7f1dec37ea615f1a3f5630cfc2ded6232badbb703c11a0c8dd2bbd5a8abb10d44427ae21131b3fd43cfe6fcebcc1fc84d89f10b6d6c85cd3f704cffc8486831d35f831f06ec9dd7d3e5c9e8f0fcc3658f1055cfe1516ee159120b964a40af7c462589edcd1243869ccd294144244c9426d3d6dc0",
+  "token":"<SENCROP_USER_ACCESS_TOKEN>",
   "expirationDate":"2018-03-03T08:08:48.062Z"
 }
 `;
 
 const CURL_SENCROP_PARTNER_DEVICES = `
-curl -X GET "https://api.sencrop.com/v1/partners/{partnerId}}/devices?limit=10&start=0" \
-  -H "accept: application/json"
-  -H "Authorization: Bearer your_partner_token"
+curl -X GET "https://api.sencrop.com/v1/partners/<PARTNER_ID>}/devices?limit=10&start=0" \\
+  -H "Authorization: Bearer <PARTNER_ACCESS_TOKEN>"
 `;
 
 const SENCROP_PARTNER_DEVICES_PAYLOAD = `
@@ -180,10 +200,9 @@ const SENCROP_PARTNER_DEVICES_PAYLOAD = `
 `;
 
 const CURL_SENCROP_PARTNER_PARAMETERS = `
-curl -X POST "https://api.sencrop.com/v1/partners/{partnerId}}/users/{delegatorId}/devices/{deviceId}/modules/{moduleId}/parameters" \
-  --data-binary '{ "enabled": true }'
-  -H "Content-Type: application/json"
-  -H "Authorization: Bearer your_partner_token"
+curl -X POST "https://api.sencrop.com/v1/partners/<PARTNER_ID>}/users/{delegatorId}/devices/{deviceId}/modules/{moduleId}/parameters" \\
+  -H "Authorization: Bearer <PARTNER_ACCESS_TOKEN>" \\
+  -X POST --data '{ "enabled": true }'
 `;
 
 const Partners = () => (
@@ -203,29 +222,75 @@ const Partners = () => (
       <a href="https://app.sencrop.com/signup">create an account</a> and{" "}
       <a href="https://sencrop.typeform.com/to/XzDjNC">contact us then</a>.
     </p>
-    and <p>After contacting us, you will get.</p>
-    <ol>
-      <li>
-        your API credentials (application id and application secret) to interact
-        with the partners API endpoint protected via the{" "}
-        <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">
-          Basic Authentication
-        </a>{" "}
-        (<a href="https://tools.ietf.org/html/rfc7617">RFC 7617</a>),
-      </li>
-      <li>
-        and your API token to interact with the API endpoints protected via the
-        bearer authentication (
-        <a href="https://tools.ietf.org/html/rfc6750.html#section-2.1">
-          RFC 6750
-        </a>
-        ).
-      </li>
-    </ol>
     <p>
-      Those informations will soon be manageable by your side but in the
-      meanwhile, please contact us to renew it.
+      After contacting us, you will get your API credentials (referred to as{" "}
+      <code>{"<APPLICATION_ID>"}</code> and{" "}
+      <code>{"<APPLICATION_SECRET>"}</code> in the code samples) to interact
+      with the partners API endpoint protected via the{" "}
+      <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">
+        Basic Authentication
+      </a>{" "}
+      (<a href="https://tools.ietf.org/html/rfc7617">RFC 7617</a>).
     </p>
+    <p>
+      To use our API, you will benefit from knowing your{" "}
+      <code>{"<PARTNER_ID>"}</code>, we will transmit it to your with your
+      application credentials.
+    </p>
+    <p>
+      Beware that your application credentials are to be kept secret and stored
+      in a safe way. You must not use it your frontend applications.
+    </p>
+    <p>
+      Your applications listing will soon be manageable by your side but in the
+      meanwhile, please contact us to renew / disable it. Feel free to ask
+      several application credentials to isolate your applications or
+      environments.
+    </p>
+    <p>
+      Also note that once issued, we cannot access to your application secret so
+      take care to not loose it.
+    </p>
+    <h2>
+      <Anchor text="Issuing a partner token" />
+    </h2>
+    <p>
+      Some partners API endpoints requires you to issue a token (referred to as{" "}
+      <code>{"<PARTNER_ACCESS_TOKEN>"}</code>) for your own account to
+      authenticate via the bearer authentication mechanism (
+      <a href="https://tools.ietf.org/html/rfc6750.html#section-2.1">
+        RFC 6750
+      </a>
+      ).
+    </p>
+    <SyntaxHighlighter language="bash" style={docco}>
+      {CURL_SENCROP_PARTNER_TOKEN_CREATION}
+    </SyntaxHighlighter>
+    <SyntaxHighlighter language="javascript" style={docco}>
+      {SENCROP_PARTNER_TOKEN_PAYLOAD}
+    </SyntaxHighlighter>
+    <p>
+      As for application credentials, this token must remain confidential and
+      stored in a secure way.
+    </p>
+    <p>
+      If your organization owns Sencrop devices, you should now be able to
+      access it via our API. You can use your{" "}
+      <code>{"<PARTNER_ACCESS_TOKEN>"}</code> directly in our API reference or
+      follow the API Guide if not done yet to play around with your data.
+    </p>
+    <p>
+      Otherwise, you can ask our users to access their own devices with the
+      below described delegation flows.
+    </p>
+    <p>
+      If you want to retrieve your <code>{"<PARTNER_ID>"}</code> or{" "}
+      <code>{"<USER_ID>"}</code> you can run the following command to reach your
+      user profile:
+    </p>
+    <SyntaxHighlighter language="bash" style={docco}>
+      {CURL_SENCROP_PARTNER_USER_RETRIEVAL}
+    </SyntaxHighlighter>
     <h2>
       <Anchor text="Delegation flows" />
     </h2>
@@ -252,9 +317,7 @@ const Partners = () => (
       <a href="#listing_modules_activations">
         <code>
           /partners/
-          {"{"}
-          partnerId
-          {"}"}
+          {"<PARTNER_ID>"}
           /devices
         </code>
       </a>{" "}
