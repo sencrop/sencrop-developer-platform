@@ -1,3 +1,19 @@
+<a name="1.9.0"></a>
+# [1.9.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.8.0...v1.9.0) (2019-02-20)
+
+
+### Bug Fixes
+
+* **API Guide:** Fix payloads with old/deprecated infos ([b2d39ed](https://github.com/sencrop/sencrop-developer-platform/commit/b2d39ed))
+* **Partners API:** Fix links format ([871b012](https://github.com/sencrop/sencrop-developer-platform/commit/871b012))
+
+
+### Features
+
+* **Partners API:** Add a way to retrieve your own token as a partner ([d0579e6](https://github.com/sencrop/sencrop-developer-platform/commit/d0579e6))
+
+
+
 <a name="1.8.0"></a>
 # [1.8.0](https://github.com/sencrop/sencrop-developer-platform/compare/v1.7.1...v1.8.0) (2018-10-02)
 
