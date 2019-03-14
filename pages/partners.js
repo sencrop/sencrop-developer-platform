@@ -291,6 +291,9 @@ const Partners = () => (
     <SyntaxHighlighter language="bash" style={docco}>
       {CURL_SENCROP_PARTNER_USER_RETRIEVAL}
     </SyntaxHighlighter>
+    <p>
+      Then your <code>{"<PARTNER_ID>"}</code> will be in the <code>organisationId</code> field.
+    </p>
     <h2>
       <Anchor text="Delegation flows" />
     </h2>
