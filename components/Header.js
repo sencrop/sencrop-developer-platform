@@ -1,4 +1,3 @@
-import styled, { css } from 'styled-components'
 import { color, spacing } from '../ui'
 import Link from 'next/link'
 
