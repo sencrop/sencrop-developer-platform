@@ -19,10 +19,10 @@
   },
   "scripts": {
     "build": "next build",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "checkStaged": "if ! git diff-files --quiet --ignore-submodules ; then echo \"⚠️ - Unstaged files found:\"; echo $(git diff-files --shortstat); fi;",
     "cli": "env NODE_ENV=${NODE_ENV:-cli}",
     "cpswaggerstyles": "cp node_modules/swagger-ui-dist/swagger-ui.css static/styles/swagger-ui.css",
-    "cz": "env NODE_ENV=${NODE_ENV:-cli} git cz",
     "dev": "next",
     "export": "next export",
     "lint": "echo \"WARNING: No linter configured\"",
@@ -32,7 +32,7 @@
     "precz": "npm run lint && npm run metapak -- -s",
     "preversion": "npm run lint && npm run metapak -- -s",
     "start": "next start",
-    "version": "npm run changelog && git add CHANGELOG.md"
+    "version": "npm run changelog"
   },
   "keywords": [],
   "author": "",
@@ -41,34 +41,38 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "babel-plugin-styled-components": "^1.7.1",
+    "babel-plugin-styled-components": "^1.10.0",
     "babel-plugin-transform-assets-import-to-string": "^1.2.0",
-    "next": ">=7.0.2",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-ga": "^2.5.3",
+    "next": ">=8.0.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-ga": "^2.5.7",
     "react-no-ssr": "^1.1.0",
-    "react-syntax-highlighter": "^7.0.4",
-    "styled-components": "^2.4.0",
-    "swagger-ui-dist": "^3.19.0"
+    "react-syntax-highlighter": "^10.2.1",
+    "styled-components": "^4.2.0",
+    "swagger-ui-dist": "^3.22.0"
   },
   "devDependencies": {
-    "babel-plugin-inline-import": "^2.0.6",
-    "commitizen": "^2.10.1",
-    "conventional-changelog-cli": "^2.0.5",
+    "@commitlint/cli": "^7.5.2",
+    "@commitlint/config-conventional": "^7.5.0",
+    "babel-plugin-inline-import": "^3.0.0",
+    "conventional-changelog-cli": "^2.0.11",
     "css-loader": "^0.28.10",
     "cz-conventional-changelog": "^2.1.0",
-    "dotenv": "^6.0.0",
-    "metapak": "1.0.3",
-    "metapak-sencrop": "6.3.2",
-    "style-loader": "^0.19.1"
+    "dotenv": "^7.0.0",
+    "husky": "^1.3.1",
+    "metapak": "^3.1.6",
+    "metapak-sencrop": "7.3.0",
+    "style-loader": "^0.23.1"
   },
   "engines": {
     "node": ">=8.10.0"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+  "config": {},
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm run checkStaged"
     }
   }
 }

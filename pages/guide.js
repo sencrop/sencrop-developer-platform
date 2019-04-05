@@ -2,13 +2,13 @@ import Link from 'next/link'
 import Layout from '../components/Layout'
 import Anchor from '../components/Anchor'
 
-import SyntaxHighlighter, { registerLanguage } from "react-syntax-highlighter/light"
-import js from 'react-syntax-highlighter/languages/hljs/javascript'
-import bash from 'react-syntax-highlighter/languages/hljs/bash'
-import docco from 'react-syntax-highlighter/styles/hljs/docco'
+import SyntaxHighlighter, { registerLanguage } from "react-syntax-highlighter/dist/prism-light";
+import js from "react-syntax-highlighter/dist/languages/prism/javascript";
+import bash from "react-syntax-highlighter/dist/languages/prism/bash";
+import docco from "react-syntax-highlighter/dist/styles/prism/atom-dark";
 
-registerLanguage('javascript', js);
-registerLanguage('bash', bash);
+registerLanguage("javascript", js);
+registerLanguage("bash", bash);
 
 const PING_ENDPOINT = 'https://api.sencrop.com/v1/ping';
 const CURL_PING_CODE = `curl ${PING_ENDPOINT}

@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
-import { Link, color, spacing } from '../ui'
+import { Link, spacing } from '../ui'
+import { color } from '../ui/Colors'
 
 const Header = (props) => (
   <Wrapper>

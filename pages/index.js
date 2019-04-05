@@ -75,11 +75,11 @@ export default class Index extends React.Component {
           }}
           aria-hidden="true"
           >
-          <input type="text" ref="email" name="b_c993ab1c009fbcbc61dea24cd_b7ef162deb" tabIndex="-1" value="" />
+          <input type="text" ref="email" name="b_c993ab1c009fbcbc61dea24cd_b7ef162deb" tabIndex="-1" defaultValue="" />
         </div>
         <p>Keep informed on our API evolutions:</p>
         <label>Email: <input type="email" autoCapitalize="none" autoCorrect="off" name="EMAIL" placeholder="dennis.richie@heaven.org" required="required" id="mailing_list_email" /></label>
-        <input type="submit" name="subscribe" value="Subscribe" />
+        <input type="submit" name="subscribe" defaultValue="Subscribe" />
       </form>
     </Layout>;
   }

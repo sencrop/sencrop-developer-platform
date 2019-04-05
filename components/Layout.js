@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import Header from './Header'
 import GA from './GA'
 import NoSSR from 'react-no-ssr';
-import { color, spacing } from '../ui'
+import { GlobalStyle, spacing } from '../ui'
 
 const Layout = (props) => (
   <div>
+  <GlobalStyle />
     <Head>
       <meta charSet="utf-8"/>
       <title>{
