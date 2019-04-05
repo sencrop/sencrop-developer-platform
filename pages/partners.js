@@ -33,23 +33,23 @@ curl 'https://api.sencrop.com/v1/me' \\
 `;
 
 const CURL_SENCROP_TOKEN_CREATION = `
-curl https://api.sencrop.com/v1/partners/<PARTNER_ID>/tokens \\
+curl 'https://api.sencrop.com/v1/oauth2/token' \\
   -u '<APPLICATION_ID>:<APPLICATION_SECRET>' \\
-  -X POST --data '{"email":"nicolas@sencrop.com", "code": "MODULE"}' \\
+  -X POST --data '{"grant_type": "module", "email": "user@example.com", "scope": "user"}' \\
   -H 'Content-Type: application/json'
 `;
 
 const CURL_SENCROP_TOKEN_REQUEST = `
-curl https://api.sencrop.com/v1/partners/<PARTNER_ID>}/tokenRequests \\
+curl https://api.sencrop.com/v1/partners/<PARTNER_ID>/tokenRequests \\
 -u '<APPLICATION_ID>:<APPLICATION_SECRET>' \\
   -X POST --data '{"email":"nicolas@sencrop.com"}' \\
   -H 'Content-Type: application/json'
 `;
 
 const CURL_SENCROP_TOKEN_CLAIM = `
-curl https://api.sencrop.com/v1/partners/<PARTNER_ID>}/tokens \\
+curl 'https://api.sencrop.com/v1/oauth2/token' \\
   -u '<APPLICATION_ID>:<APPLICATION_SECRET>' \\
-  -X POST --data '{"email":"nicolas@sencrop.com", "code": "P6YEES"}' \\
+  -X POST --data '{"grant_type": "code_request", "email": "user@example.com", "code": "P6YEES", "scope": "user"}' \\
   -H 'Content-Type: application/json'
 `;
 
