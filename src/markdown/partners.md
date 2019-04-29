@@ -51,6 +51,9 @@ curl 'https://api.sencrop.com/v1/me' \
   -H "Authorization: Bearer <PARTNER_ACCESS_TOKEN>" \
   -L
 ```
+
+Then your `<PARTNER_ID>` will be in the `organisationId` field.
+
 ## Delegation flows
 
 You can obtain a token from our users via 2 distinct flows currently, the SMS flow or the module flow.
@@ -60,9 +63,9 @@ You can obtain a token from our users via 2 distinct flows currently, the SMS fl
 This flow allows you to directly create tokens for our users. The prerequisite is that the user must have activated at least one of your modules on their Sencrop application.
 
 ```bash
-curl https://api.sencrop.com/v1/partners/<PARTNER_ID>/tokens \
+curl 'https://api.sencrop.com/v1/oauth2/token' \
   -u '<APPLICATION_ID>:<APPLICATION_SECRET>' \
-  -X POST --data '{"email":"nicolas@sencrop.com", "code": "MODULE"}' \
+  -X POST --data '{"grant_type": "module", "email": "user@example.com", "scope": "user"}' \
   -H 'Content-Type: application/json'
 ```
 
@@ -95,7 +98,7 @@ Finally ask users for that code and call our token claim endpoint. It will provi
 To request a token just call the following endpoint with your API application id and secret:
 
 ```bash
-curl https://api.sencrop.com/v1/partners/<PARTNER_ID>}/tokenRequests \
+curl 'https://api.sencrop.com/v1/partners/<PARTNER_ID>/tokenRequests' \
 -u '<APPLICATION_ID>:<APPLICATION_SECRET>' \
   -X POST --data '{"email":"nicolas@sencrop.com"}' \
   -H 'Content-Type: application/json'
@@ -108,9 +111,9 @@ This will send a SMS to the user with an authorization code.
 To create the token just call the following endpoint with your API application id and secret:
 
 ```bash
-curl https://api.sencrop.com/v1/partners/<PARTNER_ID>}/tokens \
+curl 'https://api.sencrop.com/v1/oauth2/token' \
   -u '<APPLICATION_ID>:<APPLICATION_SECRET>' \
-  -X POST --data '{"email":"nicolas@sencrop.com", "code": "P6YEES"}' \
+  -X POST --data '{"grant_type": "code_request", "email": "user@example.com", "code": "P6YEES", "scope": "user"}' \
   -H 'Content-Type: application/json'
 ```
 
