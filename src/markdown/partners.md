@@ -52,7 +52,10 @@ curl 'https://api.sencrop.com/v1/me' \
   -L
 ```
 
-Then your `<PARTNER_ID>` will be in the `organisationId` field.
+Then your `<PARTNER_ID>` will be in the `organisationId` field.  
+
+Do not forget to concatenate the `token_type` and the `access_token` when using the token in the Authorization header. (eg. `"Authorization: Bearer xxxxx"`)
+
 
 ## Delegation flows
 
@@ -71,15 +74,15 @@ curl 'https://api.sencrop.com/v1/oauth2/token' \
 
 ```js
 {
-  "userId":1,
-  "organisationId":1,
-  "token":"<SENCROP_USER_ACCESS_TOKEN>",
-  "expirationDate":"2018-03-03T08:08:48.062Z"
+    "access_token": "<PARTNER_ACCESS_TOKEN>",
+    "token_type": "bearer",
+    "expires_in": 1555927705753,
+    "refresh_token": "<PARTNER_REFRESH_TOKEN>"
 }
 ```
 To see the users that enabled one of your modules, your can use the [/partners/<PARTNER_ID>/devices](#listing-modules-activations) endpoint.
 
-If you try to create a token for a user with none of your modules activated you will get a `E_MODULE_NOT_ACTIVATED` error.
+If you try to create a token for a user with none of your modules activated you will get a `E_MODULE_NOT_ACTIVATED` error.  
 
 ## SMS flow
 
@@ -119,10 +122,10 @@ curl 'https://api.sencrop.com/v1/oauth2/token' \
 
 ```js
 {
-  "userId":1,
-  "organisationId":1,
-  "token":"<SENCROP_USER_ACCESS_TOKEN>",
-  "expirationDate":"2018-03-03T08:08:48.062Z"
+    "access_token": "<PARTNER_ACCESS_TOKEN>",
+    "token_type": "bearer",
+    "expires_in": 1555927705753,
+    "refresh_token": "<PARTNER_REFRESH_TOKEN>"
 }
 ```
 That token allows your to access the user data through the API. See our [API guide](/guide) for more information on its usage.
