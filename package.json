@@ -31,7 +31,7 @@
     "gatsby-transformer-remark": "^2.3.12",
     "gatsby-transformer-sharp": "^2.1.17",
     "leaflet": "^1.4.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "prismjs": "^1.16.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
