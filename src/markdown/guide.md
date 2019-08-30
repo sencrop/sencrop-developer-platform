@@ -580,6 +580,7 @@ The API returns values in fixed units. We use the [international system of units
 - **WIND_DIRECTION**: wind direction angle with the North in [angular degrees (°)](https://en.wikipedia.org/wiki/Degree_(angle)) within a 0 to 360 range (360 excluded), for instance, a value of 0 means a wind directed to the North and coming from the South,
 - **WET_TEMPERATURE**: wet bulb temperature in [degree Celsius (°C)](https://en.wikipedia.org/wiki/Wet-bulb_temperature),
 - **LEAF_WETNESS**: amount of wetness time in minutes.
+- **LEAF_SENSOR_CONDUCTIVITY**: conductivity of the leaf sensor in [millivolts (mV)](https://en.wikipedia.org/wiki/Volt).
 
 Please note that the old counter intuitive name (`WIND_MAX`, `WIND_MEAN`, `RH_AIR_H1`, `TEMP_AIR_H1`, `RAIN_TIC`) are still supported but deprecated. We will probably remove those measures in a near future.
 
