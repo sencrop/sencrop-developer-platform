@@ -1,14 +1,14 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
-import MDXRenderer from "gatsby-mdx/mdx-renderer";
+import { MDXRenderer } from "gatsby-plugin-mdx"
 
 const PageTemplate = ({ data }) => {
   const { mdx } = data
-  const { code } = mdx
+  const { body } = mdx
   return (
     <Layout>
-      <MDXRenderer>{code.body}</MDXRenderer>
+      <MDXRenderer>{body}</MDXRenderer>
     </Layout>
   )
 }
@@ -16,9 +16,7 @@ const PageTemplate = ({ data }) => {
 export const pageQuery = graphql`
   query($path: String!) {
     mdx(frontmatter: { path: { eq: $path } }) {
-      code {
-        body
-      }
+      body
       frontmatter {
         path
         title

@@ -1,10 +1,10 @@
-import React, { useState } from "react"
-import styled, { css } from "styled-components"
-import { color, text, media, Icon } from "@sencrop/ui"
-import { Link, useStaticQuery, graphql } from "gatsby"
-import logo from "../images/sencrop-white.svg"
+import React, { useState } from "react";
+import styled, { css, withTheme } from "styled-components";
+import { text, media, IconButton, WeatherIcon, Icon } from "@sencrop/ui";
+import { Link, useStaticQuery, graphql } from "gatsby";
+import logo from "../images/sencrop-white.svg";
 
-const Navbar = () => {
+const Navbar = props => {
   const { allMdx } = useStaticQuery(graphql`
     query {
       allMdx(
@@ -23,10 +23,15 @@ const Navbar = () => {
         }
       }
     }
-  `)
+  `);
 
-  const [isOpen, setOpen] = useState(false)
-  const toggle = () => setOpen(!isOpen)
+  const { theme, onThemeChange } = props;
+
+  const [isOpen, setOpen] = useState(false);
+  const toggleTheme = () => {
+    onThemeChange(theme.name === "light" ? "dark" : "light");
+  };
+  const toggle = () => setOpen(!isOpen);
 
   return (
     <Background>
@@ -51,18 +56,26 @@ const Navbar = () => {
             Bug report
           </NavLink>
         </Links>
+        <Spacer />
+        <IconButton onClick={toggleTheme}>
+          <WeatherIcon
+            name={theme.name === "light" ? "clear-day" : "clear-night"}
+            color="warning"
+            size={36}
+          />
+        </IconButton>
       </Wrapper>
     </Background>
-  )
-}
+  );
+};
 
-export default Navbar
+export default withTheme(Navbar);
 
 const Background = styled.div`
   position: relative;
   width: 100%;
-  background-color: ${color("dark")};
-`
+  background-color: ${props => props.theme.color("background", "dark")};
+`;
 
 const Wrapper = styled.div`
   position: relative;
@@ -76,7 +89,7 @@ const Wrapper = styled.div`
     max-width: 1280px;
     margin: auto;
   `}
-`
+`;
 
 const Main = styled.div`
   position: relative;
@@ -89,7 +102,7 @@ const Main = styled.div`
     padding-bottom: 6px;
     margin-right: 1rem;
   `}
-`
+`;
 
 const Menu = styled.button`
   border: none;
@@ -102,17 +115,17 @@ const Menu = styled.button`
   cursor: pointer;
   i {
     font-size: 36px;
-    color: ${color("white")};
+    color: ${props => props.theme.color("text", "light")};
   }
   ${media.greaterThan("tablet")`
     display: none;
   `}
-`
+`;
 
 const Logo = styled.img`
   margin: auto;
   height: 30px;
-`
+`;
 
 const Links = styled.div`
   display: flex;
@@ -130,14 +143,14 @@ const Links = styled.div`
     flex-direction: row;
     height: 100%;
   `}
-`
+`;
 
 const NavLink = styled.a`
-  color: ${color("white")};
+  color: ${props => props.theme.color("text", "light")};
   ${text("title", "l")}
   padding: 0 1rem 0.5rem 1rem;
   &[aria-current="page"] {
-    color: ${color("green")};
+    color: ${props => props.theme.color("branding", "primary")};
   }
   ${media.greaterThan("tablet")`
     display: flex;
@@ -149,7 +162,11 @@ const NavLink = styled.a`
     border-top: 3px solid transparent;
     border-bottom: 3px solid transparent;
     &[aria-current="page"] {
-      border-bottom-color: ${color("green")};
+      border-bottom-color: ${props => props.theme.color("branding", "primary")};
     }
   `}
-`
+`;
+
+const Spacer = styled.span`
+  flex: 1;
+`;

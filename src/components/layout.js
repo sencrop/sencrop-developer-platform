@@ -1,37 +1,51 @@
-import PropTypes from "prop-types"
-import React from "react"
-import styled from "styled-components"
+import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
+import styled, { css } from "styled-components";
 import SEO from "../components/seo";
-import { GlobalStyle, color } from "@sencrop/ui"
 import Navbar from "./Navbar";
+import { ThemeProvider } from "@sencrop/ui/dist/es/Theme";
+import GlobalStyle from "@sencrop/ui/dist/es/GlobalStyle";
 
 const Layout = ({ children }) => {
+  const [theme, setTheme] = useState("light");
+  
+  useEffect(() => {
+    const t = localStorage.getItem("theme");
+    setTheme(t);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   return (
-    <div>
-      <GlobalStyle />
-      <SEO />
-      <Navbar />
-      <Main>{children}</Main>
-    </div>
-  )
-}
+    <ThemeProvider theme={theme}>
+      <>
+        <GlobalStyle />
+        <SEO />
+        <Navbar onThemeChange={setTheme}/>
+        <Main>{children}</Main>
+      </>
+    </ThemeProvider>
+  );
+};
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
+  children: PropTypes.node.isRequired
+};
 
 const Main = styled.div`
   max-width: 1280px;
   margin: 0 auto;
   padding: 1rem 1rem 2rem;
-  
+
   blockquote {
-    border-left: 4px solid ${color("green")};
+    border-left: 4px solid ${props => props.theme.color("branding", "primary")};
     margin: 0;
     padding: 0.5rem 2rem;
     margin-bottom: 1rem;
   }
-  
+
   pre[class*="language-"] {
     font-size: 0.75rem;
     border-radius: 6px;
@@ -42,12 +56,12 @@ const Main = styled.div`
     }
   }
   code[class*="language-text"] {
-    color: ${color("grey", "dark")};
+    color: ${props => props.theme.color("text", "primary")};
     font-size: 0.9rem;
-    background-color: ${color("grey", "faint")};
+    background-color: ${props => props.theme.color("background", "primary")};
   }
   a {
-    color: ${color("green")};
+    color: ${props => props.theme.color("branding", "primary")};
   }
   h1,
   h2,
@@ -68,6 +82,55 @@ const Main = styled.div`
   pre {
     margin-bottom: 1.5rem;
   }
-`
 
-export default Layout
+  /* Swagger UI */
+  .swagger-ui .info .title {
+    color: ${props => props.theme.color("text", "primary")};
+  }
+  .swagger-ui .opblock-tag {
+    color: ${props => props.theme.color("text", "secondary")};
+  }
+  
+  .swagger-ui .expand-methods, .swagger-ui .expand-operation, .swagger-ui .authorization__btn.unlocked {
+    svg {
+      fill: ${props => props.theme.color("text", "primary")};
+    }
+  }
+
+  .swagger-ui .scheme-container {
+    background-color: ${props => props.theme.color("background", "primary:lighten")}
+  }
+
+  .swagger-ui .opblock .opblock-summary-description {
+    color: ${props => props.theme.color("text", "secondary")};
+  }
+  .swagger-ui .opblock .opblock-summary-operation-id, .swagger-ui .opblock .opblock-summary-path, .swagger-ui .opblock .opblock-summary-path__deprecated {
+    color: ${props => props.theme.color("text", "secondary")};
+  }
+  .swagger-ui .opblock .opblock-section-header {
+    background-color: ${props => props.theme.color("background", "primary")};
+  }
+  .swagger-ui .opblock .opblock-section-header h4 {
+    color: ${props => props.theme.color("text", "secondary")};
+  }
+  .swagger-ui .btn {
+    border-color: ${props => props.theme.color("border", "primary")};
+    color: ${props => props.theme.color("text", "tertiary")};
+  }
+
+  .swagger-ui {
+    ${props => props.theme.name === "dark" && css`
+      th, td, tr, p, span {
+        &, & * {
+          color: ${props => props.theme.name === "dark" && props.theme.color("text", "primary")} !important;
+        }
+      }
+      select {
+        color: ${props => props.theme.color("text", "dark")} !important;
+      }
+    `};
+  }
+  
+`;
+
+export default Layout;

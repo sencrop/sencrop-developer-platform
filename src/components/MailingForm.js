@@ -5,7 +5,7 @@ import InputText from "@sencrop/ui/dist/es/Inputs/InputText";
 import { media } from "@sencrop/ui/dist/es/Constants";
 
 const MailingForm = () => {
-  const [email, setEmail] = useState()
+  const [email, setEmail] = useState("")
   return (
     <Form
       method="post"
