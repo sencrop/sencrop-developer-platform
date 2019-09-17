@@ -8,7 +8,7 @@ import GlobalStyle from "@sencrop/ui/dist/es/GlobalStyle";
 
 const Layout = ({ children }) => {
   const [theme, setTheme] = useState("light");
-  
+
   useEffect(() => {
     const t = localStorage.getItem("theme");
     setTheme(t);
@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
       <>
         <GlobalStyle />
         <SEO />
-        <Navbar onThemeChange={setTheme}/>
+        <Navbar onThemeChange={setTheme} />
         <Main>{children}</Main>
       </>
     </ThemeProvider>
@@ -90,21 +90,26 @@ const Main = styled.div`
   .swagger-ui .opblock-tag {
     color: ${props => props.theme.color("text", "secondary")};
   }
-  
-  .swagger-ui .expand-methods, .swagger-ui .expand-operation, .swagger-ui .authorization__btn.unlocked {
+
+  .swagger-ui .expand-methods,
+  .swagger-ui .expand-operation,
+  .swagger-ui .authorization__btn.unlocked {
     svg {
       fill: ${props => props.theme.color("text", "primary")};
     }
   }
 
   .swagger-ui .scheme-container {
-    background-color: ${props => props.theme.color("background", "primary:lighten")}
+    background-color: ${props =>
+      props.theme.color("background", "primary:lighten")};
   }
 
   .swagger-ui .opblock .opblock-summary-description {
     color: ${props => props.theme.color("text", "secondary")};
   }
-  .swagger-ui .opblock .opblock-summary-operation-id, .swagger-ui .opblock .opblock-summary-path, .swagger-ui .opblock .opblock-summary-path__deprecated {
+  .swagger-ui .opblock .opblock-summary-operation-id,
+  .swagger-ui .opblock .opblock-summary-path,
+  .swagger-ui .opblock .opblock-summary-path__deprecated {
     color: ${props => props.theme.color("text", "secondary")};
   }
   .swagger-ui .opblock .opblock-section-header {
@@ -119,18 +124,26 @@ const Main = styled.div`
   }
 
   .swagger-ui {
-    ${props => props.theme.name === "dark" && css`
-      th, td, tr, p, span {
-        &, & * {
-          color: ${props => props.theme.name === "dark" && props.theme.color("text", "primary")} !important;
+    ${props =>
+      props.theme.name === "dark" &&
+      css`
+        th,
+        td,
+        tr,
+        p,
+        span {
+          &,
+          & * {
+            color: ${props =>
+              props.theme.name === "dark" &&
+              props.theme.color("text", "primary")} !important;
+          }
         }
-      }
-      select {
-        color: ${props => props.theme.color("text", "dark")} !important;
-      }
-    `};
+        select {
+          color: ${props => props.theme.color("text", "dark")} !important;
+        }
+      `};
   }
-  
 `;
 
 export default Layout;
