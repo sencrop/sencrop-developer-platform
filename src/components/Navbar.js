@@ -57,13 +57,15 @@ const Navbar = props => {
           </NavLink>
         </Links>
         <Spacer />
-        <IconButton onClick={toggleTheme}>
-          <WeatherIcon
-            name={theme.name === "light" ? "clear-day" : "clear-night"}
-            color="warning"
-            size={36}
-          />
-        </IconButton>
+        <ThemeContainer>
+          <IconButton onClick={toggleTheme}>
+            <WeatherIcon
+              name={theme.name === "light" ? "clear-day" : "clear-night"}
+              color="warning"
+              size={36}
+            />
+          </IconButton>
+        </ThemeContainer>
       </Wrapper>
     </Background>
   );
@@ -169,4 +171,19 @@ const NavLink = styled.a`
 
 const Spacer = styled.span`
   flex: 1;
+`;
+
+const ThemeContainer = styled.div`
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  ${media.greaterThan("tablet")`
+    top: inherit;
+    left: inherit;
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `}
 `;
