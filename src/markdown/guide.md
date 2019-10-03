@@ -137,6 +137,10 @@ The `items` property tells you the collection of devices you can access to. Whil
 
 You may ask why using that format. It allows our payload to avoid repating the same informations several times while not requiring you to use a specific JSON loader. It also allows us to significantly reduce our app memory footprint by easing hash merges accross our various states.
 
+> ## ⚠️**Warning**
+> 
+> **The API only accept/gives dates in ISODate format (e.g: "2012-07-14T01:00:00+01:00"). It goes for every date delivered by the API in the responses, as well as all the input dates in the queries.**
+
 ## Reading raw device data
 
 Your devices regularly send meteoroligical data to our servers. You can get their direct output by simply requesting the following endpoint:
