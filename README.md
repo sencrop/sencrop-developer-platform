@@ -40,6 +40,7 @@ Project presentation and contact informations.
 [See Markdown](https://github.com/sencrop/sencrop-developer-platform/blob/master/src/markdown/guide.md)
 
 Design overview and quick-start methods.
+
 [First contact](https://developer.sencrop.com/guide#first-contact)
 
 [Get your token](https://developer.sencrop.com/guide#get-your-token)
