@@ -59,9 +59,9 @@ Do not forget to concatenate the `token_type` and the `access_token` when using 
 
 ## Delegation flows
 
-You can obtain a token from our users via 2 distinct flows currently, the SMS flow or the module flow.
+You can obtain a token from our users via 2 distinct flows currently, the SMS flow or the module flow:
 
-## Module flow
+### Module flow
 
 This flow allows you to directly create tokens for our users. The prerequisite is that the user must have activated at least one of your modules on their Sencrop application.
 
@@ -84,7 +84,7 @@ To see the users that enabled one of your modules, your can use the [/partners/<
 
 If you try to create a token for a user with none of your modules activated you will get a `E_MODULE_NOT_ACTIVATED` error.  
 
-## SMS flow
+### SMS flow
 
 You can obtain a token from our users by sending them an SMS with a validation code that allows you to request the users authorization to access their data.
 
