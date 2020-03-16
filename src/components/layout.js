@@ -3,8 +3,7 @@ import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import SEO from "../components/seo";
 import Navbar from "./Navbar";
-import { ThemeProvider } from "@sencrop/ui/dist/es/Theme";
-import GlobalStyle from "@sencrop/ui/dist/es/GlobalStyle";
+import { ThemeProvider, GlobalStyle } from "@sencrop/ui-components";
 
 const Layout = ({ children }) => {
   const [theme, setTheme] = useState("light");
@@ -19,7 +18,7 @@ const Layout = ({ children }) => {
   }, [theme]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider name={theme}>
       <>
         <GlobalStyle />
         <SEO />

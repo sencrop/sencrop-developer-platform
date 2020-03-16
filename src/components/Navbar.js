@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { css, withTheme } from "styled-components";
-import { text, media, IconButton, WeatherIcon, Icon } from "@sencrop/ui";
+import { text, media, IconButton, Icon } from "@sencrop/ui-components";
 import { Link, useStaticQuery, graphql } from "gatsby";
 import logo from "../images/sencrop-white.svg";
 
@@ -59,10 +59,10 @@ const Navbar = props => {
         <Spacer />
         <ThemeContainer>
           <IconButton onClick={toggleTheme}>
-            <WeatherIcon
-              name={theme.name === "light" ? "clear-day" : "clear-night"}
+            <Icon
+              name={theme.name === "light" ? "bulb" : "bulb-o"}
               color="warning"
-              size={36}
+              size={24}
             />
           </IconButton>
         </ThemeContainer>
