@@ -2,4 +2,4 @@
 // `metapak` module. Do NOT change it in
 // place, your changes would be overriden.
 
-module.exports = { extends: ['@commitlint/config-conventional'] };
+module.exports = { extends: ["@commitlint/config-conventional"] };
