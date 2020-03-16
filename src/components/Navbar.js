@@ -49,7 +49,7 @@ const Navbar = props => {
             </NavLink>
           ))}
           <NavLink
-            href="https://sencrop.typeform.com/to/dFLmCl"
+            href="https://github.com/sencrop/sencrop-developer-platform/issues/new"
             target="_blank"
             rel="noopener"
           >

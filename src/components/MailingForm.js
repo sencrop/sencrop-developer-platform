@@ -7,7 +7,7 @@ const MailingForm = () => {
   return (
     <Form
       method="post"
-      action="https://evomedia.us3.list-manage.com/subscribe/post?u=c993ab1c009fbcbc61dea24cd&amp;id=b7ef162deb"
+      action="https://sencrop.us3.list-manage.com/subscribe/post?u=c993ab1c009fbcbc61dea24cd&amp;id=9080d7139a"
     >
       <InputText
         name="EMAIL"
