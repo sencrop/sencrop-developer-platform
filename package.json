@@ -4,6 +4,25 @@
   "description": "The Sencrop Developer Platform website",
   "version": "2.0.0",
   "author": "Paul Bottein <paul.bottein@gmail.com>",
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sencrop/sencrop-developer-platform"
+  },
+  "bugs": {
+    "url": "https://github.com/sencrop/sencrop-developer-platform"
+  },
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write src/**/*.{js,jsx}",
+    "lint": "eslint 'src/**/*.js'",
+    "prettier": "prettier --write 'src/**/*.js'",
+    "start": "npm run develop"
+  },
   "dependencies": {
     "@mdx-js/mdx": "^1.0.15",
     "@mdx-js/react": "^1.0.15",
@@ -50,23 +69,54 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "prettier": "^1.16.4"
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
+    "prettier": "^1.19.1"
   },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "MIT",
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.{js,jsx}",
-    "start": "npm run develop"
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "plugins": [
+      "import",
+      "prettier"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "env": {
+      "es6": true,
+      "browser": true
+    },
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "rules": {
+      "prettier/prettier": "error",
+      "no-console": "warn",
+      "react/prop-types": "off"
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sencrop/sencrop-developer-platform"
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint"
+    ]
   },
-  "bugs": {
-    "url": "https://github.com/sencrop/sencrop-developer-platform"
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
   }
 }
