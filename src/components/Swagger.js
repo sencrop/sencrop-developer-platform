@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { SwaggerUIBundle, SwaggerUIStandalonePreset } from "swagger-ui-dist";
 
 const DOM_ID = "swagger-ui";
-const swaggerUrl = "https://api.sencrop.com/v1/openAPI?mutedParameters=X-APP-Version&mutedParameters=X-SDK-Version&mutedParameters=X-API-Version";
+const swaggerUrl = "https://api.sencrop.com/v1/openAPI?mutedParameters=X-APP-Version,X-SDK-Version,X-API-Version";
 
 const Swagger = () => {
   useEffect(() => {
