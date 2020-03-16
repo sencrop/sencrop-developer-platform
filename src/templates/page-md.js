@@ -1,16 +1,16 @@
-import React from "react"
-import { graphql } from "gatsby"
-import Layout from "../components/layout"
+import React from "react";
+import { graphql } from "gatsby";
+import Layout from "../components/layout";
 
 const PageTemplate = ({ data }) => {
-  const { markdownRemark } = data
-  const { html } = markdownRemark
+  const { markdownRemark } = data;
+  const { html } = markdownRemark;
   return (
     <Layout>
       <div dangerouslySetInnerHTML={{ __html: html }} />
     </Layout>
-  )
-}
+  );
+};
 
 export const pageQuery = graphql`
   query($path: String!) {
@@ -22,6 +22,6 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
 
-export default PageTemplate
+export default PageTemplate;

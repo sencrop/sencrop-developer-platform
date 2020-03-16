@@ -50,7 +50,40 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "prettier": "^1.16.4"
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "plugins": [
+      "import",
+      "prettier"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "env": {
+      "es6": true,
+      "browser": true
+    },
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "rules": {
+      "prettier/prettier": "error",
+      "no-console": "warn",
+      "react/prop-types": "off"
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }
   },
   "keywords": [
     "gatsby"
@@ -60,6 +93,8 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
+    "lint": "eslint 'src/**/*.js'",
+    "prettier": "prettier --write 'src/**/*.js'",
     "start": "npm run develop"
   },
   "repository": {
