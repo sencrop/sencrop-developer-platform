@@ -136,6 +136,10 @@ The full endpoints documentation can be found in the [API reference](/reference)
 
 At some point, you will want to know who activated your modules on the Sencrop application and for which devices. You can do so by using the following endpoint:
 
+> ## ⚠️**Warning**
+> 
+> **Note that this endpoint is paginated with limit and start parameters. You should check the total returned and see if there is more page to retrieve.**
+
 ```bash
 curl -X GET "https://api.sencrop.com/v1/partners/<PARTNER_ID>/devices?limit=10&start=0" \
   -H "Authorization: Bearer <PARTNER_ACCESS_TOKEN>"
