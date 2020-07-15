@@ -49,7 +49,7 @@
     "gatsby-transformer-sharp": "^2.3.18",
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "luxon": "^1.22.0",
     "prismjs": "^1.19.0",
     "prop-types": "^15.7.2",
