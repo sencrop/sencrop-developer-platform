@@ -63,8 +63,8 @@
     "slugify": "^1.4.0",
     "styled-components": "^5.0.1",
     "styled-media-query": "^2.1.2",
-    "swagger-ui": "^3.25.0",
-    "swagger-ui-dist": "^3.25.0",
+    "swagger-ui": "~3.28.0",
+    "swagger-ui-dist": "~3.28.0",
     "webfontloader": "^1.6.28",
     "yup": "^0.27.0"
   },
