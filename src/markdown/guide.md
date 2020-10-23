@@ -23,13 +23,14 @@ You can also use the command line to ping our API with the help of curl:
 curl https://api.sencrop.com/v1/ping
 # Answers: {"pong":"pong"}
 ```
+
 ## Get your token
 
 Most of our API requires you to pass a token via the Bearer HTTP mecanism. To interact with our servers, you will need to choose a way to get one.
 
 ### Via OAuth2
 
-We plan to integrate OAuth authentication that will provide you a way to obtain a token from our users. Subscribe to our mailing list to be informed of the OAuth2 support.
+We plan to integrate OAuth authentication that will provide you a way to obtain a token from our users.
 
 ### Via the Partners API
 
@@ -45,9 +46,9 @@ We will soon provide you an interface to manage your applications tokens but in 
 
 ```js
 console.log({
-  token: 'Bearer ' + window.getToken(),
+  token: "Bearer " + window.getToken(),
   userId: window.getUserId(),
-})
+});
 // Prints: { token: 'Bearer xxxxxxxx', userId: 1664 }
 ```
 
@@ -64,6 +65,7 @@ Before retrieving your data you may want to simply list your own Sencrop Devices
 ```bash
 curl 'https://api.sencrop.com/v1/users/1664/devices'  -H "Authorization: Bearer xxxxx"
 ```
+
 The result will look like this:
 
 ```js
@@ -138,7 +140,7 @@ The `items` property tells you the collection of devices you can access to. Whil
 You may ask why using that format. It allows our payload to avoid repating the same informations several times while not requiring you to use a specific JSON loader. It also allows us to significantly reduce our app memory footprint by easing hash merges accross our various states.
 
 > ## ⚠️**Warning**
-> 
+>
 > **The API only accept/gives dates in ISODate format (e.g: "2012-07-14T01:00:00+01:00"). It goes for every date delivered by the API in the responses, as well as all the input dates in the queries.**
 
 ## Reading raw device data
@@ -154,66 +156,66 @@ The result will look like this:
 ```js
 [
   {
-    "date": "2017-10-09T23:54:07.000Z",
-    "type": "RELATIVE_HUMIDITY",
-    "value": 65.2,
-    "discarded": false
+    date: "2017-10-09T23:54:07.000Z",
+    type: "RELATIVE_HUMIDITY",
+    value: 65.2,
+    discarded: false,
   },
   {
-    "date": "2017-10-09T23:54:07.000Z",
-    "type": "TEMPERATURE",
-    "value": 15.100000000000001,
-    "discarded": false
+    date: "2017-10-09T23:54:07.000Z",
+    type: "TEMPERATURE",
+    value: 15.100000000000001,
+    discarded: false,
   },
   {
-    "date": "2017-10-09T23:39:07.000Z",
-    "type": "RELATIVE_HUMIDITY",
-    "value": 66.7,
-    "discarded": false
+    date: "2017-10-09T23:39:07.000Z",
+    type: "RELATIVE_HUMIDITY",
+    value: 66.7,
+    discarded: false,
   },
   {
-    "date": "2017-10-09T23:39:07.000Z",
-    "type": "TEMPERATURE",
-    "value": 14.8,
-    "discarded": false
+    date: "2017-10-09T23:39:07.000Z",
+    type: "TEMPERATURE",
+    value: 14.8,
+    discarded: false,
   },
   {
-    "date": "2017-10-09T23:24:06.000Z",
-    "type": "TEMPERATURE",
-    "value": 14.9,
-    "discarded": false
+    date: "2017-10-09T23:24:06.000Z",
+    type: "TEMPERATURE",
+    value: 14.9,
+    discarded: false,
   },
   {
-    "date": "2017-10-09T23:24:06.000Z",
-    "type": "RELATIVE_HUMIDITY",
-    "value": 65.7,
-    "discarded": false
+    date: "2017-10-09T23:24:06.000Z",
+    type: "RELATIVE_HUMIDITY",
+    value: 65.7,
+    discarded: false,
   },
   {
-    "date": "2017-10-09T23:09:07.000Z",
-    "type": "RELATIVE_HUMIDITY",
-    "value": 67.4,
-    "discarded": false
+    date: "2017-10-09T23:09:07.000Z",
+    type: "RELATIVE_HUMIDITY",
+    value: 67.4,
+    discarded: false,
   },
   {
-    "date": "2017-10-09T23:09:07.000Z",
-    "type": "TEMPERATURE",
-    "value": 14.5,
-    "discarded": false
+    date: "2017-10-09T23:09:07.000Z",
+    type: "TEMPERATURE",
+    value: 14.5,
+    discarded: false,
   },
   {
-    "date": "2017-10-09T22:54:06.000Z",
-    "type": "TEMPERATURE",
-    "value": 15,
-    "discarded": false
+    date: "2017-10-09T22:54:06.000Z",
+    type: "TEMPERATURE",
+    value: 15,
+    discarded: false,
   },
   {
-    "date": "2017-10-09T22:54:06.000Z",
-    "type": "RELATIVE_HUMIDITY",
-    "value": 64.2,
-    "discarded": false
-  }
-]
+    date: "2017-10-09T22:54:06.000Z",
+    type: "RELATIVE_HUMIDITY",
+    value: 64.2,
+    discarded: false,
+  },
+];
 ```
 
 The `date`, `type` and `value` fields are self explanatory. The discarded field is a bit more special, he means that our algorithm detected that the measure was wrong. It can be due to many different issues (hardware failure, bad installation, network failures etc...).
@@ -232,6 +234,7 @@ curl "https://api.sencrop.com/v1/users/1664/devices/33/data/hourly?beforeDate=20
 # Get daily aggregated data for two days
 curl "https://api.sencrop.com/v1/users/1664/devices/33/data/daily?beforeDate=2017-10-07T07:34:32.000Z&days=90&measures=WIND_DIRECTION,WIND_SPEED"  -H "Authorization: Bearer xxxxx"
 ```
+
 The result will look like this:
 
 ```js
@@ -427,6 +430,7 @@ This precision field goes from 0 to 100 and is based on statistical studies we m
 Note that the `days` query parameter is mandatory and limited to a few values. Check out the API reference for more information.
 
 ## Time buckets
+
 Various measures are aggregated into time buckets. The buckets are computed according to the user's timezone per default. Here are the various intervals you may encounter:
 
 - **15m**: the bucket key will point the start of the buckets with the first one beeing the first 15 minutes part of fours containing the given start date,
@@ -575,13 +579,14 @@ The result will look like this:
 Beware that not aligning on the user's timezone may lead to incomplete buckets at boundaries of the returned data. Also, if you retrieve a bucket for the current month, you only have a partial bucket for that month since it has not ended yet. In the above result you can see that the may month is not terminated yet so the bucket has a limited number of measures (see the `docCount` property) and the following buckets are empty since they represent future months.
 
 ## Units
+
 The API returns values in fixed units. We use the [international system of units](https://en.wikipedia.org/wiki/International_System_of_Units) where applicable so that you can convert it on you side with ease. Here are the various units we use:
 
 - **RAIN_FALL**: pluviometry measured in [millimeters (mm)](https://en.wikipedia.org/wiki/Rain#Measurement)
 - **TEMPERATURE**: temperature measured in [degree Celsius (°C)](https://en.wikipedia.org/wiki/Celsius)
 - **RELATIVE_HUMIDITY**: relative humidity measured in [percentage (%)](https://en.wikipedia.org/wiki/Relative_humidity#Definition),
 - **WIND_SPEED/WIND_GUST**: wind measured in kilometers [per hour (km·h−1)](https://en.wikipedia.org/wiki/Kilometres_per_hour),
-- **WIND_DIRECTION**: wind direction angle with the North in [angular degrees (°)](https://en.wikipedia.org/wiki/Degree_(angle)) within a 0 to 360 range (360 excluded), for instance, a value of 0 means a wind directed to the North and coming from the South,
+- **WIND_DIRECTION**: wind direction angle with the North in [angular degrees (°)](<https://en.wikipedia.org/wiki/Degree_(angle)>) within a 0 to 360 range (360 excluded), for instance, a value of 0 means a wind directed to the North and coming from the South,
 - **WET_TEMPERATURE**: wet bulb temperature in [degree Celsius (°C)](https://en.wikipedia.org/wiki/Wet-bulb_temperature),
 - **LEAF_WETNESS**: amount of wetness time in minutes.
 - **LEAF_SENSOR_CONDUCTIVITY**: conductivity of the leaf sensor in [millivolts (mV)](https://en.wikipedia.org/wiki/Volt).
@@ -589,9 +594,11 @@ The API returns values in fixed units. We use the [international system of units
 Please note that the old counter intuitive name (`WIND_MAX`, `WIND_MEAN`, `RH_AIR_H1`, `TEMP_AIR_H1`, `RAIN_TIC`) are still supported but deprecated. We will probably remove those measures in a near future.
 
 ## Limits
+
 Since we are in an early alpha publication of this API, we do not yet provide feedback on rate limitations and how to prevent it. You will not reach the limit until you make a hundred calls per minutes which should be sufficient.
 
 Contact us if you think you need a more intensive access to the data in the meanwhile.
 
 ## What's next ?
+
 So you read it all? Impressive! You are now in the best conditions to use our API! You can try it interactively with our [API reference](/reference) or directly dive into code with our JavaScript SDK. Check out our [open-source tools](/tools)!
