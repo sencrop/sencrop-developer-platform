@@ -25,37 +25,10 @@ curl https://api.sencrop.com/v1/ping
 ```
 ## Get your token
 
-Most of our API requires you to pass a token via the Bearer HTTP mecanism. To interact with our servers, you will need to choose a way to get one.
+If you want to use our API, please contact our API manager: hugo@sencrop.com
 
-### Via OAuth2
+After that, you'll get a token and you'll be able to use our API :-)
 
-We plan to integrate OAuth authentication that will provide you a way to obtain a token from our users. Subscribe to our mailing list to be informed of the OAuth2 support.
-
-### Via the Partners API
-
-The Partners API allows you to ask our users an access to their data in a privilegied way. You first need to meet us to get that access.
-
-### Via the Sencrop app
-
-Otherwise, for your own account, you can use our API with your own token, generated on our application, for testing purposes.
-
-To grab a token, just connect to the [Sencrop Web Application](https://app.sencrop.com/) and log in.
-
-We will soon provide you an interface to manage your applications tokens but in the meanwhile, you can open the developer console and copy/paste this snippet:
-
-```js
-console.log({
-  token: 'Bearer ' + window.getToken(),
-  userId: window.getUserId(),
-})
-// Prints: { token: 'Bearer xxxxxxxx', userId: 1664 }
-```
-
-Great! You can now access your Sencrop data with the help of your token. The user id will also help since almost every protected endpoints requires your to fill it.
-
-Starting here, you can directly jump to the [API reference](/reference) and insert your token right in the Authorization field of the protected endpoints.
-
-Or just continue your journey through our API guide!
 
 ## Listing your devices
 
