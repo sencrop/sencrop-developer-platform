@@ -25,7 +25,7 @@ curl https://api.sencrop.com/v1/ping
 ```
 ## Get your token
 
-If you want to use our API, please contact our API manager: hugo@sencrop.com
+If you want to use our API, please contact our API team: api@sencrop.com
 
 After that, you'll get a token and you'll be able to use our API :-)
 
