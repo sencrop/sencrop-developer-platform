@@ -8,7 +8,7 @@ position: 2
 
 The Sencrop API allows a simpler authorization delegation process for its partners program.
 
-The partners API requires you to contact us before being allowed to use it. To do so, please [create an account](https://app.sencrop.com/register) and [contact us then](https://sencrop.typeform.com/to/XzDjNC).
+The partners API requires you to contact us before being allowed to use it. To do so, please [create an account](https://app.sencrop.com/register) and [contact us then](mailto:api@sencrop.com).
 
 After contacting us, you will get your API credentials (referred to as `<APPLICATION_ID>` and `<APPLICATION_SECRET>` in the code samples) to interact with the partners API endpoint protected via the [Basic Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) ([RFC 7617](https://tools.ietf.org/html/rfc7617)).
 
@@ -57,38 +57,11 @@ Then your `<PARTNER_ID>` will be in the `organisationId` field.
 Do not forget to concatenate the `token_type` and the `access_token` when using the token in the Authorization header. (eg. `"Authorization: Bearer xxxxx"`)
 
 
-## Delegation flows
-
-You can obtain a token from our users via 2 distinct flows currently, the SMS flow or the module flow:
-
-### Module flow
-
-This flow allows you to directly create tokens for our users. The prerequisite is that the user must have activated at least one of your modules on their Sencrop application.
-
-```bash
-curl 'https://api.sencrop.com/v1/oauth2/token' \
-  -u '<APPLICATION_ID>:<APPLICATION_SECRET>' \
-  -X POST --data '{"grant_type": "module", "email": "user@example.com", "scope": "user"}' \
-  -H 'Content-Type: application/json'
-```
-
-```js
-{
-    "access_token": "<PARTNER_ACCESS_TOKEN>",
-    "token_type": "bearer",
-    "expires_in": 1555927705753,
-    "refresh_token": "<PARTNER_REFRESH_TOKEN>"
-}
-```
-To see the users that enabled one of your modules, your can use the [/partners/<PARTNER_ID>/devices](#listing-modules-activations) endpoint.
-
-If you try to create a token for a user with none of your modules activated you will get a `E_MODULE_NOT_ACTIVATED` error.  
-
 ## Listing modules activations
 
 At some point, you will want to know who activated your modules on the Sencrop application and for which devices. You can do so by using the following endpoint:
 
-> ## ⚠️**Warning**
+> ### ⚠️**Warning**
 > 
 > **Note that this endpoint is paginated with limit and start parameters. You should check the total returned and see if there is more page to retrieve.**
 
@@ -238,6 +211,37 @@ You will probably need to check the following values:
 - **devices access**: contains the various access to the devices. You want to review the partner type accesses in order to know which modules were activated for this device (see at path `devices[deviceId].accessPeriods[type=partner].moduleId.`). You probably want to look at the `delegatorId` which tells you the `userId` of the user that activated the module on this device. Beware that a `endDate` can be present in those access. In this case, you will only have access to the data in the date range formed with `startDate`. Also note that a `parameters` property is available to get back the eventual parameters added by the users when activating the module on their device.
 - **users**: you can user the users hash to pick up informations on the user behind the delegatorId. You will probably pick up their email in order to [generate tokens](#delegation-flows) with the module flow to access the data they shared with you.
 - **organisations**: and finally, you may want to know which organisations a user is part of by looking in the `organisations` hash corresponding to the `organisationId` found at path `users[delegatorId].organisationsIds`.
+
+## Delegation flows
+
+Getting access to device data is done through a delegation mechanism: you have to "impersonate" the users to get access to their data. The prerequisite is that the user must have activated at least one of your modules.
+
+This endpoint allows you to create tokens for this impersonation, from the [email addresses you got earlier](#listing-modules-activations).
+
+
+```bash
+curl 'https://api.sencrop.com/v1/oauth2/token' \
+  -u '<APPLICATION_ID>:<APPLICATION_SECRET>' \
+  -X POST --data '{"grant_type": "module", "email": "user@example.com", "scope": "user"}' \
+  -H 'Content-Type: application/json'
+```
+
+```js
+{
+    "access_token": "<PARTNER_ACCESS_TOKEN>",
+    "token_type": "bearer",
+    "expires_in": 1555927705753,
+    "refresh_token": "<PARTNER_REFRESH_TOKEN>"
+}
+```
+If you try to create a token for a user with none of your modules activated you will get a `E_MODULE_NOT_ACTIVATED` error.  
+
+## Access device data
+
+From there, use the endpoints as described in the [guide](/guide) to access device data:
+- hourly / daily data is probably the most useful for you.
+- geoqueries if you need continuous series, even in the case of missing data.
+- raw data.
 
 ## Manage partner parameters
 
