@@ -84,54 +84,6 @@ To see the users that enabled one of your modules, your can use the [/partners/<
 
 If you try to create a token for a user with none of your modules activated you will get a `E_MODULE_NOT_ACTIVATED` error.  
 
-### SMS flow
-
-You can obtain a token from our users by sending them an SMS with a validation code that allows you to request the users authorization to access their data.
-
-Obtaining a token via this flow involves 4 distinct steps.
-
-First, you must collect the Sencrop user email via your own UI (remember to require the email they used to subscribe to Sencrop).
-
-Then, create a token request. This will trigger an SMS to the user with a 6 chars authorization code.
-
-Finally ask users for that code and call our token claim endpoint. It will provide you a token allowing you to act on the behalf of that user.
-
-## Requesting a token
-
-To request a token just call the following endpoint with your API application id and secret:
-
-```bash
-curl 'https://api.sencrop.com/v1/partners/<PARTNER_ID>/tokenRequests' \
--u '<APPLICATION_ID>:<APPLICATION_SECRET>' \
-  -X POST --data '{"email":"nicolas@sencrop.com"}' \
-  -H 'Content-Type: application/json'
-```
-
-This will send a SMS to the user with an authorization code.
-
-## Creating a token
-
-To create the token just call the following endpoint with your API application id and secret:
-
-```bash
-curl 'https://api.sencrop.com/v1/oauth2/token' \
-  -u '<APPLICATION_ID>:<APPLICATION_SECRET>' \
-  -X POST --data '{"grant_type": "code_request", "email": "user@example.com", "code": "P6YEES", "scope": "user"}' \
-  -H 'Content-Type: application/json'
-```
-
-```js
-{
-    "access_token": "<PARTNER_ACCESS_TOKEN>",
-    "token_type": "bearer",
-    "expires_in": 1555927705753,
-    "refresh_token": "<PARTNER_REFRESH_TOKEN>"
-}
-```
-That token allows your to access the user data through the API. See our [API guide](/guide) for more information on its usage.
-
-The full endpoints documentation can be found in the [API reference](/reference) under the partners tag.
-
 ## Listing modules activations
 
 At some point, you will want to know who activated your modules on the Sencrop application and for which devices. You can do so by using the following endpoint:
