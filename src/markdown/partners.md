@@ -72,133 +72,176 @@ curl -X GET "https://api.sencrop.com/v1/partners/<PARTNER_ID>/devices?limit=10&s
 
 ```js
 {
-  "total": 1,
-  "items": [
-      1
-  ],
-  "models": {
-      "7": {
-          "id": 7,
-          "contents": {
-              "name": "Raincrop",
-              "externalDiameter": 0.206,
-              "conception": "France - Lille",
-              "manufacturing": "Europe-France",
-              "calibration": "Ok",
-              "weight": 3.5
-          }
-      }
-  },
-  "devicesStatuses": {
-      "1": {
-          "id": 1,
-          "measuresCount": 66502,
-          "contents": {
-              "firmware": "00-V1.12",
-              "signal": 6,
-              "battery": 3184,
-              "latitude": 48.0654,
-              "longitude": 4.40095,
-              "altitude": 257,
-              "locationPrecision": 0,
-              "locationSatellites": 7,
-              "lastLocationDate": "2018-06-28T14:52:33.000Z",
-              "lastMoveDate": "2018-06-28T11:58:51.000Z",
-              "lastStatusUpdateDate": "2018-10-02T08:16:36.000Z",
-              "lastRebootDate": "2018-06-06T18:58:04.000Z"
-          }
-      },
-  },
-  "devices": {
-      "1": {
-          "id": 1,
-          "accessPeriods": [
-              {
-                  "id": 31426,
-                  "deviceId": 1,
-                  "delegatorId": 3,
-                  "moduleId": 1,
-                  "parameters": {
-                      "id": "xxxxx",
-                  },
-                  "partnerParameters": {
-                      "enabled": false,
-                  },
-                  "type": "partner",
-                  "startDate": "2018-05-08T09:59:11.000Z"
-              }
-          ],
-          "modelId": 7,
-          "organisationId": 1,
-          "previousDevicesIds": [],
-          "identification": "RC00XXXX",
-          "serial": "ABBACACA",
-          "situation": "unknown",
-          "contents": {
-              "name": "Station champs 1"
-          }
-      },
-  },
-  "users": {
-      "3": {
-          "id": 3,
-          "creationDate": "2018-02-21T10:02:00.000Z",
-          "lastModificationDate": "2018-08-31T13:54:50.000Z",
-          "locale": "fr-FR",
-          "timeZone": "Europe/Paris",
-          "organisationsIds": [
-              1
-          ],
-          "organisationId": 1,
-          "roles": [],
-          "signupType": "unknown",
-          "emailVerified": true,
-          "contents": {
-              "firstname": "Michel",
-              "lastname": "Delpech",
-              "email": "michel@sencrop.com",
-              "address": "2 rue Fourier",
-              "zipcode": "59000",
-              "city": "Lille",
-              "country": "FR"
-          }
-      },
-  },
-  "organisations": {
-      "1": {
-          "id": 1,
-          "creationDate": "2014-02-21T10:02:01.000Z",
-          "lastModificationDate": "2018-09-26T14:59:35.000Z",
-          "type": "company",
-          "placeIds": [
-              1
-          ],
-          "contents": {
-              "name": "Sencrop",
-              "locale": "fr-FR",
-              "timeZone": "Europe/Paris"
-          }
-      },
-  },
-  "places": {
-      "1": {
-          "id": 1,
-          "city": "Lille",
-          "country": "FR",
-          "organisationId": 1,
-          "creationDate": "2018-07-19T12:46:21.000Z",
-          "lastModificationDate": "2018-07-19T16:34:43.000Z",
-          "contents": {
-              "address": "40 Rue de Wattignies, 59000 Lille, France",
-              "googlePlaceId": "ChIJd3KeUZbVwkcRgg46S0kvJ48",
-              "location": {
-                  "lat": 50.6202,
-                  "lng": 3.06451
-              },
-              "type": "principal"
-          }
-      },
-  }
+    "total": 28,
+    "items": [
+        785,
+        // ...
+    ],
+    "devices": {
+        "785": {
+            "id": 785,
+            "hasBeenReplaced": false,
+            "previousDevicesIds": [],
+            "settings": {
+                "patchSmallRainFall": true
+            },
+            "accessPeriods": [
+                {
+                    "id": 390294,
+                    "authorId": 1,
+                    "granteeId": 1926,
+                    "sharingOrganisationId": 1,
+                    "userId": 22,
+                    "delegatorId": 1,
+                    "organisationId": 19,
+                    "moduleId": 2,
+                    "parameters": {
+                        "userEmail": "software@sencrop.com",
+                        "organisationName": "Sencrop",
+                        "externalIdentifier": "RC001223"
+                    },
+                    "type": "partner",
+                    "startDate": "2021-01-01T00:00:00.000Z"
+                }
+            ],
+            "modelId": 7,
+            "identification": "RC001223",
+            "serial": "20343F",
+            "calibrations": {},
+            "contents": {
+                "name": ""
+            },
+            "location": {
+                "latitude": 50.7261,
+                "longitude": 3.12117,
+                "altitude": 83,
+                "precision": 1,
+                "satellites": 6,
+                "source": "gps"
+            },
+            "status": {
+                "firmware": "0.1.12",
+                "signal": 0,
+                "lqi": "Excellent",
+                "battery": 3040,
+                "lastLocationDate": "2020-10-26T15:57:04.000Z",
+                "lastMoveDate": "2020-07-02T12:58:47.000Z",
+                "lastStatusUpdateDate": "2021-06-30T08:05:28.000Z",
+                "lastRebootDate": "2018-10-20T14:07:42.000Z"
+            }
+        },
+        // ...
+    },
+    "devicesStatuses": {
+        "785": {
+            "id": 785,
+            "contents": {
+                "firmware": "0.1.12",
+                "lqi": "Excellent",
+                "battery": 3040,
+                "latitude": 50.7261,
+                "longitude": 3.12117,
+                "altitude": 83,
+                "locationPrecision": 1,
+                "locationSatellites": 6,
+                "lastLocationDate": "2020-10-26T15:57:04.000Z",
+                "lastMoveDate": "2020-07-02T12:58:47.000Z",
+                "lastStatusUpdateDate": "2021-06-30T08:05:28.000Z",
+                "lastRebootDate": "2018-10-20T14:07:42.000Z"
+            }
+        },
+        // ...
+    },
+    "models": {
+        "7": {
+            "id": 7,
+            "contents": {
+                "name": "Raincrop",
+                "externalDiameter": 0.206,
+                "conception": "France - Lille",
+                "manufacturing": "Europe-France",
+                "calibration": "Ok",
+                "weight": 3.5
+            }
+        }
+    },
+    "users": {
+        "1": {
+            "id": 1,
+            "locale": "fr-FR",
+            "timeZone": "Europe/Paris",
+            "organisationsIds": [],
+            "roles": [],
+            "signupType": "unknown",
+            "emailVerified": true,
+            "contents": {
+                "firstname": "Software",
+                "lastname": "Sencrop",
+                "email": "software@sencrop.com",
+                "locale": "fr-FR",
+                "timeZone": "Europe/Paris"
+            },
+            "creationDate": "2018-02-21T10:02:00.000Z",
+            "lastModificationDate": "2021-02-05T17:07:04.000Z"
+        },
+        // ...
+    },
+    "organisations": {
+        "1": {
+            "id": 1,
+            "uuid": "69e2f9cb-d883-11e9-8486-024fe6a5d49c",
+            "creationDate": "2018-02-21T10:02:01.000Z",
+            "lastModificationDate": "2021-06-30T07:36:05.000Z",
+            "ownersIds": [],
+            "features": [],
+            "isNetwork": false,
+            "contents": {
+                "name": "Sencrop",
+                "identification": "2333",
+                "locale": "fr-FR",
+                "timeZone": "Europe/Paris",
+                "type": "company"
+            },
+            "places": {
+                "1": {
+                    "id": 1,
+                    "placeId": 1,
+                    "organisationId": 1,
+                    "type": "principal"
+                },
+                "21305": {
+                    "id": 21305,
+                    "placeId": 21305,
+                    "organisationId": 1,
+                    "type": "principal"
+                },
+                "23015": {
+                    "id": 23015,
+                    "placeId": 23015,
+                    "organisationId": 1,
+                    "type": "principal"
+                }
+            }
+        },
+        // ...
+    },
+    "places": {
+        "1": {
+            "id": 1,
+            "creationDate": "2018-07-19T12:46:21.000Z",
+            "lastModificationDate": "2021-06-30T07:36:06.000Z",
+            "addressLocalized": "-, - Lille, France",
+            "contents": {
+                "line1": "-",
+                "city": "Lille",
+                "zip": "-",
+                "country": "FR",
+                "latitude": 50.6319,
+                "longitude": 3.0575
+            }
+        },
+    // ...
+    }
 }
 ```
 
@@ -208,9 +251,9 @@ You will probably need to check the following values:
 - **devices names**: the name a user gave to its device can be found at path `devices[deviceid].contents.name`.
 - **devices identifications: a human readable unique id (actually printed on the device itsef) that users can use for every support requests can be found at path `devices[deviceid].identification`.
 - **devices models**: the device model id can be found at `devices[deviceid].modelId` and the actual model data at `models[modelId]`.
-- **devices access**: contains the various access to the devices. You want to review the partner type accesses in order to know which modules were activated for this device (see at path `devices[deviceId].accessPeriods[type=partner].moduleId.`). You probably want to look at the `delegatorId` which tells you the `userId` of the user that activated the module on this device. Beware that a `endDate` can be present in those access. In this case, you will only have access to the data in the date range formed with `startDate`. Also note that a `parameters` property is available to get back the eventual parameters added by the users when activating the module on their device.
-- **users**: you can user the users hash to pick up informations on the user behind the delegatorId. You will probably pick up their email in order to [generate tokens](#delegation-flows) with the module flow to access the data they shared with you.
-- **organisations**: and finally, you may want to know which organisations a user is part of by looking in the `organisations` hash corresponding to the `organisationId` found at path `users[delegatorId].organisationsIds`.
+- **devices access**: contains the various access to the devices. You want to review the partner type accesses in order to know which modules were activated for this device (see at path `devices[deviceId].accessPeriods[type=partner].moduleId.`). You probably want to look at the `authorId` which tells you the `userId` of the user that activated the module on this device. Beware that a `endDate` can be present in those access. In this case, you will only have access to the data in the date range formed with `startDate`. Also note that a `parameters` property is available to get back the eventual parameters added by the users when activating the module on their device.
+- **users**: you can user the users hash to pick up informations on the user behind the authorId. You will probably pick up their email in order to [generate tokens](#delegation-flows) with the module flow to access the data they shared with you.
+- **organisations**: and finally, you may want to know which organisations a user is part of by looking in the `organisations` hash corresponding to the `organisationId` found at path `users[authorId].organisationsIds`.
 
 ## Delegation flows
 
@@ -248,7 +291,7 @@ From there, use the endpoints as described in the [guide](/guide) to access devi
 Dependending on your Sencrop modules you may need to setup some parameters to the devices on which your modules were activated. By example, if you have an activation workflow:
 
 ```bash
-curl -X POST "https://api.sencrop.com/v1/partners/<PARTNER_ID>}/users/{delegatorId}/devices/{deviceId}/modules/{moduleId}/parameters" \
+curl -X POST "https://api.sencrop.com/v1/partners/<PARTNER_ID>}/users/{authorId}/devices/{deviceId}/modules/{moduleId}/parameters" \
   -H "Authorization: Bearer <PARTNER_ACCESS_TOKEN>" \
   -X POST --data '{ "enabled": true }'
 ```
