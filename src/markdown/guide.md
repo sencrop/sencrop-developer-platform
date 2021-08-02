@@ -554,7 +554,7 @@ The API returns values in fixed units. We use the [international system of units
 - **TEMPERATURE**: temperature measured in [degree Celsius (°C)](https://en.wikipedia.org/wiki/Celsius)
 - **RELATIVE_HUMIDITY**: relative humidity measured in [percentage (%)](https://en.wikipedia.org/wiki/Relative_humidity#Definition),
 - **WIND_SPEED/WIND_GUST**: wind measured in kilometers [per hour (km·h−1)](https://en.wikipedia.org/wiki/Kilometres_per_hour),
-- **WIND_DIRECTION**: wind direction angle with the North in [angular degrees (°)](https://en.wikipedia.org/wiki/Degree_(angle)) within a 0 to 360 range (360 excluded), for instance, a value of 0 means a wind directed to the North and coming from the South,
+- **WIND_DIRECTION**: wind direction angle with the North in [angular degrees (°)](https://en.wikipedia.org/wiki/Degree_(angle)) within a 0 to 360 range (360 excluded), for instance, a value of 0 means a wind coming from the North and directed to the South,
 - **WET_TEMPERATURE**: wet bulb temperature in [degree Celsius (°C)](https://en.wikipedia.org/wiki/Wet-bulb_temperature),
 - **LEAF_WETNESS**: amount of wetness time in minutes.
 - **LEAF_SENSOR_CONDUCTIVITY**: conductivity of the leaf sensor in [millivolts (mV)](https://en.wikipedia.org/wiki/Volt).
