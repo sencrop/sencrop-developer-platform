@@ -51,7 +51,7 @@
     "leaflet.markercluster": "^1.4.1",
     "lodash": "^4.17.20",
     "luxon": "^1.25.0",
-    "prismjs": "^1.23.0",
+    "prismjs": "^1.25.0",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
     "react-animate-height": "^2.0.23",
