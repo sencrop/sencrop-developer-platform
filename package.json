@@ -32,6 +32,7 @@
     "@mdx-js/react": "^1.6.22",
     "@sencrop/ui-components": "^8.7.0",
     "assert": "^2.0.0",
+    "deepmerge": "^4.2.2",
     "formik": "^2.2.9",
     "gatsby": "^3.14.2",
     "gatsby-background-image": "^1.5.3",
@@ -123,7 +124,7 @@
     ]
   },
   "volta": {
-    "node": "14.18.1",
+    "node": "16.11.1",
     "npm": "8.0.0"
   }
 }
