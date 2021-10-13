@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button, InputText, media } from "@sencrop/ui-components";
+import { InputButtonAddon, InputText, media } from "@sencrop/ui-components";
 
 const MailingForm = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +15,7 @@ const MailingForm = () => {
         value={email}
         onChange={setEmail}
         placeholder="dennis.richie@heaven.org"
-        endButton={<Button type="submit">Subscribe</Button>}
+        end={<InputButtonAddon type="submit">Subscribe</InputButtonAddon>}
       />
     </Form>
   );

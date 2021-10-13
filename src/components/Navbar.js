@@ -4,7 +4,7 @@ import { text, media, IconButton, Icon } from "@sencrop/ui-components";
 import { Link, useStaticQuery, graphql } from "gatsby";
 import logo from "../images/sencrop-white.svg";
 
-const Navbar = props => {
+const Navbar = (props) => {
   const { allMdx } = useStaticQuery(graphql`
     query {
       allMdx(
@@ -76,7 +76,7 @@ export default withTheme(Navbar);
 const Background = styled.div`
   position: relative;
   width: 100%;
-  background-color: ${props => props.theme.color("background", "dark")};
+  background-color: ${(props) => props.theme.color("background", "dark")};
 `;
 
 const Wrapper = styled.div`
@@ -117,7 +117,7 @@ const Menu = styled.button`
   cursor: pointer;
   i {
     font-size: 36px;
-    color: ${props => props.theme.color("text", "light")};
+    color: ${(props) => props.theme.color("text", "light")};
   }
   ${media.greaterThan("tablet")`
     display: none;
@@ -135,7 +135,7 @@ const Links = styled.div`
   align-items: center;
   justify-content: center;
   display: none;
-  ${props =>
+  ${(props) =>
     props.isOpen &&
     css`
       display: flex;
@@ -148,11 +148,11 @@ const Links = styled.div`
 `;
 
 const NavLink = styled.a`
-  color: ${props => props.theme.color("text", "light")};
+  color: ${(props) => props.theme.color("text", "light")};
   ${text("title", "l")}
   padding: 0 1rem 0.5rem 1rem;
   &[aria-current="page"] {
-    color: ${props => props.theme.color("branding", "primary")};
+    color: ${(props) => props.theme.color("branding", "primary")};
   }
   ${media.greaterThan("tablet")`
     display: flex;
@@ -164,7 +164,8 @@ const NavLink = styled.a`
     border-top: 3px solid transparent;
     border-bottom: 3px solid transparent;
     &[aria-current="page"] {
-      border-bottom-color: ${props => props.theme.color("branding", "primary")};
+      border-bottom-color: ${(props) =>
+        props.theme.color("branding", "primary")};
     }
   `}
 `;

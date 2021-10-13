@@ -35,7 +35,18 @@ exports.createPages = async ({ actions, graphql }) => {
     createPage({
       path: node.frontmatter.path,
       component: mdxPageTemplate,
-      context: {} // additional data can be passed via context
+      context: {}, // additional data can be passed via context
     });
+  });
+};
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      alias: {
+        assert: require.resolve("assert/"),
+        path: require.resolve("path-browserify"),
+      },
+    },
   });
 };

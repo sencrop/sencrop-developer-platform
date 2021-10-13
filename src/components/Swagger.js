@@ -12,7 +12,7 @@ const TAGS_ORDER = {
   devices: 4,
   oauth2: 5,
   partners: 6,
-  data: 7
+  data: 7,
 };
 
 const HideEmptyTagsPlugin = () => {
@@ -20,15 +20,18 @@ const HideEmptyTagsPlugin = () => {
     statePlugins: {
       spec: {
         wrapSelectors: {
-          taggedOperations: ori => (...args) => {
-            return ori(...args).filter(
-              tagMeta =>
-                tagMeta.get("operations") && tagMeta.get("operations").size > 0
-            );
-          }
-        }
-      }
-    }
+          taggedOperations:
+            (ori) =>
+            (...args) => {
+              return ori(...args).filter(
+                (tagMeta) =>
+                  tagMeta.get("operations") &&
+                  tagMeta.get("operations").size > 0
+              );
+            },
+        },
+      },
+    },
   };
 };
 
@@ -39,7 +42,7 @@ const Swagger = () => {
       dom_id: `#${DOM_ID}`,
       presets: [
         SwaggerUIBundle.presets.apis,
-        SwaggerUIStandalonePreset.slice(1)
+        SwaggerUIStandalonePreset.slice(1),
       ],
       plugins: [SwaggerUIBundle.plugins.DownloadUrl, HideEmptyTagsPlugin],
       layout: "StandaloneLayout",
@@ -47,7 +50,7 @@ const Swagger = () => {
       deepLinking: true,
       tagsSorter: (a, b) => {
         return (TAGS_ORDER[a] || 99) - (TAGS_ORDER[b] || 99);
-      }
+      },
     });
   }, []);
   return <div id={DOM_ID} />;

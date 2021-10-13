@@ -30,7 +30,7 @@ const Layout = ({ children }) => {
 };
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 const Main = styled.div`
@@ -39,7 +39,8 @@ const Main = styled.div`
   padding: 1rem 1rem 2rem;
 
   blockquote {
-    border-left: 4px solid ${props => props.theme.color("branding", "primary")};
+    border-left: 4px solid
+      ${(props) => props.theme.color("branding", "primary")};
     margin: 0;
     padding: 0.5rem 2rem;
     margin-bottom: 1rem;
@@ -55,12 +56,12 @@ const Main = styled.div`
     }
   }
   code[class*="language-text"] {
-    color: ${props => props.theme.color("text", "primary")};
+    color: ${(props) => props.theme.color("text", "primary")};
     font-size: 0.9rem;
-    background-color: ${props => props.theme.color("background", "primary")};
+    background-color: ${(props) => props.theme.color("background", "primary")};
   }
   a {
-    color: ${props => props.theme.color("branding", "primary")};
+    color: ${(props) => props.theme.color("branding", "primary")};
   }
   h1,
   h2,
@@ -84,46 +85,46 @@ const Main = styled.div`
 
   /* Swagger UI */
   .swagger-ui .info .title {
-    color: ${props => props.theme.color("text", "primary")};
+    color: ${(props) => props.theme.color("text", "primary")};
   }
   .swagger-ui .opblock-tag {
-    color: ${props => props.theme.color("text", "secondary")};
+    color: ${(props) => props.theme.color("text", "secondary")};
   }
 
   .swagger-ui .expand-methods,
   .swagger-ui .expand-operation,
   .swagger-ui .authorization__btn.unlocked {
     svg {
-      fill: ${props => props.theme.color("text", "primary")};
+      fill: ${(props) => props.theme.color("text", "primary")};
     }
   }
 
   .swagger-ui .scheme-container {
-    background-color: ${props =>
+    background-color: ${(props) =>
       props.theme.color("background", "primary:lighten")};
   }
 
   .swagger-ui .opblock .opblock-summary-description {
-    color: ${props => props.theme.color("text", "secondary")};
+    color: ${(props) => props.theme.color("text", "secondary")};
   }
   .swagger-ui .opblock .opblock-summary-operation-id,
   .swagger-ui .opblock .opblock-summary-path,
   .swagger-ui .opblock .opblock-summary-path__deprecated {
-    color: ${props => props.theme.color("text", "secondary")};
+    color: ${(props) => props.theme.color("text", "secondary")};
   }
   .swagger-ui .opblock .opblock-section-header {
-    background-color: ${props => props.theme.color("background", "primary")};
+    background-color: ${(props) => props.theme.color("background", "primary")};
   }
   .swagger-ui .opblock .opblock-section-header h4 {
-    color: ${props => props.theme.color("text", "secondary")};
+    color: ${(props) => props.theme.color("text", "secondary")};
   }
   .swagger-ui .btn {
-    border-color: ${props => props.theme.color("border", "primary")};
-    color: ${props => props.theme.color("text", "tertiary")};
+    border-color: ${(props) => props.theme.color("border", "primary")};
+    color: ${(props) => props.theme.color("text", "tertiary")};
   }
 
   .swagger-ui {
-    ${props =>
+    ${(props) =>
       props.theme.name === "dark" &&
       css`
         th,
@@ -133,13 +134,13 @@ const Main = styled.div`
         span {
           &,
           & * {
-            color: ${props =>
+            color: ${(props) =>
               props.theme.name === "dark" &&
               props.theme.color("text", "primary")} !important;
           }
         }
         select {
-          color: ${props => props.theme.color("text", "dark")} !important;
+          color: ${(props) => props.theme.color("text", "dark")} !important;
         }
       `};
   }
