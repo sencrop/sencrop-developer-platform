@@ -119,5 +119,9 @@
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
+  },
+  "volta": {
+    "node": "14.18.1",
+    "npm": "8.0.0"
   }
 }
