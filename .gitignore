@@ -147,3 +147,5 @@ yarn-error.log*
 # Project custom ignored file
 out
 .next
+
+.idea
