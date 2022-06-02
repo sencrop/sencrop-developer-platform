@@ -106,10 +106,6 @@ The result will look like this:
 }
 ```
 
-> ## ⚠️**Important**
-> 
-> **For our beloved DST partners, please note that this endpoint is free, rather than using the endpoint /devices/{deviceId} for which you will be charged. Therefore we would advise you to only use the /devices endpoint to retrieve your device information and filter the response in order to then request only the devices you need after**
-
 The `items` property tells you the collection of devices you can access to. While the `devices` hash allows your to pickup the devices details.
 
 You may ask why using that format. It allows our payload to avoid repating the same informations several times while not requiring you to use a specific JSON loader. It also allows us to significantly reduce our app memory footprint by easing hash merges accross our various states.

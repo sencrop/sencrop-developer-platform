@@ -255,6 +255,7 @@ You will probably need to check the following values:
 - **users**: you can user the users hash to pick up informations on the user behind the authorId. You will probably pick up their email in order to [generate tokens](#delegation-flows) with the module flow to access the data they shared with you.
 - **organisations**: and finally, you may want to know which organisations a user is part of by looking in the `organisations` hash corresponding to the `organisationId` found at path `users[authorId].organisationsIds`.
 
+
 ## Delegation flows
 
 Getting access to device data is done through a delegation mechanism: you have to "impersonate" the users to get access to their data. The prerequisite is that the user must have activated at least one of your modules.
@@ -271,7 +272,7 @@ curl 'https://api.sencrop.com/v1/oauth2/token' \
 
 ```js
 {
-    "access_token": "<PARTNER_ACCESS_TOKEN>",
+  "access_token": "<PARTNER_ACCESS_TOKEN>",
     "token_type": "bearer",
     "expires_in": 1555927705753,
     "refresh_token": "<PARTNER_REFRESH_TOKEN>"
@@ -285,6 +286,10 @@ From there, use the endpoints as described in the [guide](/guide) to access devi
 - hourly / daily data is probably the most useful for you.
 - geoqueries if you need continuous series, even in the case of missing data.
 - raw data.
+
+  > ## ⚠️**Pricing**
+  > 
+  > **Please note that you can check all your available device with the endpoint /partners/partnerId/devices. This endpoint is free, rather than using the endpoint /devices/{deviceId} for which you will be charged as if you requested the measures. Therefore we would advise you to use the /devices endpoint to first retrieve your device information and filter the response in order to then request only the devices data that you need**
 
 ## Manage partner parameters
 
