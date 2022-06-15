@@ -15,6 +15,10 @@ jobs:
       - name: Use Node.js volta version from package.json
         uses: volta-cli/action@v1
 
+      - name: Set authToken for npm
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+
       - name: Npm install
         run: npm ci
 
