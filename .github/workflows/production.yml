@@ -1,0 +1,39 @@
+name: Build & Deploy to Netlify prod
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-deploy:
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js volta version from package.json
+        uses: volta-cli/action@v1
+
+      - name: Npm install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: "./build"
+          production-branch: master
+          production-deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          netlify-config-path: "./netlify.toml"
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+          overwrites-pull-request-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 2
